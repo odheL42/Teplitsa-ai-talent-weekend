@@ -1,3 +1,5 @@
+from urllib.parse import urljoin
+
 import httpx
 
 from src.config import config, secrets
@@ -8,7 +10,7 @@ def get_place_by_id(
     idx: int,
 ) -> SearchResponse:
     client = httpx.Client(timeout=10.0)
-    url = f"{config.dgis_base_url}/3.0/items/byid"
+    url = urljoin(config.dgis_base_url, "3.0/items/byid")
     params = {
         "key": secrets.dgis_key.get_secret_value(),
         "id": idx,

@@ -84,5 +84,8 @@ class CompletionStore:
             return completions[-1]
         return None
 
+    def erase(self):
+        self._save([])
+
 
 completion_store = CompletionStore()

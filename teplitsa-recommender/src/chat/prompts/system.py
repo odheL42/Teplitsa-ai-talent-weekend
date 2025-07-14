@@ -1,5 +1,5 @@
-import datetime
 import locale
+from datetime import datetime
 
 from src.config import timezone
 from src.connectors.menu_parser import parse_menu
@@ -44,7 +44,7 @@ _initial_template = """
 ---
 
 Клиент: "Что вы посоветуете в такую прохладную погоду?"  
-Официант: "Сейчас в Новосибирске \{current_temp\}°C и \{current_condition\}. Я рекомендую вам наш горячий суп из сезонных овощей — он отлично согреет и порадует натуральным вкусом!"
+Официант: "Сейчас в Новосибирске -1°C. Я рекомендую вам наш горячий суп из сезонных овощей — он отлично согреет и порадует натуральным вкусом!"
 
 
 ---

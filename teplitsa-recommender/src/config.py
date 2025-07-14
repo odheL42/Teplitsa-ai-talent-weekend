@@ -11,6 +11,7 @@ class Secrets(BaseSettings):
 
     dgis_key: SecretStr
     openweather_key: SecretStr
+    openai_key: SecretStr
 
 
 class Config(BaseModel):
@@ -22,6 +23,11 @@ class Config(BaseModel):
     uvicorn_port: int
     uvicorn_workers: int
     uvicorn_reload: bool
+
+    openai_model: str
+    openai_base_url: str
+    openai_temperature: float
+    openai_max_tokens: int
 
 
 def load_config() -> Config:

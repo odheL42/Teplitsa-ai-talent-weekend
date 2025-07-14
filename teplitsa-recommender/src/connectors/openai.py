@@ -1,0 +1,29 @@
+from collections.abc import AsyncGenerator
+
+from openai import AsyncOpenAI
+
+from src.config import config, secrets
+from src.models.completions import ChatMessage
+
+
+class CompletionsGenerator:
+    def __init__(self):
+        self.client = AsyncOpenAI(
+            api_key=secrets.openai_key.get_secret_value(),
+            base_url=config.openai_base_url,
+        )
+
+    async def __call__(
+        self, query: ChatMessage, history: list[ChatMessage], system_prompt: ChatMessage
+    ) -> AsyncGenerator[str]:
+
+        generator = await self.client.chat.completions.create(
+            model=config.openai_model,
+            messages=[system_prompt] + history + [query],
+            stream=True,
+            temperature=config.openai_temperature,
+            max_tokens=config.openai_max_tokens,
+        )
+
+        async for chunk in generator:
+            yield chunk.choices[0].delta.content

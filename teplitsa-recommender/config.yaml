@@ -6,3 +6,8 @@ uvicorn_host: '127.0.0.1'
 uvicorn_port: 8000
 uvicorn_workers: 1
 uvicorn_reload: true
+
+openai_model: qwen/qwen3-32b:free
+openai_base_url: https://openrouter.ai/api/v1
+openai_temperature: 0.7
+openai_max_tokens: 300

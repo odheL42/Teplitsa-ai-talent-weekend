@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from src.api import history_router
+from src.api import completions_router, history_router
 from src.config import config
 
 app = FastAPI()
@@ -23,6 +23,7 @@ app.add_middleware(
 
 prefix = "/api"
 app.include_router(history_router, prefix=prefix)
+app.include_router(completions_router, prefix=prefix)
 
 if __name__ == "__main__":
     uvicorn.run(
