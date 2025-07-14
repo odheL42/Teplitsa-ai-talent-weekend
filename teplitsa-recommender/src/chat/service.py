@@ -5,28 +5,6 @@ from src.connectors.openai import CompletionsGenerator
 from src.models.completions import ChatMessage
 from src.storage.history import completion_store
 
-"""
-stream:
-    Returns completion async stream generator
-    input: string
-    return: AsyncGenerator
-
-save_response:
-    Saves response to history
-    input: ChatCompletionResponse
-    return: bool
-
-save_request:
-    Saves request to history
-    input: ChatMessage
-    return bool
-
-_build_prompt:
-    Builds user/system prompts
-    input: str
-    return: str
-"""
-
 
 class ChatService:
     def __init__(self):
@@ -41,6 +19,18 @@ class ChatService:
         params = {
             "query": ChatMessage(role="user", content=query),
             "history": [c.message for c in completion_store.list()],
+            "system_prompt": self.system_prompt,
+        }
+
+        async for chunk in self.completions(**params):
+            yield chunk
+
+    async def gradio_stream(
+        self, query: str, history: list[ChatMessage]
+    ) -> AsyncGenerator[str]:
+        params = {
+            "query": ChatMessage(role="user", content=query),
+            "history": history,
             "system_prompt": self.system_prompt,
         }
 
