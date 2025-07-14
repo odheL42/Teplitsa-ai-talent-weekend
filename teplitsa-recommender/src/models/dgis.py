@@ -1,5 +1,3 @@
-from typing import Any
-
 from pydantic import BaseModel
 
 # === Places ===
@@ -7,25 +5,21 @@ from pydantic import BaseModel
 
 class Meta(BaseModel):
     code: int
-    api_version: str | None = None
+    api_version: str
     issue_date: str | None = None
 
 
-class Item(BaseModel):
+class Item(BaseModel):  # only necessary
     id: str
-    name: str | None = None
-    type: str | None = None
-    region_id: str | None = None
-    full_address_name: str | None = None
-    address_name: str | None = None
-    point: str | None = None
-    description: str | None = None
+    type: str
+    name: str
+    address_name: str
+    address_comment: str
 
 
 class SearchResult(BaseModel):
-    context_rubrics: list[dict[str, Any]] | None = None
+    total: int
     items: list[Item]
-    search_attributes: dict[str, Any] | None = None
 
 
 class SearchResponse(BaseModel):

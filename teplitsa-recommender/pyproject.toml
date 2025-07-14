@@ -7,9 +7,23 @@ requires-python = ">=3.10"
 dependencies = [
     "fastapi>=0.116.1",
     "gradio>=5.36.2",
+    "httpx>=0.28.1",
     "pydantic>=2.11.7",
     "pydantic-settings>=2.10.1",
+    "pytest>=8.4.1",
+    "respx>=0.22.0",
 ]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = ["src/tests"]
+addopts = "-v --tb=short --capture=no"
+asyncio_mode = "auto"
+markers = [
+    "unit: mark test as a unit test",
+    "integration: mark test as an integration test (calls real APIs)"
+]
+
 
 [dependency-groups]
 dev = [

@@ -1,4 +1,5 @@
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import yaml
 from pydantic import BaseModel, SecretStr
@@ -16,7 +17,7 @@ class Config(BaseModel):
     dgis_base_url: str
     openweather_base_url: str
     history_json: Path
-    
+
     uvicorn_host: str
     uvicorn_port: int
     uvicorn_workers: int
@@ -29,6 +30,8 @@ def load_config() -> Config:
 
     return Config(**raw)
 
+
+timezone = ZoneInfo("Asia/Novosibirsk")
 
 config = load_config()
 secrets = Secrets()

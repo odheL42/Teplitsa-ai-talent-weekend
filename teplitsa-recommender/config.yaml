@@ -1,4 +1,4 @@
-dgis_base_url: https://catalog.api.2gis.com/3.0
+dgis_base_url: https://catalog.api.2gis.com/
 openweather_base_url: https://api.openweathermap.org/data/2.5/weather
 history_json: ./history.json
 

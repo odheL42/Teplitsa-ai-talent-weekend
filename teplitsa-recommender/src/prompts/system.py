@@ -1,7 +1,7 @@
 import datetime
 import locale
-from zoneinfo import ZoneInfo
 
+from src.config import timezone
 from src.connectors.menu_parser import parse_menu
 from src.connectors.openweather import get_weather
 
@@ -39,6 +39,7 @@ _initial_template = """
 4. Если не знаешь ответа, честно скажи и предложи альтернативы.
 5. Не используй информацию, которой нет в предоставленных данных.
 6. Поддерживай стиль заведения — экологичность, натуральность, домашняя кухня.
+7. Если пользователь задает вопросы о том, как добраться до кафе ты можешь сказать адрес кафе и что до него можно добраться, воспользовавшись 2ГИС.
 
 ---
 
@@ -60,7 +61,7 @@ def _get_time_context() -> dict:
         # fallback for Windows or systems without ru_RU.UTF-8
         locale.setlocale(locale.LC_TIME, "Russian_Russia.1251")
 
-    now = datetime.now(ZoneInfo("Asia/Novosibirsk"))
+    now = datetime.now(timezone)
 
     day_part = ""
     hour = now.hour

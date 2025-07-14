@@ -2,7 +2,31 @@ import json
 from pathlib import Path
 
 from src.config import config
-from src.models.completions import Completion
+from src.models.completions import ChatMessage
+from src.models.storage import DBChatMessage
+
+"""
+add:
+    Adds message to the end
+    input: ChatMessage
+    return: DBChatMessage
+pop:
+    Removes the last message
+    input: None
+    return: DBChatMessage | None
+update:
+    Updates the last message
+    input: ChatMessage
+    return: DBChatMessage | None
+list:
+    Returns the whole history
+    input: None
+    return list[DBChatMessage]
+last:
+    Returns the last message
+    input: None
+    return DBChatMessage | None
+"""
 
 
 # === Store class ===
@@ -15,43 +39,50 @@ class CompletionStore:
         if not self.path.exists():
             self.path.write_text("[]", encoding="utf-8")
 
-    def _load(self) -> list[Completion]:
+    def _load(self) -> list[DBChatMessage]:
         with self.path.open("r", encoding="utf-8") as f:
-            return [Completion(**item) for item in json.load(f)]
+            return [DBChatMessage.model_validate(item) for item in json.load(f)]
 
-    def _save(self, completions: list[Completion]):
+    def _save(self, completions: list[DBChatMessage]):
         with self.path.open("w", encoding="utf-8") as f:
             json.dump(
-                [c.model_dump() for c in completions], f, indent=2, ensure_ascii=False
+                [c.model_dump(mode="json") for c in completions],
+                f,
+                indent=4,
+                ensure_ascii=False,
             )
 
-    def add(self, completion: Completion):
+    def add(self, chat_message: ChatMessage) -> DBChatMessage:
         completions = self._load()
-        completions.append(completion)
+        db_chat_message = DBChatMessage(message=chat_message)
+        completions.append(db_chat_message)
         self._save(completions)
+        return db_chat_message
 
-    def get(self, completion_id: str) -> Completion | None:
-        for c in self._load():
-            if c.id == completion_id:
-                return c
+    def last(self) -> DBChatMessage | None:
+        history = self._load()
+        if history:
+            return history[-1]
         return None
 
-    def list(self) -> list[Completion]:
+    def list(self) -> list[DBChatMessage]:
         return self._load()
 
-    def delete(self, completion_id: str):
+    def pop(self) -> DBChatMessage | None:
         completions = self._load()
-        completions = [c for c in completions if c.id != completion_id]
-        self._save(completions)
+        if completions:
+            db_chat_message = completions.pop()
+            self._save(completions)
+            return db_chat_message
+        return None
 
-    def update(self, completion_id: str, new_data: dict):
+    def update(self, chat_message: ChatMessage) -> DBChatMessage | None:
         completions = self._load()
-        for i, c in enumerate(completions):
-            if c.id == completion_id:
-                completions[i] = c.model_copy(update=new_data)
-                self._save(completions)
-                return
-        raise ValueError(f"Completion with id '{completion_id}' not found")
+        if completions:
+            completions[-1] = DBChatMessage(message=chat_message)
+            self._save(completions)
+            return completions[-1]
+        return None
 
 
 completion_store = CompletionStore()
