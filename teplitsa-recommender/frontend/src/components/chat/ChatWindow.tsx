@@ -95,10 +95,12 @@ const Chat = () => {
 
 		setIsLoading(true)
 
+		onStart()
+
 		await createStreamChatCompletions(
 			input,
 			onData,
-			onStart,
+
 			onDone,
 			onError
 		)
@@ -133,15 +135,15 @@ const Chat = () => {
 					</div>
 				</div>
 			</div>
-			<div className='w-full flex-col items-center justify-center pb-8 px-4'>
-				<ChatInput
-					disabled={isLoading}
-					onChange={setInput}
-					onSubmit={() => {
-						handleSendMessage()
-					}}
-				/>
-			</div>
+				<div className='flex justify-center w-full px-2 sm:px-4 md:px-10 lg:px-24 xl:px-36 pb-8'>
+					<ChatInput
+						disabled={isLoading}
+						onChange={setInput}
+						onSubmit={() => {
+							handleSendMessage()
+						}}
+					/>
+				</div>
 		</div>
 	)
 }
