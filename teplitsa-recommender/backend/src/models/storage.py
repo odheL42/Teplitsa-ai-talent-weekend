@@ -2,7 +2,6 @@ from datetime import datetime
 from uuid import UUID, uuid4
 
 from pydantic import BaseModel, Field
-
 from src.config import timezone
 
 from .completions import ChatMessage

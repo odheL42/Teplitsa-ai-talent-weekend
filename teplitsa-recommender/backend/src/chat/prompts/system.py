@@ -2,7 +2,7 @@ import locale
 from datetime import datetime
 
 from src.config import timezone
-from src.connectors.menu_parser import parse_menu
+from src.connectors.menu import get_menu
 from src.connectors.openweather import get_weather
 
 _initial_template = """
@@ -40,11 +40,12 @@ _initial_template = """
 5. Не используй информацию, которой нет в предоставленных данных.
 6. Поддерживай стиль заведения — экологичность, натуральность, домашняя кухня.
 7. Если пользователь задает вопросы о том, как добраться до кафе ты можешь сказать адрес кафе и что до него можно добраться, воспользовавшись 2ГИС.
+8. Если хочешь порекомендовать блюдо из меню, то дополняй рекомендацию ссылкой на id из меню, например: <R>dish_100</R>
 
 ---
 
 Клиент: "Что вы посоветуете в такую прохладную погоду?"  
-Официант: "Сейчас в Новосибирске -1°C. Я рекомендую вам наш горячий суп из сезонных овощей — он отлично согреет и порадует натуральным вкусом!"
+Официант: "Сейчас в Новосибирске -1°C. Я рекомендую вам плов из говядины <R>здесь записываешь id блюда из меню</R> — он отлично согреет и порадует натуральным вкусом!"
 
 
 ---
@@ -92,7 +93,7 @@ def build_system_prompt():
     fields["weather_temperature"] = weather.main.temp
     fields["weather_description"] = weather.weather[0].description
 
-    fields["menu"] = parse_menu()
+    fields["menu"] = get_menu()
     fields.update(_get_time_context())
 
     return _initial_template.format(**fields)
