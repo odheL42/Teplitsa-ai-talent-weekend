@@ -1,32 +1,55 @@
+from collections.abc import Callable
 from enum import Enum
-from typing import Generator
 
 from pydantic import BaseModel, Field
 
 
-class DishIDGenerator:
-    def __init__(self):
-        self.generator = self._generator()
+def get_next_id() -> Callable[[], str]:
+    counter = 0
 
-    def _generator(self) -> Generator[str]:
-        for i in range(1000):
-            yield f"dish_{i}"
+    def _get_next_id() -> str:
+        nonlocal counter
+        result = f"dish_{counter}"
+        counter += 1
+        return result
 
-    def get_next(self) -> str:
-        return next(self.generator)
-
-
-id_generator = DishIDGenerator()
+    return _get_next_id
 
 
-class DishCategory(Enum):
-    pass
+class DishContext(str, Enum):
+    CATERING = "кейтеринг"
+    BANQUET = "банкет"
+    SEMI_FINISHED = "полуфабрикаты"
+
+
+class DishCategory(str, Enum):
+    # Кейтеринг
+    SANDWICH = "бутерброды"
+    CUTE_PANCAKES = "блинчики"
+    COOL_SANDWICH = "сэндвичи"
+    BAKERY = "выпечка"
+    CANAPES = "канапе"
+    TARTALETS = "тарталетки"
+    DRINKS = "напитки"
+    DESSERTS = "десерты"
+    # Банкетное меню
+    SALADS = "салаты"
+    ASSORTED = "ассорти"
+    MAIN_COURSES = "основные блюда"
+    ADDITIONAL = "дополнительно"
+    # Полуфабрикаты
+    SYRNIKI = "сырники"
+    MEAT_AND_FISH = "мясные и рыбные"
+    VEGETABLE = "овощные"
+    HAND_MOLDING = "ручная лепка"
+    STRICT_PANCAKES = "блины"
 
 
 class Dish(BaseModel):
-    id: str = Field(default_factory=id_generator.get_next)
+    id: str = Field(default_factory=get_next_id())
     title: str
     price: str
+    context: DishContext
     category: DishCategory
-    weight: str | None
+    quantity: str | None
     composition: str | None

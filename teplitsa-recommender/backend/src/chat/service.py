@@ -60,3 +60,6 @@ class CompletionSaver:
     def save_request(self, query: str):
         chat_message = ChatMessage(role="user", content=query)
         completion_store.add(chat_message)
+        
+        
+
