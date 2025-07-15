@@ -7,7 +7,7 @@ from src.models.menu import Dish
 
 
 def parse_menu() -> dict[str, dict[str, list[Dish]]]:
-    url = "https://www.teplitsamenu.ru"
+    url = "https://teplitsamenu.ru"
 
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser")
