@@ -13,6 +13,11 @@ const ChatMessage = ({ dbmessage }: ChatMessageProps) => {
 		return false
 	}
 
+    const parse_dish_ids = (m: ClientChatMessage) => {
+		if (m.message.role == 'user') return true
+		return false
+	}
+
 	return (
 		<>
 			{is_user(dbmessage) ? (

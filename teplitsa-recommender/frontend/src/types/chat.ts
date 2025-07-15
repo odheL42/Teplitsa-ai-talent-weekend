@@ -22,3 +22,7 @@ export interface ClientChatMessage {
     id: string
     message: ChatMessage
 }
+
+export interface ClientDish {
+    
+}

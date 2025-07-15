@@ -3,9 +3,10 @@ import { v4 as uuidv4 } from 'uuid'
 import { createStreamChatCompletions, getHistory } from '../../api/api'
 import { ClientChatMessage, DBChatMessage, Role } from '../../types/chat'
 import IconLoading from '../icons/IconLoading'
+import AssistantMessage from './AssistantMessage'
 import ChatInput from './ChatInput'
 import { ChatIntroduction } from './ChatIntroduction'
-import ChatMessage from './ChatMessage'
+import UserMessage from './UserMessage'
 
 const Chat = () => {
 	const chatContainerRef = useRef<HTMLDivElement | null>(null)
@@ -106,6 +107,11 @@ const Chat = () => {
 		)
 	}
 
+	const is_user_message = (m: ClientChatMessage) => {
+		if (m.message.role == 'user') return true
+		return false
+	}
+
 	return (
 		<div className='flex flex-col h-screen'>
 			<div
@@ -122,9 +128,19 @@ const Chat = () => {
 					<div className='flex h-max flex-col pb-32'>
 						{messages.length > 0 ? (
 							<>
-								{messages.map((msg, index) => (
-									<ChatMessage key={msg.id} dbmessage={msg} />
-								))}
+								{messages.map((msg, index) =>
+									is_user_message(msg) ? (
+										<UserMessage
+											key={msg.id}
+											dbmessage={msg}
+										/>
+									) : (
+										<AssistantMessage
+											key={msg.id}
+											dbmessage={msg}
+										/>
+									)
+								)}
 								{isLoading && (
 									<IconLoading classNames='loading inline ml-2 first:ml-0' />
 								)}
@@ -135,15 +151,15 @@ const Chat = () => {
 					</div>
 				</div>
 			</div>
-				<div className='flex justify-center w-full px-2 sm:px-4 md:px-10 lg:px-24 xl:px-36 pb-8'>
-					<ChatInput
-						disabled={isLoading}
-						onChange={setInput}
-						onSubmit={() => {
-							handleSendMessage()
-						}}
-					/>
-				</div>
+			<div className='flex justify-center w-full px-2 sm:px-4 md:px-10 lg:px-24 xl:px-36 pb-8'>
+				<ChatInput
+					disabled={isLoading}
+					onChange={setInput}
+					onSubmit={() => {
+						handleSendMessage()
+					}}
+				/>
+			</div>
 		</div>
 	)
 }
