@@ -2,7 +2,7 @@ import locale
 from datetime import datetime
 
 from src.config import timezone
-from src.connectors.menu_parser import parse_menu
+from src.connectors.menu_parser import get_menu
 from src.connectors.openweather import get_weather
 
 _initial_template = """
@@ -92,7 +92,7 @@ def build_system_prompt():
     fields["weather_temperature"] = weather.main.temp
     fields["weather_description"] = weather.weather[0].description
 
-    fields["menu"] = parse_menu()
+    fields["menu"] = get_menu()
     fields.update(_get_time_context())
 
     return _initial_template.format(**fields)

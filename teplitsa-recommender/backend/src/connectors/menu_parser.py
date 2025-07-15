@@ -1,12 +1,13 @@
 import re
+from functools import lru_cache
 
 import requests
 from bs4 import BeautifulSoup
-
 from src.models.menu import Dish
 
 
-def parse_menu() -> dict[str, dict[str, list[Dish]]]:
+@lru_cache
+def get_menu() -> dict[str, dict[str, list[Dish]]]:
     url = "https://teplitsamenu.ru"
 
     response = requests.get(url)
