@@ -1,4 +1,5 @@
 import { DBChatMessage } from '../types/chat'
+import { DBDish } from '../types/menu'
 import apiClient from '../utils/axios'
 import { handleApiError } from '../utils/errors'
 
@@ -15,7 +16,6 @@ const buildApiUrl = (path: string): string => {
 export const createStreamChatCompletions = async (
 	query: string,
 	onData: (data: string) => void,
-	onStart?: () => void,
 	onDone?: () => void,
 	onError?: () => void
 ) => {
@@ -56,5 +56,12 @@ export const createStreamChatCompletions = async (
 
 export const getHistory = async (): Promise<DBChatMessage[]> => {
 	const response = await apiClient.get(`/api/history/`)
+	return response.data
+}
+
+
+
+export const getMenu = async (): Promise<DBDish[]> => {
+	const response = await apiClient.get(`/api/menu/`)
 	return response.data
 }

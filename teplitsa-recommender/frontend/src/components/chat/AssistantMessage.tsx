@@ -1,37 +1,46 @@
-import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { v4 as uuidv4 } from 'uuid'
-import { ClientDish, type ClientChatMessage } from '../../types/chat'
+import { useMenu } from '../../context/MenuContext'
+import { type ClientChatMessage } from '../../types/chat'
+import { extractDishIdsFromMessage } from '../../utils/menu'
+import DishCard from './DishCard'
 
 interface ChatMessageProps {
 	dbmessage: ClientChatMessage
 }
 
 const AssistantMessage = ({ dbmessage }: ChatMessageProps) => {
-	const [dishes, setDishes] = useState<ClientDish[] | null>(null)
-	const parse_dish_ids = (m: ClientChatMessage) => {
-		if (m.message.role == 'user') return true
-		return false
-	}
+	const { dishById } = useMenu()
+
+	const { cleanedMessage, dishIds } = extractDishIdsFromMessage(
+		String(dbmessage.message.content)
+	)
 
 	return (
 		<div
-			className='relative flex items-start justify-start'
+			className='flex flex-col items-start justify-start max-w-[95%]'
 			data-message-id={uuidv4()}
 			data-message-role='assistant'
 			role='presentation'
 		>
-			<div className='relative min-w-[60px] break-words text-gray-600 prose-pre:my-2  dark:text-gray-300'>
-				<div className='text-md prose max-w-none dark:prose-invert max-sm:prose-sm prose-headings:font-semibold prose-h1:text-lg prose-h2:text-base prose-h3:text-base prose-pre:bg-gray-800 dark:prose-pre:bg-gray-900'>
-					<div className='markdown-container'>
-						<ReactMarkdown
-							remarkPlugins={[remarkGfm]}
-							children={String(dbmessage.message.content)}
-						/>
-					</div>
+			<div className='w-full text-gray-700 dark:text-gray-200 break-words'>
+				<div className='prose dark:prose-invert prose-pre:bg-gray-800 dark:prose-pre:bg-gray-900 prose-headings:font-semibold prose-p:leading-relaxed prose-p:text-[17px] max-sm:prose-sm'>
+					<ReactMarkdown remarkPlugins={[remarkGfm]}>
+						{cleanedMessage}
+					</ReactMarkdown>
 				</div>
 			</div>
+
+			{dishIds.length > 0 && (
+				<div className='grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mt-4'>
+					{dishIds.map(id => {
+						const dish = dishById?.[id]
+						if (!dish) return null
+						return <DishCard key={id} dish={dish} />
+					})}
+				</div>
+			)}
 		</div>
 	)
 }

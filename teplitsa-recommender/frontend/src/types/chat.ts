@@ -23,6 +23,4 @@ export interface ClientChatMessage {
     message: ChatMessage
 }
 
-export interface ClientDish {
-    
-}
+
