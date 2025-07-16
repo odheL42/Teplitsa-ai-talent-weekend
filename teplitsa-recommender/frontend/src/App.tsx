@@ -15,7 +15,7 @@ import Chat from './pages/Chat'
 
 const Layout = () => {
 	return (
-		<div className='flex flex-col h-screen w-full'>
+		<div className='flex flex-col h-full w-full'>
 			<ToastContainer position='top-right' autoClose={3000} />
 
 			<header>

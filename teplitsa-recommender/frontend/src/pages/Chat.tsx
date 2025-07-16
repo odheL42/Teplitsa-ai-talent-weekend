@@ -7,7 +7,7 @@ import { useHistory } from '../context/HistoryContext'
 
 const Chat = () => {
 	const chatContainerRef = useRef<HTMLDivElement | null>(null)
-	const { messages, addUserMessage, isHistoryLoading } = useHistory()
+	const { messages, addUserMessage } = useHistory()
 	const { isWaitingForGeneration, isGenerating, startGeneration } =
 		useGeneration()
 
@@ -34,15 +34,16 @@ const Chat = () => {
 	}
 
 	return (
-		<div className='h-full w-full flex flex-col justify-center'>
+		<div className='h-dvh w-full flex flex-col justify-center'>
 			<div
 				ref={chatContainerRef}
-				className='flex-1 overflow-y-auto flex justify-center'
+				className='flex-1 overflow-y-scroll flex justify-center'
 			>
 				<div className='max-w-3xl max-sm:max-w-[95%]'>
 					<ChatContent />
 				</div>
 			</div>
+
 			<div className='flex mx-auto mb-8 w-full max-w-3xl max-sm:max-w-[95%]'>
 				<ChatInput onSubmit={handleSendMessage} />
 			</div>

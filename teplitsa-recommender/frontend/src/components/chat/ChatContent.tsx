@@ -16,7 +16,7 @@ const ChatContent = () => {
 	}
 
 	return (
-		<div className='flex h-max flex-col w-full pb-32 pt-16'>
+		<div className='flex flex-col w-full pb-32 pt-16 h-max'>
 			<div className='mx-auto h-full w-full max-w-[95%] max-sm:max-w-[90%]'>
 				{isHistoryLoading || messages.length > 0 ? (
 					<>
