@@ -1,4 +1,5 @@
 import json
+from functools import lru_cache
 from pathlib import Path
 
 from src.config import config
@@ -62,3 +63,8 @@ class HistoryStore:
 
     def erase(self):
         self._save([])
+
+
+@lru_cache
+def get_history_store() -> HistoryStore:
+    return HistoryStore()

@@ -1,1 +1,1 @@
-from .history import completion_store
+from .history import HistoryStore

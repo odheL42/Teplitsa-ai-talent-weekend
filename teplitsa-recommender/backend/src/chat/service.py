@@ -1,32 +1,47 @@
 from collections.abc import AsyncGenerator
 
+from loguru import logger
+
 from src.chat.prompts.system import build_system_prompt
 from src.chat.prompts.validator import wrap_user_prompt
 from src.chat.validator import ValidatorService
 from src.connectors.openai import CompletionsGenerator
 from src.models.completions import ChatMessage
-from src.storage.history import HistoryStore
+from src.models.validator import ValidatorResponse
+from src.storage.history import get_history_store
 
 
 class PromptBuilder:
     def __init__(self):
         self.validator = ValidatorService()
-        self.system_prompt = self._build_system_prompt()
+        self.system_prompt = self.system()
 
     def system(self) -> ChatMessage:
         prompt = build_system_prompt()
         return ChatMessage(role="system", content=prompt)
 
     async def user(self, query: str) -> ChatMessage:
-        response = await self.validator.validate(query)
-        content = query if not response or response.verdict else wrap_user_prompt(query)
+        response: ValidatorResponse | None = await self.validator.validate(query)
+
+        if not response or response.verdict:
+            content = query
+        else:
+            content = wrap_user_prompt(query, response=response)
+
+        logger.debug(
+            {
+                "verdict": response,
+                "query": query,
+                "rewritten": content if content != query else "unchanged",
+            },
+        )
         return ChatMessage(role="user", content=content)
 
 
 class HistoryService:
     def __init__(self):
         self.buffer = ""
-        self.history_store = HistoryStore()
+        self.history_store = get_history_store()
 
     def update(self, chunk: str):
         if not self.buffer:
