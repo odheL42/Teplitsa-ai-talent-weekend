@@ -1,65 +1,68 @@
 from collections.abc import AsyncGenerator
 
 from src.chat.prompts.system import build_system_prompt
+from src.chat.prompts.validator import wrap_user_prompt
+from src.chat.validator import ValidatorService
 from src.connectors.openai import CompletionsGenerator
 from src.models.completions import ChatMessage
-from src.storage.history import completion_store
+from src.storage.history import HistoryStore
+
+
+class PromptBuilder:
+    def __init__(self):
+        self.validator = ValidatorService()
+        self.system_prompt = self._build_system_prompt()
+
+    def system(self) -> ChatMessage:
+        prompt = build_system_prompt()
+        return ChatMessage(role="system", content=prompt)
+
+    async def user(self, query: str) -> ChatMessage:
+        response = await self.validator.validate(query)
+        content = query if not response or response.verdict else wrap_user_prompt(query)
+        return ChatMessage(role="user", content=content)
+
+
+class HistoryService:
+    def __init__(self):
+        self.buffer = ""
+        self.history_store = HistoryStore()
+
+    def update(self, chunk: str):
+        if not self.buffer:
+            self.history_store.add(ChatMessage(role="assistant", content=""))
+        self.buffer += chunk
+        msg = ChatMessage(role="assistant", content=self.buffer)
+        self.history_store.update(msg)
+
+    def save_request(self, query: str):
+        chat_message = ChatMessage(role="user", content=query)
+        self.history_store.add(chat_message)
+
+    def list(self) -> list[ChatMessage]:
+        return [c.message for c in self.history_store.list()]
+
+    def flush(self):
+        self.buffer = ""
 
 
 class ChatService:
     def __init__(self):
         self.completions = CompletionsGenerator()
-        self.system_prompt = self._build_system_prompt()
-
-    def _build_system_prompt(self) -> ChatMessage:
-        prompt = build_system_prompt()
-        return ChatMessage(role="system", content=prompt)
+        self.prompt_builder = PromptBuilder()
+        self.history = HistoryService()
 
     async def stream(self, query: str) -> AsyncGenerator[str]:
-        params = {
-            "query": ChatMessage(role="user", content=query),
-            "history": [c.message for c in completion_store.list()],
-            "system_prompt": self.system_prompt,
+        self.history.save_request(query)
+
+        params: dict[str, ChatMessage | list[ChatMessage]] = {
+            "query": await self.prompt_builder.user(query),
+            "history": self.history.list(),
+            "system_prompt": self.prompt_builder.system(),
         }
 
         async for chunk in self.completions(**params):
+            self.history.update(chunk)
             yield chunk
 
-    async def gradio_stream(
-        self, query: str, history: list[ChatMessage]
-    ) -> AsyncGenerator[str]:
-        params = {
-            "query": ChatMessage(role="user", content=query),
-            "history": history,
-            "system_prompt": self.system_prompt,
-        }
-
-        async for chunk in self.completions(**params):
-            yield chunk
-
-
-class CompletionSaver:
-    def __init__(self):
-        self.buffer = ""
-
-    async def wrap(
-        self, generator: AsyncGenerator[str, None]
-    ) -> AsyncGenerator[str, None]:
-        async for chunk in generator:
-            self._update(chunk)
-            yield chunk
-        self.buffer = ""
-
-    def _update(self, chunk: str):
-        if not self.buffer:
-            completion_store.add(ChatMessage(role="assistant", content=""))
-        self.buffer += chunk
-        msg = ChatMessage(role="assistant", content=self.buffer)
-        completion_store.update(msg)
-
-    def save_request(self, query: str):
-        chat_message = ChatMessage(role="user", content=query)
-        completion_store.add(chat_message)
-        
-        
-
+        self.history.flush()

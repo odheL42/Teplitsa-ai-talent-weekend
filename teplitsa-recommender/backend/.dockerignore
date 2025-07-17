@@ -1,0 +1,8 @@
+**
+
+!src
+!.env
+!.python-version
+!config.yaml
+!pyproject.toml
+!uv.lock

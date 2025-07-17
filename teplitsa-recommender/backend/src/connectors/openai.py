@@ -16,7 +16,6 @@ class CompletionsGenerator:
     async def __call__(
         self, query: ChatMessage, history: list[ChatMessage], system_prompt: ChatMessage
     ) -> AsyncGenerator[str]:
-
         generator = await self.client.chat.completions.create(
             model=config.openai_model,
             messages=[system_prompt] + history + [query],
@@ -27,3 +26,24 @@ class CompletionsGenerator:
 
         async for chunk in generator:
             yield chunk.choices[0].delta.content
+
+
+class CompletionsFullResponse:
+    def __init__(self):
+        self.client = AsyncOpenAI(
+            api_key=secrets.openai_validator_key.get_secret_value(),
+            base_url=config.openai_validator_base_url,
+        )
+
+    async def create(
+        self, query: ChatMessage, history: list[ChatMessage], system_prompt: ChatMessage
+    ) -> str:
+        response = await self.client.chat.completions.create(
+            model=config.openai_validator_model,
+            messages=[system_prompt] + history + [query],
+            stream=False,
+            temperature=config.openai_validator_temperature,
+            max_tokens=config.openai_validator_max_tokens,
+        )
+
+        return response.choices[0].message.content

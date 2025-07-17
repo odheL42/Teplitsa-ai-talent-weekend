@@ -12,6 +12,7 @@ class Secrets(BaseSettings):
     dgis_key: SecretStr
     openweather_key: SecretStr
     openai_key: SecretStr
+    openai_validator_key: SecretStr
 
 
 class Config(BaseModel):
@@ -28,6 +29,11 @@ class Config(BaseModel):
     openai_base_url: str
     openai_temperature: float
     openai_max_tokens: int
+
+    openai_validator_model: str
+    openai_validator_base_url: str
+    openai_validator_temperature: float
+    openai_validator_max_tokens: int
 
 
 def load_config() -> Config:

@@ -5,7 +5,7 @@ import pytest
 
 from src.models.completions import ChatMessage
 from src.models.storage import DBChatMessage
-from src.storage.history import CompletionStore
+from src.storage.history import HistoryStore
 
 # === Fixtures ===
 
@@ -16,7 +16,7 @@ def sample_chat_message() -> ChatMessage:
 
 
 @pytest.fixture
-def store_with_temp_file(monkeypatch) -> CompletionStore:
+def store_with_temp_file(monkeypatch) -> HistoryStore:
     with tempfile.NamedTemporaryFile(delete=False, mode="w+", encoding="utf-8") as f:
         f.write("[]")
         temp_path = Path(f.name)
@@ -24,7 +24,7 @@ def store_with_temp_file(monkeypatch) -> CompletionStore:
     # Подменяем config.history_json
     monkeypatch.setattr("src.config.config.history_json", str(temp_path))
 
-    store = CompletionStore()
+    store = HistoryStore()
     yield store
 
     temp_path.unlink()  # Удаляем временный файл после теста

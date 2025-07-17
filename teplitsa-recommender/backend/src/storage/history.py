@@ -5,32 +5,8 @@ from src.config import config
 from src.models.completions import ChatMessage
 from src.models.storage import DBChatMessage
 
-"""
-add:
-    Adds message to the end
-    input: ChatMessage
-    return: DBChatMessage
-pop:
-    Removes the last message
-    input: None
-    return: DBChatMessage | None
-update:
-    Updates the last message
-    input: ChatMessage
-    return: DBChatMessage | None
-list:
-    Returns the whole history
-    input: None
-    return list[DBChatMessage]
-last:
-    Returns the last message
-    input: None
-    return DBChatMessage | None
-"""
 
-
-# === Store class ===
-class CompletionStore:
+class HistoryStore:
     def __init__(self):
         self.path = Path(config.history_json)
         self._ensure_file()
@@ -86,6 +62,3 @@ class CompletionStore:
 
     def erase(self):
         self._save([])
-
-
-completion_store = CompletionStore()
