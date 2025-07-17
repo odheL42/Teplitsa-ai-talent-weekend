@@ -32,7 +32,7 @@ const Cart: React.FC = () => {
 					aria-label='Корзина'
 					onClick={() => console.log('Открыть корзину')}
 				>
-					<ShoppingCart className='w-6 h-6 text-gray-900 dark:text-neutral-400 hover:text-green-400' />
+					<ShoppingCart className='w-6 h-6 text-gray-900 dark:text-neutral-400 hover:text-green-500' />
 				</button>
 
 				{Object.keys(items).length > 0 && (

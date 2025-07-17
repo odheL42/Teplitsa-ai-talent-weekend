@@ -6,23 +6,19 @@ import {
 	Routes,
 } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
-import Cart from './components/Cart'
 import { CartProvider } from './context/CartContext'
 import { GenerationProvider } from './context/GenerationContext'
 import { HistoryProvider, useHistory } from './context/HistoryContext'
 import { MenuProvider } from './context/MenuContext'
+import { ModalProvider } from './context/ModalContext'
+import { PreferencesProvider } from './context/PreferencesContext'
 import Chat from './pages/Chat'
-import Header from './components/Header'
 
 const Layout = () => {
 	return (
-		<div className='flex flex-col h-full w-full'>
-			<ToastContainer position='top-right' autoClose={3000} />
-
-			<header className='absolute w-full'>
-                <Header/>
-			</header>
-			<main className='flex-1 overflow-auto'>
+		<div className='h-dvh w-full'>
+			<ToastContainer position='top-right' autoClose={2000} />
+			<main>
 				<Outlet /> {}
 			</main>
 		</div>
@@ -46,14 +42,27 @@ const App = () => {
 				<CartProvider>
 					<HistoryProvider>
 						<GenerationWithHistory>
-							<Router>
-								<Routes>
-									<Route path='/' element={<Layout />}>
-										<Route index element={<Chat />} />
-										<Route path='chat' element={<Chat />} />
-									</Route>
-								</Routes>
-							</Router>
+							<PreferencesProvider>
+								<ModalProvider>
+									<Router>
+										<Routes>
+											<Route
+												path='/'
+												element={<Layout />}
+											>
+												<Route
+													index
+													element={<Chat />}
+												/>
+												<Route
+													path='chat'
+													element={<Chat />}
+												/>
+											</Route>
+										</Routes>
+									</Router>
+								</ModalProvider>
+							</PreferencesProvider>
 						</GenerationWithHistory>
 					</HistoryProvider>
 				</CartProvider>

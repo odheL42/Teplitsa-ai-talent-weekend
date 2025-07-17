@@ -4,6 +4,8 @@ import ChatContent from '../components/chat/ChatContent'
 import ChatInput from '../components/chat/ChatInput'
 import { useGeneration } from '../context/GenerationContext'
 import { useHistory } from '../context/HistoryContext'
+import Header from '../components/Header'
+import { PreferencesModal } from '../components/PreferencesModal'
 
 const Chat = () => {
 	const chatContainerRef = useRef<HTMLDivElement | null>(null)
@@ -34,7 +36,9 @@ const Chat = () => {
 	}
 
 	return (
-		<div className='h-dvh w-full flex flex-col justify-center'>
+		<div className='h-dvh flex-1 w-full flex flex-col justify-center'>
+            <Header />
+            <PreferencesModal />
 			<div
 				ref={chatContainerRef}
 				className='flex-1 overflow-y-scroll flex justify-center w-full'
