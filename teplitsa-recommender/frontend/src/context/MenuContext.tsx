@@ -8,7 +8,7 @@ import {
 
 import { DishByIdMap, MenuStructure } from '../types/menu'
 
-import { getMenu } from '../api/api'
+import { apiGetMenu } from '../api/api'
 
 import { toMenuData } from '../utils/menu'
 
@@ -29,7 +29,7 @@ export function MenuProvider({ children }: { children: ReactNode }) {
 
 	useEffect(() => {
 		async function fetchMenu() {
-			const rawMenu = await getMenu()
+			const rawMenu = await apiGetMenu()
 			const { menuStructure, dishById } = toMenuData(rawMenu)
 			setMenuStructure(menuStructure)
 			setDishById(dishById)

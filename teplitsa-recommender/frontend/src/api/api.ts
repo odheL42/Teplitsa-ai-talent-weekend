@@ -13,7 +13,7 @@ const buildApiUrl = (path: string): string => {
 	return url.toString()
 }
 
-export const createStreamChatCompletions = async (
+export const apiCompletions = async (
 	query: string,
 	onData: (data: string) => void,
 	onDone?: () => void,
@@ -54,12 +54,32 @@ export const createStreamChatCompletions = async (
 	}
 }
 
-export const getHistory = async (): Promise<DBChatMessage[]> => {
-	const response = await apiClient.get(`/api/history/`)
-	return response.data
+export const apiGetHistory = async (): Promise<DBChatMessage[]> => {
+	try {
+		const response = await apiClient.get(`/api/history/`)
+		return response.data
+	} catch (error) {
+		handleApiError(error)
+		throw error
+	}
 }
 
-export const getMenu = async (): Promise<DBDish[]> => {
-	const response = await apiClient.get(`/api/menu/`)
-	return response.data
+export const apiGetMenu = async (): Promise<DBDish[]> => {
+	try {
+		const response = await apiClient.get(`/api/menu/`)
+		return response.data
+	} catch (error) {
+		handleApiError(error)
+		throw error
+	}
+}
+
+export const apiClearHistory = async (): Promise<DBDish[]> => {
+	try {
+		const response = await apiClient.post(`/api/erase_history`)
+		return response.data
+	} catch (error) {
+		handleApiError(error)
+		throw error
+	}
 }

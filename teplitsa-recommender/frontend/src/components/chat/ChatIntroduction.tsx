@@ -1,23 +1,60 @@
-import React from 'react'
+import React, { useMemo } from 'react'
+
+const greetingsPool = [
+	'Привет! Я — чат-ассистент кафе Теплица. Помогу сделать заказ быстро и просто.',
+	'Добро пожаловать в кафе Теплица! Здесь вы легко выберете и закажете любимые блюда.',
+	'Здравствуйте! Это прототип для AI Talent Weekend — задавайте вопросы про меню и делайте заказ.',
+	'Рад видеть вас в кафе Теплица! Спрашивайте про блюда, рекомендации и заказы.',
+]
+
+const tipsPool = [
+	{
+		title: 'Быстрые промпты',
+		description:
+			'Используйте правый клик (ПКМ) на выделенном тексте для быстрых действий',
+	},
+	{
+		title: 'Аллергии и предпочтения',
+		description:
+			'Сообщите мне о своих ограничениях — подберу подходящие блюда',
+	},
+	{
+		title: 'Специальные предложения',
+		description:
+			'Не пропускайте акции и скидки, которые мы регулярно обновляем',
+	},
+]
 
 export const ChatIntroduction: React.FC = () => {
+	const greeting = useMemo(() => {
+		const index = Math.floor(Math.random() * greetingsPool.length)
+		return greetingsPool[index]
+	}, [])
+
 	return (
-		<div className='mt-32 mx-auto flex h-full max-w-3xl flex-col gap-6 px-5 pt-6'>
-			<div className='my-auto grid gap-8'>
+		<div className='w-full  mx-auto flex max-w-3xl flex-col gap-6 px-5 pt-6'>
+			<div className='w-full my-auto grid gap-8 justify-center'>
 				<div>
-					<h1 className='text-5xl font-semibold text-[#323232] dark:text-[#f9f9f9] mb-4'>
-						Чат кафе Теплица
-					</h1>
-					<p className='text-base text-[#323232] dark:text-[#f9f9f9] max-w-[400px]'>
-						Помогу вам с заказом!
+					<p className='text-[17px] text-[#323232] dark:text-[#f9f9f9] max-w-[400px]'>
+						{greeting}
 					</p>
 				</div>
-				{/* <div className='flex items-center justify-center rounded-xl bg-gray-200 dark:bg-gray-600 p-4 shadow-lg hover:shadow-2xl transition duration-300 ease-in-out max-w-[400px]'>
-					<span className='text-sm text-gray-700 dark:text-gray-100'>
-						<strong>ПКМ:</strong> Используйте быстрые промпты для
-						работы с выделенным текстом
-					</span>
-				</div> */}
+
+				<div className='flex flex-col w-full max-w-[400px]'>
+					{tipsPool.map(({ title, description }, idx) => (
+						<div
+							key={idx}
+							className='flex flex-col mb-6 rounded-xl bg-gray-200 dark:bg-[#2f2f2f] p-4 shadow-md'
+						>
+							<strong className='mb-1 text-[17px] text-gray-700 dark:text-gray-200'>
+								{title}
+							</strong>
+							<span className='text-[15px] text-gray-600 dark:text-gray-300'>
+								{description}
+							</span>
+						</div>
+					))}
+				</div>
 			</div>
 		</div>
 	)

@@ -1,3 +1,4 @@
+import { ShoppingCart } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { useCart } from '../context/CartContext'
 import CartModal from './CartModal'
@@ -19,35 +20,25 @@ const Cart: React.FC = () => {
 	}
 
 	return (
-		<div className='fixed top-5 right-5 z-50'>
+		<div>
 			<div
 				onClick={() => setIsOpen(true)}
 				className={`relative hover:cursor-pointer ${
 					highlight ? 'animate-[ping_0.3s]' : ''
 				}`}
 			>
-				<svg
-					className='w-[40px] h-[40px] text-gray-800 dark:text-white'
-					aria-hidden='true'
-					xmlns='http://www.w3.org/2000/svg'
-					width='24'
-					height='24'
-					fill='none'
-					viewBox='0 0 24 24'
+				<button
+					className='relative transition transform hover:scale-110 active:scale-95 hover:cursor-pointer'
+					aria-label='Корзина'
+					onClick={() => console.log('Открыть корзину')}
 				>
-					<path
-						stroke='currentColor'
-						strokeLinecap='round'
-						strokeLinejoin='round'
-						strokeWidth='1.4'
-						d='M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312'
-					/>
-				</svg>
+					<ShoppingCart className='w-6 h-6 text-gray-900 dark:text-neutral-400 hover:text-green-400' />
+				</button>
 
 				{Object.keys(items).length > 0 && (
-					<div className='absolute top-0 right-0 w-[18px] h-[18px] text-[12px] text-white bg-red-600 rounded-full flex items-center justify-center shadow'>
+					<span className='absolute -top-2 -right-3 text-[13px] bg-green-500 text-white rounded-full px-1 leading-none'>
 						{totalAmount()}
-					</div>
+					</span>
 				)}
 			</div>
 

@@ -16,6 +16,7 @@ const AssistantMessage = ({ dbmessage }: ChatMessageProps) => {
 	const { cleanedMessage, dishIds } = extractDishIdsFromMessage(
 		String(dbmessage.message.content)
 	)
+    console.log("DISHES", dishIds)
 
 	return (
 		<div
@@ -33,7 +34,7 @@ const AssistantMessage = ({ dbmessage }: ChatMessageProps) => {
 			</div>
 
 			{dishIds.length > 0 && (
-				<div className='grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mt-4'>
+				<div className='flex-col w-full mt-8'>
 					{dishIds.map(id => {
 						const dish = dishById?.[id]
 						if (!dish) return null

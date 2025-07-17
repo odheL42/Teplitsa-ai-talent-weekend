@@ -1,5 +1,5 @@
+import { CircleArrowRight } from 'lucide-react'
 import React, { useRef, useState } from 'react'
-import { IoArrowUpCircleOutline } from 'react-icons/io5'
 import { useGeneration } from '../../context/GenerationContext'
 
 type ChatInputProps = {
@@ -66,9 +66,9 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSubmit }) => {
 						!message.trim()
 					}
 					onClick={handleSubmit}
-					className='transition-transform hover:scale-105 active:scale-95 disabled:opacity-50'
+					className='transition-transform hover:scale-110 active:scale-95 disabled:opacity-50 hover:cursor-pointer'
 				>
-					<IoArrowUpCircleOutline size={40} />
+					<CircleArrowRight className='text-green-500 w-9 h-9 ' />
 				</button>
 			</div>
 		</div>

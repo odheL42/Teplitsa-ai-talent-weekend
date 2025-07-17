@@ -37,14 +37,14 @@ const Chat = () => {
 		<div className='h-dvh w-full flex flex-col justify-center'>
 			<div
 				ref={chatContainerRef}
-				className='flex-1 overflow-y-scroll flex justify-center'
+				className='flex-1 overflow-y-scroll flex justify-center w-full'
 			>
-				<div className='max-w-3xl max-sm:max-w-[95%]'>
+				<div className='w-full max-w-3xl max-sm:max-w-[95%]'>
 					<ChatContent />
 				</div>
 			</div>
 
-			<div className='flex mx-auto mb-8 w-full max-w-3xl max-sm:max-w-[95%]'>
+			<div className='flex mx-auto mb-8 w-full' style={{ maxWidth: 'min(95%, 48rem)' }}>
 				<ChatInput onSubmit={handleSendMessage} />
 			</div>
 		</div>

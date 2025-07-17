@@ -1,45 +1,48 @@
 import { FC } from 'react'
 import { useCart } from '../../context/CartContext'
 import { DBDish } from '../../types/menu'
+import { Plus } from 'lucide-react'
 
 type Props = {
 	dish: DBDish
 }
 
-function capitalizeFirstLetter(str: string): string {
-	if (!str) return str
-	return str[0].toUpperCase() + str.slice(1)
-}
+const capitalizeFirstLetter = (str: string): string =>
+	str ? str[0].toUpperCase() + str.slice(1) : str
 
 const DishCard: FC<Props> = ({ dish }) => {
 	const { addItem } = useCart()
 
-	const handleAdd = () => {
-		addItem(dish.id)
-	}
+	const handleAdd = () => addItem(dish.id)
 
 	return (
-		<div className='rounded-2xl p-4 shadow-sm mb-2 bg-[#f1f1f1] dark:bg-[#141414] max-w-xs'>
-			<h3 className='font-semibold text-base text-black dark:text-[#f9f9f9]'>
-				{capitalizeFirstLetter(dish.title)}
-			</h3>
-			{dish.composition && (
-				<p className='text-sm text-gray-600 dark:text-gray-400'>
-					{dish.composition}
-				</p>
-			)}
-			<div className='flex justify-between items-center mt-2'>
-				<span className='text-sm font-medium text-black dark:text-[#f9f9f9]'>
+		<div className='w-full py-2 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center'>
+			{/* Left block with text */}
+			<div className='flex flex-col flex-1 pl-2'>
+				<h3 className='text-sm font-medium text-gray-900 dark:text-white leading-snug'>
+					{capitalizeFirstLetter(dish.title)}
+				</h3>
+
+				{dish.composition && (
+					<p className='ml-1 text-xs text-gray-600 dark:text-gray-400 mt-0.5 leading-tight'>
+						{dish.composition}
+					</p>
+				)}
+
+				<span className='ml-1 mt-1 text-xs text-gray-800 dark:text-gray-300'>
 					{dish.price}
-					{dish.quantity ? ` • ${dish.quantity}` : ''}
+					{dish.quantity && ` • ${dish.quantity}`}
 				</span>
-				<button
-					onClick={handleAdd}
-					className='text-sm bg-[#3cbd3e] dark:text-[#f9f9f9] px-3 py-1 rounded-xl hover:bg-green-600 transition'
-				>
-					Добавить
-				</button>
 			</div>
+
+			{/* Add button */}
+			<button
+				onClick={handleAdd}
+				className='mr-2 text-gray-600 hover:text-green-600 active:scale-90 active:text-green-700 dark:text-gray-300 dark:hover:text-green-400 transition-transform duration-150 ease-in-out cursor-pointer hover:scale-110'
+				aria-label='Добавить'
+			>
+				<Plus className='w-6 h-6' />
+			</button>
 		</div>
 	)
 }

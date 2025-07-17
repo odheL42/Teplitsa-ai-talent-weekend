@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from 'react'
-import { createStreamChatCompletions } from '../api/api'
+import { apiCompletions } from '../api/api'
 
 interface GenerationContextValue {
 	isGenerating: boolean
@@ -30,7 +30,7 @@ export const GenerationProvider = ({
 		console.debug('INITIAL:WAITING', isWaitingForGeneration)
 		console.debug('INITIAL:GENERATION', isGenerating)
 
-		await createStreamChatCompletions(
+		await apiCompletions(
 			query,
 			(data: string) => {
 				if (isWaitingForGeneration) setIsWaiting(false)

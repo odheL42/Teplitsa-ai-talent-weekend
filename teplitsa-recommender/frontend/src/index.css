@@ -12,7 +12,7 @@ body {
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    @apply font-sans dark:bg-[#222222];
+    @apply font-sans bg-[#fafafa] dark:bg-[#222222];
 }
 
 ::-webkit-scrollbar {

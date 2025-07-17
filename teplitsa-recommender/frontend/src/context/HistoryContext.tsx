@@ -6,7 +6,7 @@ import {
 	useState,
 } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { getHistory } from '../api/api'
+import { apiGetHistory } from '../api/api'
 import { ClientChatMessage, DBChatMessage, Role } from '../types/chat'
 
 interface HistoryContextValue {
@@ -26,7 +26,7 @@ export const HistoryProvider = ({ children }: { children: ReactNode }) => {
 	useEffect(() => {
 		const loadMessages = async () => {
 			try {
-				const history = await getHistory()
+				const history = await apiGetHistory()
 				const clientMessages = history.map((msg: DBChatMessage) => ({
 					id: msg.id ?? uuidv4(),
 					message: msg.message,
