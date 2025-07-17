@@ -7,12 +7,12 @@ uvicorn_port: 8000
 uvicorn_workers: 1
 uvicorn_reload: true
 
-openai_model: moonshotai/kimi-k2:free
-openai_base_url: https://openrouter.ai/api/v1
+openai_model: openai/gpt-4o-mini
+openai_base_url: https://api.vsegpt.ru/v1
 openai_temperature: 0.7
 openai_max_tokens: 1000
 
-openai_validator_model: moonshotai/kimi-k2:free
-openai_validator_base_url: https://openrouter.ai/api/v1
+openai_validator_model: openai/gpt-4o-mini
+openai_validator_base_url: https://api.vsegpt.ru/v1
 openai_validator_temperature: 0.7
 openai_validator_max_tokens: 1000

@@ -1,11 +1,18 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from src.api import completions_router, history_router, menu_router
 from src.config import config
 
 app = FastAPI()
+
+
+@app.get("/health", tags=["Health"])
+async def healthcheck():
+    return JSONResponse(content={"status": "ok"})
+
 
 app.add_middleware(
     CORSMiddleware,
