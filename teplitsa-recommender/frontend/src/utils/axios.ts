@@ -2,7 +2,7 @@ import axios from 'axios'
 import { handleApiError } from './errors'
 
 const apiClient = axios.create({
-	baseURL: process.env.REACT_APP_API_BASE,
+	baseURL: import.meta.env.VITE_API_BASE,
 	headers: {
 		'Content-Type': 'application/json',
 	},

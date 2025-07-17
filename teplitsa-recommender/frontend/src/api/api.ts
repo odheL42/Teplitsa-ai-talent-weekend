@@ -4,7 +4,7 @@ import apiClient from '../utils/axios'
 import { handleApiError } from '../utils/errors'
 
 const buildApiUrl = (path: string): string => {
-	const rawBase = process.env.REACT_APP_API_BASE
+	const rawBase = import.meta.env.VITE_API_BASE
 
 	const base = rawBase ? rawBase : `${window.location.origin}`
 
@@ -58,8 +58,6 @@ export const getHistory = async (): Promise<DBChatMessage[]> => {
 	const response = await apiClient.get(`/api/history/`)
 	return response.data
 }
-
-
 
 export const getMenu = async (): Promise<DBDish[]> => {
 	const response = await apiClient.get(`/api/menu/`)

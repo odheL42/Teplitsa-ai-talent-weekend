@@ -1,6 +1,5 @@
-import { UUID } from 'crypto'
-
 export type Role = 'system' | 'user' | 'assistant' | 'function'
+
 
 export interface ChatMessage {
 	role: Role
@@ -13,7 +12,7 @@ export interface DBChatMeta {
 }
 
 export interface DBChatMessage {
-	id: UUID
+	id: string
 	message: ChatMessage
 	meta: DBChatMeta
 }
