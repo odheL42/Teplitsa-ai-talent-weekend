@@ -1,7 +1,7 @@
 from loguru import logger
 from pydantic import ValidationError
 
-from src.chat.prompts.validator import (
+from src.chat.prompts.builder import (
     build_system_validator_prompt,
     build_validator_prompt,
 )

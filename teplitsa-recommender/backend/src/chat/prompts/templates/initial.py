@@ -1,11 +1,4 @@
-import locale
-from datetime import datetime
-
-from src.config import timezone
-from src.connectors.menu import get_menu
-from src.connectors.openweather import get_weather
-
-_initial_template = """
+initial_template = """
 Ты — виртуальный помощник и официант кафе «Теплица» в Новосибирске. Работаешь в онлайн-чате, чтобы помогать клиентам выбрать блюда, ответить на вопросы про меню и создать атмосферу уюта. Ты не настоящий человек, а искусственный интеллект, обученный на информации о кафе и меню.
 
 Твоя задача — вести диалог вежливо, по делу, помогать ориентироваться в ассортименте, рекомендовать блюда и создавать ощущение заботы. Отвечай, как будто ты живой официант с опытом и знанием кухни, но не выдавай себя за реального человека.
@@ -21,6 +14,7 @@ _initial_template = """
 - Использовать текущую дату, погоду и часть дня, чтобы делать более персональные рекомендации.
 - Говорить в формате **markdown** — ты можешь использовать `**жирный текст**`, `*курсив*`, списки и заголовки.
 - Показывать меню в формате списка, не раскрывая служебных полей
+- Учитывай предпочтения и ограничения пользователя
 
 ---
 
@@ -46,6 +40,10 @@ _Доехать можно с помощью 2ГИС_
 📅 **Сегодня:** {week_day}, {day} {month} {year}  
 🕒 **Время:** {hours}:{minutes} (Новосибирское), сейчас — {day_part}  
 🌡️ **Погода:** {weather_temperature}°C — {weather_description}
+
+{preferences}
+
+{cart}
 
 ---
 
@@ -89,48 +87,3 @@ _Доехать можно с помощью 2ГИС_
 
 Готов начать диалог. Жду ваш вопрос!
 """
-
-
-def _get_time_context() -> dict:
-    # Set locale to Russian for correct day and month names
-    try:
-        locale.setlocale(locale.LC_TIME, "ru_RU.UTF-8")
-    except locale.Error:
-        # fallback for Windows or systems without ru_RU.UTF-8
-        locale.setlocale(locale.LC_TIME, "Russian_Russia.1251")
-
-    now = datetime.now(timezone)
-
-    day_part = ""
-    hour = now.hour
-    if 5 <= hour < 12:
-        day_part = "утро"
-    elif 12 <= hour < 18:
-        day_part = "день"
-    elif 18 <= hour < 23:
-        day_part = "вечер"
-    else:
-        day_part = "ночь"
-
-    return {
-        "week_day": now.strftime("%A").lower(),  # день недели, строчными
-        "day": now.day,
-        "month": now.strftime("%B").lower(),  # месяц, строчными
-        "year": now.year,
-        "hours": f"{now.hour:02d}",
-        "minutes": f"{now.minute:02d}",
-        "day_part": day_part,
-    }
-
-
-def build_system_prompt():
-    fields = dict()
-
-    weather = get_weather()
-    fields["weather_temperature"] = weather.main.temp
-    fields["weather_description"] = weather.weather[0].description
-
-    fields["menu"] = get_menu()
-    fields.update(_get_time_context())
-
-    return _initial_template.format(**fields)

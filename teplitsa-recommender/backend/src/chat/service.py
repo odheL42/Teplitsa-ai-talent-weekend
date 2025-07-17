@@ -2,8 +2,7 @@ from collections.abc import AsyncGenerator
 
 from loguru import logger
 
-from src.chat.prompts.system import build_system_prompt
-from src.chat.prompts.validator import wrap_user_prompt
+from src.chat.prompts.builder import build_initial_prompt, wrap_user_prompt
 from src.chat.validator import ValidatorService
 from src.connectors.openai import CompletionsGenerator
 from src.models.completions import ChatMessage
@@ -17,7 +16,7 @@ class PromptBuilder:
         self.system_prompt = self.system()
 
     def system(self) -> ChatMessage:
-        prompt = build_system_prompt()
+        prompt = build_initial_prompt()
         return ChatMessage(role="system", content=prompt)
 
     async def user(self, query: str) -> ChatMessage:

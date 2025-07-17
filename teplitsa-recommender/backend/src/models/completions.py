@@ -2,6 +2,9 @@ from typing import Literal
 
 from pydantic import BaseModel
 
+from src.models.cart import Cart
+from src.models.preferences import Preferences
+
 
 class ChatMessage(BaseModel):
     role: Literal["system", "user", "assistant", "function"]
@@ -11,6 +14,8 @@ class ChatMessage(BaseModel):
 
 class APICompletionsRequest(BaseModel):
     query: str
+    cart: Cart
+    preferences: Preferences
 
 
 class Choice(BaseModel):

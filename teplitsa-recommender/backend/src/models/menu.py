@@ -48,7 +48,7 @@ class DishCategory(str, Enum):
 class Dish(BaseModel):
     id: str = Field(default_factory=get_next_id())
     title: str
-    price: str
+    price: int
     context: DishContext
     category: DishCategory
     quantity: str | None
