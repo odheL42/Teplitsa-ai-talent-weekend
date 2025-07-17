@@ -19,10 +19,10 @@ const UserMessage = ({ dbmessage }: ChatMessageProps) => {
 				{dbmessage.message.content.trim()}
 			</div>
 			<div
-				className='absolute top-0 -right-4 w-0 h-0 
+				className='absolute top-0 -right-3 w-0 h-0 -z-10
 	border-t-[0px] border-t-transparent 
 	border-b-[30px] border-b-transparent 
-	border-l-[40px] border-l-[#e5e5ea] dark:border-l-[#2f2f2f]'
+	border-l-[30px] border-l-[#e5e5ea] dark:border-l-[#2f2f2f]'
 			></div>
 		</div>
 	)

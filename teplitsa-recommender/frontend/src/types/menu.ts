@@ -21,7 +21,7 @@ export type DBDishCategory =
 export interface DBDish {
 	id: string
 	title: string
-	price: string
+	price: number
 	context: DBDishContext
 	category: DBDishCategory
 	quantity?: string

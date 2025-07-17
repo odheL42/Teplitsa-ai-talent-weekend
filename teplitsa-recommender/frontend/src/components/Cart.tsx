@@ -15,15 +15,11 @@ const Cart: React.FC = () => {
 		return () => clearTimeout(timeout)
 	}, [items])
 
-	const totalAmount = () => {
-		return Object.values(items).reduce((sum, amount) => sum + amount, 0)
-	}
-
 	return (
 		<div>
 			<div
 				onClick={() => setIsOpen(true)}
-				className={`relative hover:cursor-pointer ${
+				className={`flex flex=cp hover:cursor-pointer ${
 					highlight ? 'animate-[ping_0.3s]' : ''
 				}`}
 			>
@@ -34,12 +30,6 @@ const Cart: React.FC = () => {
 				>
 					<ShoppingCart className='w-6 h-6 text-gray-900 dark:text-neutral-400 hover:text-green-500' />
 				</button>
-
-				{Object.keys(items).length > 0 && (
-					<span className='absolute -top-2 -right-3 text-[13px] bg-green-500 text-white rounded-full px-1 leading-none'>
-						{totalAmount()}
-					</span>
-				)}
 			</div>
 
 			{isOpen && <CartModal onClose={() => setIsOpen(false)} />}

@@ -6,3 +6,7 @@ export interface CartItem {
 }
 
 export type CartItemsMap = Record<string, number> // dishId -> amount
+
+export interface DBCart {
+	items: Record<string, number>
+}

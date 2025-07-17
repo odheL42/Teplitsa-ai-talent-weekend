@@ -2,6 +2,7 @@ import { DBChatMessage } from '../types/chat'
 import { DBDish } from '../types/menu'
 import apiClient from '../utils/axios'
 import { handleApiError } from '../utils/errors'
+import { CompletionsRequest } from '../types/completions'
 
 const buildApiUrl = (path: string): string => {
 	const rawBase = import.meta.env.VITE_API_BASE
@@ -14,7 +15,7 @@ const buildApiUrl = (path: string): string => {
 }
 
 export const apiCompletions = async (
-	query: string,
+	request: CompletionsRequest,
 	onData: (data: string) => void,
 	onDone?: () => void,
 	onError?: () => void
@@ -22,15 +23,12 @@ export const apiCompletions = async (
 	const url = buildApiUrl(`/api/completions`)
 
 	try {
-		console.log('QUERY', query)
 		const response = await fetch(url, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({
-				query: query,
-			}),
+			body: JSON.stringify(request),
 		})
 
 		if (!response.ok || !response.body) {

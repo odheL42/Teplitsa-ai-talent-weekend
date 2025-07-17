@@ -1,5 +1,7 @@
 import { createContext, ReactNode, useContext, useState } from 'react'
 import { apiCompletions } from '../api/api'
+import { useCart } from './CartContext'
+import { usePreferences } from './PreferencesContext'
 
 interface GenerationContextValue {
 	isGenerating: boolean
@@ -23,6 +25,9 @@ export const GenerationProvider = ({
 	const [isGenerating, setIsGenerating] = useState(false)
 	const [isWaitingForGeneration, setIsWaiting] = useState(false)
 
+	const { items } = useCart()
+	const { preferences } = usePreferences()
+
 	const startGeneration = async (query: string) => {
 		if (isGenerating || isWaitingForGeneration) return
 
@@ -30,8 +35,14 @@ export const GenerationProvider = ({
 		console.debug('INITIAL:WAITING', isWaitingForGeneration)
 		console.debug('INITIAL:GENERATION', isGenerating)
 
+		const request = {
+			query: query,
+			cart: { items: items },
+			preferences: preferences,
+		}
+
 		await apiCompletions(
-			query,
+			request,
 			(data: string) => {
 				if (isWaitingForGeneration) setIsWaiting(false)
 				if (!isGenerating) setIsGenerating(true)

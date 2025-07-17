@@ -36,7 +36,7 @@ const Chat = () => {
 	}
 
 	return (
-		<div className='h-dvh flex-1 w-full flex flex-col justify-center'>
+		<div className='h-dvh flex-1 w-full flex flex-col justify-center items-center'>
             <Header />
             <PreferencesModal />
 			<div

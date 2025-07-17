@@ -1,14 +1,12 @@
 export type Preferences = {
-	glutenFree: boolean
-	lactoseFree: boolean
+	gluten_free: boolean
+	lactose_free: boolean
 	vegan: boolean
 	vegetarian: boolean
 	spicy: boolean
-	nutsFree: boolean
-	sugarFree: boolean
+	nuts_free: boolean
+	sugar_free: boolean
 	halal: boolean
 	kosher: boolean
-	soyFree: boolean
+	soy_free: boolean
 }
-
-

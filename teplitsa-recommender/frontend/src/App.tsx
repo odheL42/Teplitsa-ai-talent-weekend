@@ -41,8 +41,8 @@ const App = () => {
 			<MenuProvider>
 				<CartProvider>
 					<HistoryProvider>
-						<GenerationWithHistory>
-							<PreferencesProvider>
+						<PreferencesProvider>
+							<GenerationWithHistory>
 								<ModalProvider>
 									<Router>
 										<Routes>
@@ -62,8 +62,8 @@ const App = () => {
 										</Routes>
 									</Router>
 								</ModalProvider>
-							</PreferencesProvider>
-						</GenerationWithHistory>
+							</GenerationWithHistory>
+						</PreferencesProvider>
 					</HistoryProvider>
 				</CartProvider>
 			</MenuProvider>
