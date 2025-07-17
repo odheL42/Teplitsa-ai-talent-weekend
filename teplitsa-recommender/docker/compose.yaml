@@ -1,0 +1,36 @@
+services:
+    frontend:
+        container_name: teplitsa_frontend
+        build:
+            context: ../frontend
+            dockerfile: ../docker/Dockerfile.frontend
+        ports:
+            - '3000:80'
+        depends_on:
+            backend:
+                condition: service_healthy
+        restart: always
+    backend:
+        container_name: teplitsa_backend
+        build:
+            context: ../backend
+            dockerfile: ../docker/Dockerfile.backend
+        ports:
+            - 8000:8000
+        healthcheck:
+            test: ['CMD', 'curl', '-f', 'http://localhost:8000/api']
+            interval: 10s
+            timeout: 5s
+            retries: 5
+            start_period: 10s
+        restart: always
+        develop:
+            watch:
+                - action: sync
+                  path: .
+                  target: /app
+                  ignore:
+                      - .venv/
+                - action: rebuild
+                  path: ./uv.lock
+        command: python3 -m src.main
