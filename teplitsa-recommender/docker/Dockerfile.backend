@@ -50,8 +50,18 @@ RUN addgroup --gid $group_id app && \
 # Набор системных пакетов
 # RUN apt-get update -qq && \
 #     apt-get install -y --no-install-recommends \
-#         libpq5 && \
 #     rm -rf /var/lib/apt/lists/*
+
+# Установка локали
+RUN apt-get update && apt-get install -y locales \
+    && sed -i '/ru_RU.UTF-8/s/^# //g' /etc/locale.gen \
+    && locale-gen ru_RU.UTF-8
+
+ENV LANG=ru_RU.UTF-8
+ENV LANGUAGE=ru_RU:ru
+ENV LC_ALL=ru_RU.UTF-8
+
+
 
 # Копируем venv + проект
 COPY --from=builder --chown=app:app /app /app

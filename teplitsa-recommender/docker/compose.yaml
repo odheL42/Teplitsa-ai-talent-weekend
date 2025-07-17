@@ -5,7 +5,9 @@ services:
             context: ../frontend
             dockerfile: ../docker/Dockerfile.frontend
         ports:
-            - '3000:80'
+            - '${FRONTEND_PORT}:80'
+        networks:
+            - teplitsa-net
         depends_on:
             backend:
                 condition: service_healthy
@@ -16,21 +18,43 @@ services:
             context: ../backend
             dockerfile: ../docker/Dockerfile.backend
         ports:
-            - 8000:8000
+            - 7256:8000
+        networks:
+            - teplitsa-net
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
         healthcheck:
-            test: ['CMD', 'curl', '-f', 'http://localhost:8000/api']
+            test: ['CMD', 'curl', '-f', 'http://backend:8000/api']
             interval: 10s
             timeout: 5s
             retries: 5
             start_period: 10s
         restart: always
-        develop:
-            watch:
-                - action: sync
-                  path: .
-                  target: /app
-                  ignore:
-                      - .venv/
-                - action: rebuild
-                  path: ./uv.lock
         command: python3 -m src.main
+
+    # validator:
+    #     image: vllm/vllm-openai:latest
+    #     container_name: teplitsa-validator
+    #     healthcheck:
+    #         test: ['CMD', 'curl', '-f', 'http://validator:8000/health']
+    #         interval: 30s # Интервал между проверками (по умолчанию 30 секунд)
+    #         timeout: 10s # Таймаут проверки (по умолчанию 30 секунд)
+    #         retries: 3 # Количество попыток до статуса "unhealthy"
+    #         start_period: 5s # Время на "прогрев" сервиса перед началом проверок
+    #     deploy:
+    #         replicas: ${VALIDATOR_ENABLE}
+    #     runtime: nvidia
+    #     networks:
+    #         - teplitsa-net
+    #     environment:
+    #         NCCL_IGNORE_DISABLED_P2P: 1
+    #         TORCH_USE_CUDA_DSA: 1
+    #         CUDA_LAUNCH_BLOCKING: 1
+    #     volumes:
+    #         - ~/.cache/huggingface:/root/.cache/huggingface
+    #     command:
+    #         - --model ${VALIDATOR_MODEL} ${VALIDATOR_VLLM_PARAMS}
+
+networks:
+    teplitsa-net:
+        driver: bridge
