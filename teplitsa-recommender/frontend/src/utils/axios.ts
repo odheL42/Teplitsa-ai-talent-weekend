@@ -2,14 +2,12 @@ import axios from 'axios'
 import { handleApiError } from './errors'
 
 const apiClient = axios.create({
-	baseURL: import.meta.env.VITE_API_BASE,
+	baseURL: ``,
 	headers: {
 		'Content-Type': 'application/json',
 	},
-	withCredentials: false,
+	withCredentials: true,
 })
-
-apiClient.defaults.withCredentials = false
 
 apiClient.interceptors.response.use(
 	response => response,

@@ -4,27 +4,18 @@ import apiClient from '../utils/axios'
 import { handleApiError } from '../utils/errors'
 import { CompletionsRequest } from '../types/completions'
 
-const buildApiUrl = (path: string): string => {
-	const rawBase = import.meta.env.VITE_API_BASE
-
-	const base = rawBase ? rawBase : `${window.location.origin}`
-
-	const url = new URL(path, base)
-
-	return url.toString()
-}
-
 export const apiCompletions = async (
 	request: CompletionsRequest,
 	onData: (data: string) => void,
 	onDone?: () => void,
 	onError?: () => void
 ) => {
-	const url = buildApiUrl(`/api/completions`)
+	const url = `/api/completions`
 
 	try {
 		const response = await fetch(url, {
 			method: 'POST',
+            credentials: "include",
 			headers: {
 				'Content-Type': 'application/json',
 			},
@@ -54,7 +45,7 @@ export const apiCompletions = async (
 
 export const apiGetHistory = async (): Promise<DBChatMessage[]> => {
 	try {
-		const response = await apiClient.get(`/api/history/`)
+		const response = await apiClient.get(`/api/history`)
 		return response.data
 	} catch (error) {
 		handleApiError(error)
@@ -64,7 +55,7 @@ export const apiGetHistory = async (): Promise<DBChatMessage[]> => {
 
 export const apiGetMenu = async (): Promise<DBDish[]> => {
 	try {
-		const response = await apiClient.get(`/api/menu/`)
+		const response = await apiClient.get(`/api/menu`)
 		return response.data
 	} catch (error) {
 		handleApiError(error)

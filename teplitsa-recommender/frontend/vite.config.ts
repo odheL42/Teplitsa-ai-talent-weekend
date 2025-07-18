@@ -5,6 +5,12 @@ import { defineConfig } from 'vite'
 export default defineConfig({
 	plugins: [react(), tailwindcss()],
 	build: {
-		outDir: 'build', // CRA's default build output
+		outDir: 'build',
+	},
+	server: {
+        host: true,
+		proxy: {
+			'/api': 'http://192.168.31.15:8000',
+		},
 	},
 })
