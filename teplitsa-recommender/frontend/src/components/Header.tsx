@@ -30,11 +30,11 @@ const Header = () => {
 
 			<div className='flex flex-col items-center select-none'>
 				<h1 className='text-2xl font-extrabold dark:text-white leading-tight text-gray-900 sha'>
-					Кафе Теплица
+					Экокафе «Теплица»
 				</h1>
 
 				<span className='text-xs text-green-500 font-normal tracking-wide mt-0.5'>
-					AI Talent Weekend
+					AI Talent Weekend by «513»
 				</span>
 			</div>
 
