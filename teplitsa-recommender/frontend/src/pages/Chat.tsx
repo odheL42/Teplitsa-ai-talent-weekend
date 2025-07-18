@@ -7,7 +7,19 @@ import { useHistory } from '../context/HistoryContext'
 import Header from '../components/Header'
 import { PreferencesModal } from '../components/PreferencesModal'
 
+import { isValidPreferences } from '../utils/validation'
+import { usePreferences } from '../context/PreferencesContext'
+
+
+
+
 const Chat = () => {
+	const { preferences } = usePreferences()
+
+	if (!isValidPreferences(preferences)) {
+		console.warn('Некорректные предпочтения:', preferences)
+		
+	}
 	const chatContainerRef = useRef<HTMLDivElement | null>(null)
 	const { messages, addUserMessage } = useHistory()
 	const { isWaitingForGeneration, isGenerating, startGeneration } =

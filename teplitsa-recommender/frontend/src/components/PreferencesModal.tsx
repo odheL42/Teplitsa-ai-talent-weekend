@@ -1,48 +1,76 @@
-import { useModal } from '../context/ModalContext'
-import { usePreferences } from '../context/PreferencesContext'
-import type { Preferences } from '../types/preferences'
-import IntroductionChip from './chat/IntroductionChip'
+import { useModal } from '../context/ModalContext';
+import { usePreferences } from '../context/PreferencesContext';
+import type { Preferences } from '../types/preferences';
+import IntroductionChip from './chat/IntroductionChip';
 
 export const PreferencesModal = () => {
-	const { isOpen, close } = useModal()
-	const { preferences, togglePreference } = usePreferences()
+  const { isOpen, close } = useModal();
+  const { preferences, togglePreference } = usePreferences();
 
-	if (!isOpen) return null
+  if (!isOpen) return null;
 
-	return (
-		<div
-			onClick={close}
-			className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'
-		>
-			<div
-				onClick={e => e.stopPropagation()}
-				className='bg-white dark:bg-gray-800 rounded-lg max-w-md w-full p-6 shadow-lg'
-			>
-				<div className='flex justify-between items-center mb-4'>
-					<h2 className='text-xl font-semibold text-gray-900 dark:text-gray-100'>
-						Предпочтения
-					</h2>
-					<button
-						aria-label='Закрыть'
-						onClick={close}
-						className='text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
-					>
-						&#10005;
-					</button>
-				</div>
-
-				<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2'>
-					{(Object.keys(preferences) as (keyof Preferences)[]).map(
-						key => (
-							<IntroductionChip
-								text={key}
-								initialSelected={preferences[key]}
-								onToggle={() => togglePreference(key)}
-							/>
-						)
-					)}
-				</div>
-			</div>
-		</div>
-	)
-}
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 50,
+      }}
+      onClick={close}
+    >
+      <div
+        style={{
+          backgroundColor: '#2f2f2f',
+          padding: '1.5rem',
+          borderRadius: '0.5rem',
+          width: '100%',
+          maxWidth: '30rem',
+          maxHeight: '80vh',
+          overflowY: 'auto',
+          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+          position: 'relative',
+        }}
+        onClick={e => e.stopPropagation()}
+      >
+        <button
+          style={{
+            position: 'absolute',
+            top: '0.75rem',
+            right: '1rem',
+            color: '#FFFFFF',
+            fontSize: '1.25rem',
+            cursor: 'pointer',
+          }}
+          onClick={close}
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
+        <h2 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem', color: '#FFFFFF' }}>
+          Предпочтения
+        </h2>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))',
+          gap: '0.5rem',
+        }}>
+          {(Object.keys(preferences) as (keyof Preferences)[]).map(key => (
+            <IntroductionChip
+              key={key}
+              text={key}
+              initialSelected={preferences[key]}
+              onToggle={() => togglePreference(key)}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};

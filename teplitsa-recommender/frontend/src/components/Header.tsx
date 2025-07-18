@@ -1,16 +1,29 @@
-import { useMemo } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { useCart } from '../context/CartContext'
 import { useMenu } from '../context/MenuContext'
 import Cart from './Cart'
 import ClearHistoryButton from './ClearHistoryButton'
+import CartModal from './CartModal'
+
+
+
 const Header = () => {
 	const { items } = useCart()
 	const { dishById } = useMenu()
+	const [isOpen, setIsOpen] = useState(false)
+	const [highlight, setHighlight] = useState(false)
+
+	useEffect(() => {
+		if (Object.keys(items).length === 0) return
+		setHighlight(true)
+		const timeout = setTimeout(() => setHighlight(false), 300)
+		return () => clearTimeout(timeout)
+	}, [items])
 
 	const totalAmount = useMemo(() => {
 		return Object.entries(items).reduce((sum, [id, amount]) => {
 			const dish = dishById?.[id]
-			if (!dish) return sum // skip if null/undefined
+			if (!dish) return sum 
 			return sum + dish.price * amount
 		}, 0)
 	}, [items, dishById])
@@ -29,9 +42,17 @@ const Header = () => {
 			</div>
 
 			<div className='flex flex-col items-center select-none'>
-				<h1 className='text-2xl font-extrabold dark:text-white leading-tight text-gray-900 sha'>
-					Экокафе «Теплица»
+				<h1 className='text-2xl font-extrabold dark:text-white leading-tight text-gray-900'>
+					<a
+						href='https://www.teplitsamenu.ru/'
+						target='_blank'
+						rel='noopener noreferrer'
+						className='hover:underline'
+					>
+						Экокафе «Теплица»
+					</a>
 				</h1>
+
 
 				<span className='text-xs text-green-500 font-normal tracking-wide mt-0.5'>
 					AI Talent Weekend by «513»
@@ -43,11 +64,19 @@ const Header = () => {
 			<div className='absolute top-5 right-6 flex flex-col items-center'>
 				<Cart />
 				{Object.keys(items).length > 0 && (
-					<span className='mt-1 text-green-600 text-xs font-semibold whitespace-nowrap'>
+					<button
+						onClick={() => setIsOpen(true)}
+						className={`mt-1 text-green-600 text-xs font-semibold whitespace-nowrap transition hover:text-green-700 ${
+							highlight ? 'animate-[ping_0.3s]' : ''
+						}`}
+					>
 						{formattedAmount}
-					</span>
+					</button>
 				)}
 			</div>
+
+			{isOpen && <CartModal onClose={() => setIsOpen(false)} />}
+
 		</header>
 	)
 }
