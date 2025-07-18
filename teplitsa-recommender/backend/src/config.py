@@ -1,7 +1,9 @@
 from pathlib import Path
+from typing import Literal
 from zoneinfo import ZoneInfo
 
 import yaml
+from loguru import logger
 from pydantic import BaseModel, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -9,10 +11,15 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Secrets(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
+    teplitsa_env: Literal["prod", "dev"]
+
     dgis_key: SecretStr
     openweather_key: SecretStr
     openai_key: SecretStr
     openai_validator_key: SecretStr
+
+    def is_dev(self):
+        return self.teplitsa_env == "dev"
 
 
 class Config(BaseModel):
@@ -24,6 +31,8 @@ class Config(BaseModel):
     uvicorn_port: int
     uvicorn_workers: int
     uvicorn_reload: bool
+
+    cors_allow_origins: list[str]
 
     openai_model: str
     openai_base_url: str
@@ -40,8 +49,8 @@ class Config(BaseModel):
     cookie_max_age: int
 
 
-def load_config() -> Config:
-    with open("./config.yaml") as f:
+def load_config(env: str) -> Config:
+    with open(f"./config.{env}.yaml") as f:
         raw = yaml.safe_load(f)
 
     return Config(**raw)
@@ -49,5 +58,7 @@ def load_config() -> Config:
 
 timezone = ZoneInfo("Asia/Novosibirsk")
 
-config = load_config()
 secrets = Secrets()
+config = load_config(secrets.teplitsa_env)
+
+logger.info(f"Application environment: {secrets.teplitsa_env}")

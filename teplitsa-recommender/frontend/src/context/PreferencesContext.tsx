@@ -16,16 +16,16 @@ type PreferencesContextType = {
 }
 
 const defaultPreferences: Preferences = {
-	glutenFree: false,
-	lactoseFree: false,
+	gluten_free: false,
+	lactose_free: false,
 	vegan: false,
 	vegetarian: false,
 	spicy: false,
-	nutsFree: false,
-	sugarFree: false,
+	nuts_free: false,
+	sugar_free: false,
 	halal: false,
 	kosher: false,
-	soyFree: false,
+	soy_free: false,
 }
 
 const PreferencesContext = createContext<PreferencesContextType | undefined>(
@@ -43,22 +43,22 @@ export const PreferencesProvider = ({ children }: { children: ReactNode }) => {
 		}
 	}, [])
 
-    const saveAndSetPreferences = (prefs: Preferences) => {
-        setPreferencesState(prefs)
-        savePreferences(prefs)
-    }
+	const saveAndSetPreferences = (prefs: Preferences) => {
+		setPreferencesState(prefs)
+		savePreferences(prefs)
+	}
 
 	const togglePreference = (key: keyof Preferences) => {
-        const newPrefs = {
+		const newPrefs = {
 			...preferences,
 			[key]: !preferences[key],
 		}
 
-        saveAndSetPreferences(newPrefs)
+		saveAndSetPreferences(newPrefs)
 	}
 
 	const setPreferences = (prefs: Partial<Preferences>) => {
-        const newPrefs = {
+		const newPrefs = {
 			...preferences,
 			...prefs,
 		}

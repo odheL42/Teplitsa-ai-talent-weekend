@@ -11,6 +11,9 @@ from src.models.session import CookieData, UserContext
 
 class SessionMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
+        if request.url.path == "/api/health":
+            return await call_next(request)
+
         raw_cookie = request.cookies.get(config.cookie_name)
 
         if raw_cookie:

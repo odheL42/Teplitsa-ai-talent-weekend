@@ -41,16 +41,16 @@ ARG group_id=1000
 
 # Для приложений на Python лучше использовать сигнал SIGINT, так как не все фреймворки (например, gRPC) корректно обрабатывают сигнал SIGTERM.
 STOPSIGNAL SIGINT
-EXPOSE 8080/tcp
 
 # Создаем пользователя "app" с заданными UID и GID
 RUN addgroup --gid $group_id app && \
     adduser --uid $user_id --gid $group_id --disabled-password --gecos "" app
 
 # Набор системных пакетов
-# RUN apt-get update -qq && \
-#     apt-get install -y --no-install-recommends \
-#     rm -rf /var/lib/apt/lists/*
+RUN apt-get update -qq && \
+    apt-get install -y --no-install-recommends \
+    curl && \
+    rm -rf /var/lib/apt/lists/*
 
 # Установка локали
 RUN apt-get update && apt-get install -y locales \

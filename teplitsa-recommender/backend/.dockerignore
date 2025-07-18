@@ -3,6 +3,6 @@
 !src
 !.env
 !.python-version
-!config.yaml
+!config.prod.yaml
 !pyproject.toml
 !uv.lock

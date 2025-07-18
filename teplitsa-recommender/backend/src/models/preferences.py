@@ -2,13 +2,13 @@ from pydantic import BaseModel
 
 
 class Preferences(BaseModel):
-    gluten_free: bool = False
-    lactose_free: bool = False
-    vegan: bool = False
-    vegetarian: bool = False
-    spicy: bool = False
-    nuts_free: bool = False
-    sugar_free: bool = False
-    halal: bool = False
-    kosher: bool = False
-    soy_free: bool = False
+    gluten_free: bool
+    lactose_free: bool
+    vegan: bool
+    vegetarian: bool
+    spicy: bool
+    nuts_free: bool
+    sugar_free: bool
+    halal: bool
+    kosher: bool
+    soy_free: bool
