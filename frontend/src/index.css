@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+@import 'tailwindcss';
+
+html,
+body,
+#root {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	@apply font-sans bg-[#fafafa] dark:bg-[#222222];
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+	border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #bbbbbb;
+	border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:dark {
+	background-color: #4b5563;
+	border-radius: 9999px;
+}
+
+@media (prefers-color-scheme: dark) {
+	::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	::-webkit-scrollbar-thumb {
+		background-color: #3f3f46;
+	}
+}
+
+.markdown > * {
+	all: revert;
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+		monospace;
+}
