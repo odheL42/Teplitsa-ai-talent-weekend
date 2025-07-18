@@ -14,20 +14,20 @@ class CartPrompt:
 """
 
     @classmethod
-    def _format_cart(cls, cart: Cart) -> str:
+    async def _format_cart(cls, cart: Cart) -> str:
         lines = ""
         for dish_id, amount in cart.items.items():
-            dish = get_dish_by_id(dish_id)
+            dish = await get_dish_by_id(dish_id)
             lines += f"{amount} {dish.title}\n"
 
         return cls._cart_prompt + lines
 
     @classmethod
-    def get(cls) -> dict:
+    async def get(cls) -> dict:
         cart = CompletionsContext.get_user_cart()
         if not cart:
             return {"cart": ""}
 
-        prompt = cls._format_cart(cart)
+        prompt = await cls._format_cart(cart)
         logger.debug(f"CartPrompt:\n{prompt}")
         return {"cart": prompt}

@@ -37,3 +37,8 @@ class ChatCompletionResponse(BaseModel):
     model: str
     choices: list[Choice]
     usage: Usage | None
+
+
+class ChunkResponse(BaseModel):
+    type: Literal["error", "default"] = "default"
+    text: str

@@ -6,7 +6,7 @@ from loguru import logger
 
 from src.chat.service import ChatService
 from src.context.completions import CompletionsContext
-from src.models.completions import APICompletionsRequest
+from src.models.completions import APICompletionsRequest, ChunkResponse
 
 router = APIRouter()
 chat = ChatService()
@@ -22,10 +22,10 @@ async def create_completions(request: APICompletionsRequest):
             generator = chat.stream(request.query)
             async with aclosing(generator) as _generator:
                 async for chunk in _generator:
-                    yield chunk
+                    yield ChunkResponse(text=chunk)
         except Exception as err:
             logger.exception(err)
-            return
+            yield ChunkResponse(type="error", text="Internal server error")
 
     return StreamingResponse(
         content=streaming_wrapper(),

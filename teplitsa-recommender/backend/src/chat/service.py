@@ -15,8 +15,8 @@ class PromptBuilder:
         self.validator = ValidatorService()
         self.system_prompt = self.system()
 
-    def system(self) -> ChatMessage:
-        prompt = build_initial_prompt()
+    async def system(self) -> ChatMessage:
+        prompt = await build_initial_prompt()
         return ChatMessage(role="system", content=prompt)
 
     async def user(self, query: str) -> ChatMessage:
@@ -41,19 +41,19 @@ class HistoryService:
     def __init__(self):
         self.buffer = ""
 
-    def update(self, chunk: str):
+    async def update(self, chunk: str):
         if not self.buffer:
-            HistoryStore.add(ChatMessage(role="assistant", content=""))
+            await HistoryStore.add(ChatMessage(role="assistant", content=""))
         self.buffer += chunk
         msg = ChatMessage(role="assistant", content=self.buffer)
-        HistoryStore.update(msg)
+        await HistoryStore.update(msg)
 
-    def save_request(self, query: str):
+    async def save_request(self, query: str):
         chat_message = ChatMessage(role="user", content=query)
-        HistoryStore.add(chat_message)
+        await HistoryStore.add(chat_message)
 
-    def list(self) -> list[ChatMessage]:
-        return [c.message for c in HistoryStore.list()]
+    async def list(self) -> list[ChatMessage]:
+        return [c.message for c in await HistoryStore.list()]
 
     def flush(self):
         self.buffer = ""
@@ -66,16 +66,16 @@ class ChatService:
         self.history = HistoryService()
 
     async def stream(self, query: str) -> AsyncGenerator[str]:
-        self.history.save_request(query)
+        await self.history.save_request(query)
 
         params: dict[str, ChatMessage | list[ChatMessage]] = {
             "query": await self.prompt_builder.user(query),
-            "history": self.history.list(),
-            "system_prompt": self.prompt_builder.system(),
+            "history": await self.history.list(),
+            "system_prompt": await self.prompt_builder.system(),
         }
 
         async for chunk in self.completions(**params):
-            self.history.update(chunk)
+            await self.history.update(chunk)
             yield chunk
 
         self.history.flush()

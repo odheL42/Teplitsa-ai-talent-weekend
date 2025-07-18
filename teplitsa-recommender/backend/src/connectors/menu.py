@@ -1,8 +1,7 @@
 import re
 from enum import Enum
-from functools import lru_cache
 from typing import TypeVar
-
+import aiofiles
 from bs4 import BeautifulSoup, Tag
 
 from src.models.menu import Dish, DishCategory, DishContext
@@ -18,9 +17,9 @@ def parse_enum(value: str, enum_cls: type[E]) -> E:
     raise ValueError(f"{value!r} is not a valid {enum_cls.__name__}")
 
 
-def get_html_from_file(file_path: str) -> str:
-    with open(file_path, encoding="utf-8") as f:
-        html = f.read()
+async def get_html_from_file(file_path: str) -> str:
+    async with aiofiles.open(file_path, encoding="utf-8") as f:
+        html = await f.read()
 
     return html
 
@@ -68,9 +67,14 @@ def parse_card(card: Tag) -> dict:
     }
 
 
-@lru_cache
-def get_menu() -> list[Dish]:
-    html = get_html_from_file("./src/connectors/teplitsamenu.ru.html")
+_cached_menu: list[Dish] | None = None
+
+
+async def get_menu() -> list[Dish]:
+    global _cached_menu
+    if _cached_menu is not None:
+        return _cached_menu
+    html = await get_html_from_file("./src/connectors/teplitsamenu.ru.html")
 
     soup = BeautifulSoup(markup=html, features="html.parser")
 
@@ -96,8 +100,8 @@ def get_menu() -> list[Dish]:
     return result
 
 
-def get_dish_by_id(id: str) -> Dish | None:
-    menu = get_menu()
+async def get_dish_by_id(id: str) -> Dish | None:
+    menu = await get_menu()
 
     for dish in menu:
         if dish.id == id:

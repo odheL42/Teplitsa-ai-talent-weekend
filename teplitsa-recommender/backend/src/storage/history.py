@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+import aiofiles
+
 from src.config import config
 from src.context.session import SessionContext
 from src.models.completions import ChatMessage
@@ -20,59 +22,58 @@ class HistoryStore:
         return path
 
     @classmethod
-    def _load(cls) -> list[DBChatMessage]:
+    async def _load(cls) -> list[DBChatMessage]:
         path = cls._ensure_path()
-        with path.open("r", encoding="utf-8") as f:
-            return [DBChatMessage.model_validate(item) for item in json.load(f)]
+        async with aiofiles.open(path, encoding="utf-8") as f:
+            raw = await f.read()
+            data = json.loads(raw)
+            return [DBChatMessage.model_validate(item) for item in data]
 
     @classmethod
-    def _save(cls, completions: list[DBChatMessage]):
+    async def _save(cls, completions: list[DBChatMessage]):
         path = cls._ensure_path()
-        with path.open("w", encoding="utf-8") as f:
-            json.dump(
-                [c.model_dump(mode="json") for c in completions],
-                f,
-                indent=4,
-                ensure_ascii=False,
-            )
+        data = [c.model_dump(mode="json") for c in completions]
+
+        async with aiofiles.open(path, "w", encoding="utf-8") as f:
+            await f.write(json.dumps(data, indent=4, ensure_ascii=False))
 
     @classmethod
-    def add(cls, chat_message: ChatMessage) -> DBChatMessage:
-        completions = cls._load()
+    async def add(cls, chat_message: ChatMessage) -> DBChatMessage:
+        completions = await cls._load()
         db_chat_message = DBChatMessage(message=chat_message)
         completions.append(db_chat_message)
-        cls._save(completions)
+        await cls._save(completions)
         return db_chat_message
 
     @classmethod
-    def last(cls) -> DBChatMessage | None:
-        history = cls._load()
+    async def last(cls) -> DBChatMessage | None:
+        history = await cls._load()
         if history:
             return history[-1]
         return None
 
     @classmethod
-    def list(cls) -> list[DBChatMessage]:
-        return cls._load()
+    async def list(cls) -> list[DBChatMessage]:
+        return await cls._load()
 
     @classmethod
-    def pop(cls) -> DBChatMessage | None:
-        completions = cls._load()
+    async def pop(cls) -> DBChatMessage | None:
+        completions = await cls._load()
         if completions:
             db_chat_message = completions.pop()
-            cls._save(completions)
+            await cls._save(completions)
             return db_chat_message
         return None
 
     @classmethod
-    def update(cls, chat_message: ChatMessage) -> DBChatMessage | None:
-        completions = cls._load()
+    async def update(cls, chat_message: ChatMessage) -> DBChatMessage | None:
+        completions = await cls._load()
         if completions:
             completions[-1] = DBChatMessage(message=chat_message)
-            cls._save(completions)
+            await cls._save(completions)
             return completions[-1]
         return None
 
     @classmethod
-    def erase(cls):
-        cls._save([])
+    async def erase(cls):
+        await cls._save([])

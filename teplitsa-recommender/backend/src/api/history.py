@@ -8,9 +8,9 @@ router = APIRouter()
 
 @router.get("/history", tags=["History"])
 async def history() -> list[DBChatMessage]:
-    return HistoryStore.list()
+    return await HistoryStore.list()
 
 
 @router.post("/erase_history", tags=["History"])
 async def erase_history():
-    return HistoryStore.erase()
+    return await HistoryStore.erase()

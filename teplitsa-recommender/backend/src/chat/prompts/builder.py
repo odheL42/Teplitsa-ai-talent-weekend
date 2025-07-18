@@ -25,17 +25,17 @@ def wrap_user_prompt(query: str, response: ValidatorResponse) -> str:
     return user_query_wrapper.format(query=query, reason=response.reason)
 
 
-def build_initial_prompt():
+async def build_initial_prompt():
     fields = dict()
 
     weather = get_weather()
     fields["weather_temperature"] = weather.main.temp
     fields["weather_description"] = weather.weather[0].description
 
-    fields["menu"] = get_menu()
+    fields["menu"] = await get_menu()
     fields.update(get_time_context())
 
     fields.update(PreferencesPrompt.get())
-    fields.update(CartPrompt.get())
+    fields.update(await CartPrompt.get())
 
     return initial_template.format(**fields)
