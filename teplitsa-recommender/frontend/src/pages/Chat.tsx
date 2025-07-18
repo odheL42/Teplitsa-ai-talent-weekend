@@ -2,24 +2,12 @@ import { useLayoutEffect, useRef } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 import ChatContent from '../components/chat/ChatContent'
 import ChatInput from '../components/chat/ChatInput'
-import { useGeneration } from '../context/GenerationContext'
-import { useHistory } from '../context/HistoryContext'
 import Header from '../components/Header'
 import { PreferencesModal } from '../components/PreferencesModal'
-
-import { isValidPreferences } from '../utils/validation'
-import { usePreferences } from '../context/PreferencesContext'
-
-
-
+import { useGeneration } from '../context/GenerationContext'
+import { useHistory } from '../context/HistoryContext'
 
 const Chat = () => {
-	const { preferences } = usePreferences()
-
-	if (!isValidPreferences(preferences)) {
-		console.warn('Некорректные предпочтения:', preferences)
-		
-	}
 	const chatContainerRef = useRef<HTMLDivElement | null>(null)
 	const { messages, addUserMessage } = useHistory()
 	const { isWaitingForGeneration, isGenerating, startGeneration } =
@@ -49,8 +37,8 @@ const Chat = () => {
 
 	return (
 		<div className='h-dvh flex-1 w-full flex flex-col justify-center items-center'>
-            <Header />
-            <PreferencesModal />
+			<Header />
+			<PreferencesModal />
 			<div
 				ref={chatContainerRef}
 				className='flex-1 overflow-y-scroll flex justify-center w-full'
@@ -60,7 +48,10 @@ const Chat = () => {
 				</div>
 			</div>
 
-			<div className='flex mx-auto mb-8 w-full' style={{ maxWidth: 'min(95%, 48rem)' }}>
+			<div
+				className='flex mx-auto mb-8 w-full'
+				style={{ maxWidth: 'min(95%, 48rem)' }}
+			>
 				<ChatInput onSubmit={handleSendMessage} />
 			</div>
 		</div>

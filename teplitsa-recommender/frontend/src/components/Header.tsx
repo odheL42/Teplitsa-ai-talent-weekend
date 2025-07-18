@@ -1,11 +1,9 @@
-import { useMemo, useState, useEffect } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useCart } from '../context/CartContext'
 import { useMenu } from '../context/MenuContext'
 import Cart from './Cart'
-import ClearHistoryButton from './ClearHistoryButton'
 import CartModal from './CartModal'
-
-
+import ClearHistoryButton from './ClearHistoryButton'
 
 const Header = () => {
 	const { items } = useCart()
@@ -23,7 +21,7 @@ const Header = () => {
 	const totalAmount = useMemo(() => {
 		return Object.entries(items).reduce((sum, [id, amount]) => {
 			const dish = dishById?.[id]
-			if (!dish) return sum 
+			if (!dish) return sum
 			return sum + dish.price * amount
 		}, 0)
 	}, [items, dishById])
@@ -53,7 +51,6 @@ const Header = () => {
 					</a>
 				</h1>
 
-
 				<span className='text-xs text-green-500 font-normal tracking-wide mt-0.5'>
 					AI Talent Weekend by «513»
 				</span>
@@ -76,7 +73,6 @@ const Header = () => {
 			</div>
 
 			{isOpen && <CartModal onClose={() => setIsOpen(false)} />}
-
 		</header>
 	)
 }
