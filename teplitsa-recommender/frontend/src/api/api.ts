@@ -14,7 +14,7 @@ export const apiCompletions = async (
 	onDone?: () => void,
 	onError?: () => void
 ) => {
-	const url = `/api/completions`
+	const url = `/api/completions` 
 
 	try {
 		const response = await fetch(url, {

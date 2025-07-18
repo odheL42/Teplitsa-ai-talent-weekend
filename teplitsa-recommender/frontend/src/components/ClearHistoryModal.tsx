@@ -1,57 +1,95 @@
-import React from 'react'
+import React from 'react';
 
 type ClearHistoryModalProps = {
-	isOpen: boolean
-	onClose: () => void
-	onConfirm: () => Promise<void>
-	loading: boolean
-	error: string | null
-}
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => Promise<void>;
+  loading: boolean;
+  error: string | null;
+};
 
 const ClearHistoryModal: React.FC<ClearHistoryModalProps> = ({
-	isOpen,
-	onClose,
-	onConfirm,
-	loading,
-	error,
+  isOpen,
+  onClose,
+  onConfirm,
+  loading,
+  error,
 }) => {
-	if (!isOpen) return null
+  if (!isOpen) return null;
 
-	return (
-		<div
-			className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'
-			onClick={onClose}
-		>
-			<div
-				className='bg-white dark:bg-gray-800 rounded-lg p-6 max-w-sm w-full shadow-lg'
-				onClick={e => e.stopPropagation()}
-			>
-				<h2 className='text-lg font-semibold mb-4 text-gray-900 dark:text-white'>
-					Подтверждение
-				</h2>
-				<p className='mb-6 text-gray-700 dark:text-gray-300'>
-					Вы действительно хотите очистить историю чата?
-				</p>
-				{error && <p className='mb-4 text-sm text-red-500'>{error}</p>}
-				<div className='flex justify-end gap-3'>
-					<button
-						onClick={onClose}
-						disabled={loading}
-						className='px-4 py-2 rounded-md bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-700 transition hover:cursor-pointer'
-					>
-						Отмена
-					</button>
-					<button
-						onClick={onConfirm}
-						disabled={loading}
-						className='px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 transition disabled:opacity-50 hover:cursor-pointer'
-					>
-						Очистить
-					</button>
-				</div>
-			</div>
-		</div>
-	)
-}
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 50,
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          backgroundColor: '#2f2f2f',
+          padding: '1.5rem',
+          borderRadius: '0.5rem',
+          width: '100%',
+          maxWidth: '24rem',
+          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+          position: 'relative',
+        }}
+        onClick={e => e.stopPropagation()}
+      >
+        <h2 style={{ fontSize: '1.125rem', fontWeight: '600', marginBottom: '1rem', color: '#FFFFFF' }}>
+          Подтверждение
+        </h2>
+        <p style={{ marginBottom: '1.5rem', color: '#FFFFFF' }}>
+          Вы действительно хотите очистить историю чата?
+        </p>
+        {error && <p style={{ marginBottom: '1rem', color: '#ef4444', fontSize: '0.875rem' }}>{error}</p>}
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem' }}>
+          <button
+            onClick={onClose}
+            disabled={loading}
+            style={{
+              padding: '0.5rem 1rem',
+              borderRadius: '0.375rem',
+              backgroundColor: '#4b5563',
+              color: '#FFFFFF',
+              cursor: 'pointer',
+              transition: 'background-color 0.3s',
+            }}
+            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#6b7280')}
+            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#4b5563')}
+          >
+            Отмена
+          </button>
+          <button
+            onClick={onConfirm}
+            disabled={loading}
+            style={{
+              padding: '0.5rem 1rem',
+              borderRadius: '0.375rem',
+              backgroundColor: '#ef4444',
+              color: '#FFFFFF',
+              cursor: loading ? 'not-allowed' : 'pointer',
+              transition: 'background-color 0.3s',
+              opacity: loading ? 0.5 : 1,
+            }}
+            onMouseOver={(e) => !loading && (e.currentTarget.style.backgroundColor = '#dc2626')}
+            onMouseOut={(e) => !loading && (e.currentTarget.style.backgroundColor = '#ef4444')}
+          >
+            Очистить
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default ClearHistoryModal
+export default ClearHistoryModal;
