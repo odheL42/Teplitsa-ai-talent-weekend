@@ -19,3 +19,13 @@ export const handleStorageError = (error: any): void => {
 
 	toast.error(`Storage error: ${message}`)
 }
+
+export const handleGenerationError = (error: any): void => {
+	const message =
+		error?.response?.data?.detail ||
+		error?.response?.data?.message ||
+		error?.message ||
+		'Unexpected error'
+
+	toast.error(`Generation Error: ${message}`)
+}

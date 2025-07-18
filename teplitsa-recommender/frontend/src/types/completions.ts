@@ -6,3 +6,13 @@ export interface CompletionsRequest {
 	cart: DBCart
 	preferences: Preferences
 }
+
+export enum ChunkType {
+	Default = 'default',
+	Error = 'error',
+}
+
+export interface ChunkResponse {
+	type: ChunkType
+	text: string
+}

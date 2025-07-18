@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from 'react'
 import { apiCompletions } from '../api/api'
+import { ChunkResponse } from '../types/completions'
 import { useCart } from './CartContext'
 import { usePreferences } from './PreferencesContext'
 
@@ -20,7 +21,7 @@ export const GenerationProvider = ({
 	children: ReactNode
 	onData: (data: string) => void
 	onDone?: () => void
-	onError?: () => void
+	onError?: (error: any) => void
 }) => {
 	const [isGenerating, setIsGenerating] = useState(false)
 	const [isWaitingForGeneration, setIsWaiting] = useState(false)
@@ -32,8 +33,6 @@ export const GenerationProvider = ({
 		if (isGenerating || isWaitingForGeneration) return
 
 		setIsWaiting(true)
-		console.debug('INITIAL:WAITING', isWaitingForGeneration)
-		console.debug('INITIAL:GENERATION', isGenerating)
 
 		const request = {
 			query: query,
@@ -43,26 +42,27 @@ export const GenerationProvider = ({
 
 		await apiCompletions(
 			request,
-			(data: string) => {
+			(chunk: ChunkResponse) => {
 				if (isWaitingForGeneration) setIsWaiting(false)
 				if (!isGenerating) setIsGenerating(true)
-				console.debug('DATA:WAITING', isWaitingForGeneration)
-				console.debug('DATA:GENERATION', isGenerating)
-				onData(data)
+
+				if (chunk.type === 'error') {
+					console.error('Error chunk received:', chunk)
+					setIsGenerating(false)
+					setIsWaiting(false)
+					onError?.(chunk.text)
+					return // Stop generation
+				}
+				onData(chunk.text)
 			},
 			() => {
 				setIsGenerating(false)
 				setIsWaiting(false)
-				console.debug('DONE:WAITING', isWaitingForGeneration)
-				console.debug('DONE:GENERATION', isGenerating)
 				onDone?.()
 			},
 			() => {
 				setIsGenerating(false)
 				setIsWaiting(false)
-				console.debug('ERROR:WAITING', isWaitingForGeneration)
-				console.debug('ERROR:GENERATION', isGenerating)
-				onError?.()
 			}
 		)
 	}

@@ -1,12 +1,16 @@
 import { DBChatMessage } from '../types/chat'
+import {
+	ChunkResponse,
+	ChunkType,
+	CompletionsRequest,
+} from '../types/completions'
 import { DBDish } from '../types/menu'
 import apiClient from '../utils/axios'
 import { handleApiError } from '../utils/errors'
-import { CompletionsRequest } from '../types/completions'
 
 export const apiCompletions = async (
 	request: CompletionsRequest,
-	onData: (data: string) => void,
+	onData: (chunk: ChunkResponse) => void,
 	onDone?: () => void,
 	onError?: () => void
 ) => {
@@ -15,7 +19,7 @@ export const apiCompletions = async (
 	try {
 		const response = await fetch(url, {
 			method: 'POST',
-            credentials: "include",
+			credentials: 'include',
 			headers: {
 				'Content-Type': 'application/json',
 			},
@@ -33,7 +37,15 @@ export const apiCompletions = async (
 			const { value, done } = await reader.read()
 			if (done) break
 
-			onData(decoder.decode(value, { stream: true }))
+			const raw = decoder.decode(value, { stream: true })
+
+			// try parse as JSON
+			try {
+				const parsed: ChunkResponse = JSON.parse(raw)
+				onData(parsed)
+			} catch (err) {
+				onData({ type: ChunkType.Default, text: raw })
+			}
 		}
 
 		onDone?.()
