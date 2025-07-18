@@ -1,6 +1,6 @@
 dgis_base_url: https://catalog.api.2gis.com/
 openweather_base_url: https://api.openweathermap.org/data/2.5/weather
-history_json: ./history.json
+history_dir: ./history
 
 uvicorn_host: '0.0.0.0'
 uvicorn_port: 8000
@@ -16,3 +16,7 @@ openai_validator_model: openai/gpt-4o-mini
 openai_validator_base_url: https://api.vsegpt.ru/v1
 openai_validator_temperature: 0.7
 openai_validator_max_tokens: 1000
+
+# Cookie
+cookie_name: teplitsa_cookie
+cookie_max_age: 31536000 # 1 год

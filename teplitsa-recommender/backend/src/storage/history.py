@@ -1,27 +1,34 @@
 import json
-from functools import lru_cache
 from pathlib import Path
 
 from src.config import config
+from src.context.session import SessionContext
 from src.models.completions import ChatMessage
 from src.models.storage import DBChatMessage
 
 
 class HistoryStore:
-    def __init__(self):
-        self.path = Path(config.history_json)
-        self._ensure_file()
+    @classmethod
+    def _ensure_path(cls) -> Path:
+        user_context = SessionContext.get_user_context()
+        config.history_dir.mkdir(exist_ok=True, parents=True)
+        path = Path(config.history_dir / f"{str(user_context.user_id)}.json")
 
-    def _ensure_file(self):
-        if not self.path.exists():
-            self.path.write_text("[]", encoding="utf-8")
+        if not path.exists():
+            path.write_text("[]", encoding="utf-8")
 
-    def _load(self) -> list[DBChatMessage]:
-        with self.path.open("r", encoding="utf-8") as f:
+        return path
+
+    @classmethod
+    def _load(cls) -> list[DBChatMessage]:
+        path = cls._ensure_path()
+        with path.open("r", encoding="utf-8") as f:
             return [DBChatMessage.model_validate(item) for item in json.load(f)]
 
-    def _save(self, completions: list[DBChatMessage]):
-        with self.path.open("w", encoding="utf-8") as f:
+    @classmethod
+    def _save(cls, completions: list[DBChatMessage]):
+        path = cls._ensure_path()
+        with path.open("w", encoding="utf-8") as f:
             json.dump(
                 [c.model_dump(mode="json") for c in completions],
                 f,
@@ -29,42 +36,43 @@ class HistoryStore:
                 ensure_ascii=False,
             )
 
-    def add(self, chat_message: ChatMessage) -> DBChatMessage:
-        completions = self._load()
+    @classmethod
+    def add(cls, chat_message: ChatMessage) -> DBChatMessage:
+        completions = cls._load()
         db_chat_message = DBChatMessage(message=chat_message)
         completions.append(db_chat_message)
-        self._save(completions)
+        cls._save(completions)
         return db_chat_message
 
-    def last(self) -> DBChatMessage | None:
-        history = self._load()
+    @classmethod
+    def last(cls) -> DBChatMessage | None:
+        history = cls._load()
         if history:
             return history[-1]
         return None
 
-    def list(self) -> list[DBChatMessage]:
-        return self._load()
+    @classmethod
+    def list(cls) -> list[DBChatMessage]:
+        return cls._load()
 
-    def pop(self) -> DBChatMessage | None:
-        completions = self._load()
+    @classmethod
+    def pop(cls) -> DBChatMessage | None:
+        completions = cls._load()
         if completions:
             db_chat_message = completions.pop()
-            self._save(completions)
+            cls._save(completions)
             return db_chat_message
         return None
 
-    def update(self, chat_message: ChatMessage) -> DBChatMessage | None:
-        completions = self._load()
+    @classmethod
+    def update(cls, chat_message: ChatMessage) -> DBChatMessage | None:
+        completions = cls._load()
         if completions:
             completions[-1] = DBChatMessage(message=chat_message)
-            self._save(completions)
+            cls._save(completions)
             return completions[-1]
         return None
 
-    def erase(self):
-        self._save([])
-
-
-@lru_cache
-def get_history_store() -> HistoryStore:
-    return HistoryStore()
+    @classmethod
+    def erase(cls):
+        cls._save([])

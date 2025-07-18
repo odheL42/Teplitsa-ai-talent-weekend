@@ -4,7 +4,7 @@ from src.models.cart import Cart
 from src.models.preferences import Preferences
 
 
-class RequestContext:
+class CompletionsContext:
     _user_preferences: ContextVar[Preferences] = ContextVar(
         "user_preferences", default=None
     )

@@ -1,7 +1,7 @@
 from loguru import logger
 
 from src.connectors.menu import get_dish_by_id
-from src.context.request_context import RequestContext
+from src.context.completions import CompletionsContext
 from src.models.cart import Cart
 
 
@@ -24,7 +24,7 @@ class CartPrompt:
 
     @classmethod
     def get(cls) -> dict:
-        cart = RequestContext.get_user_cart()
+        cart = CompletionsContext.get_user_cart()
         if not cart:
             return {"cart": ""}
 

@@ -22,7 +22,7 @@ def store_with_temp_file(monkeypatch) -> HistoryStore:
         temp_path = Path(f.name)
 
     # Подменяем config.history_json
-    monkeypatch.setattr("src.config.config.history_json", str(temp_path))
+    monkeypatch.setattr("src.config.config.history_dir", str(temp_path))
 
     store = HistoryStore()
     yield store

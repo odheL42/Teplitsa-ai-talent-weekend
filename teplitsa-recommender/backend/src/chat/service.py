@@ -7,7 +7,7 @@ from src.chat.validator import ValidatorService
 from src.connectors.openai import CompletionsGenerator
 from src.models.completions import ChatMessage
 from src.models.validator import ValidatorResponse
-from src.storage.history import get_history_store
+from src.storage.history import HistoryStore
 
 
 class PromptBuilder:
@@ -40,21 +40,20 @@ class PromptBuilder:
 class HistoryService:
     def __init__(self):
         self.buffer = ""
-        self.history_store = get_history_store()
 
     def update(self, chunk: str):
         if not self.buffer:
-            self.history_store.add(ChatMessage(role="assistant", content=""))
+            HistoryStore.add(ChatMessage(role="assistant", content=""))
         self.buffer += chunk
         msg = ChatMessage(role="assistant", content=self.buffer)
-        self.history_store.update(msg)
+        HistoryStore.update(msg)
 
     def save_request(self, query: str):
         chat_message = ChatMessage(role="user", content=query)
-        self.history_store.add(chat_message)
+        HistoryStore.add(chat_message)
 
     def list(self) -> list[ChatMessage]:
-        return [c.message for c in self.history_store.list()]
+        return [c.message for c in HistoryStore.list()]
 
     def flush(self):
         self.buffer = ""

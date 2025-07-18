@@ -18,7 +18,7 @@ class Secrets(BaseSettings):
 class Config(BaseModel):
     dgis_base_url: str
     openweather_base_url: str
-    history_json: Path
+    history_dir: Path
 
     uvicorn_host: str
     uvicorn_port: int
@@ -34,6 +34,10 @@ class Config(BaseModel):
     openai_validator_base_url: str
     openai_validator_temperature: float
     openai_validator_max_tokens: int
+
+    # Cookie
+    cookie_name: str
+    cookie_max_age: int
 
 
 def load_config() -> Config:

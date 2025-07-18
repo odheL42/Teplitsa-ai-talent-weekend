@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from src.api import completions_router, history_router, menu_router
+from src.api.middleware import SessionMiddleware
 from src.config import config
 
 app = FastAPI()
@@ -14,12 +15,13 @@ async def healthcheck():
     return JSONResponse(content={"status": "ok"})
 
 
+app.add_middleware(SessionMiddleware)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_headers=[""],
 )
 
 

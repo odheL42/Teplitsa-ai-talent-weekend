@@ -1,6 +1,6 @@
 from loguru import logger
 
-from src.context.request_context import RequestContext
+from src.context.completions import CompletionsContext
 from src.models.preferences import Preferences
 
 
@@ -42,7 +42,7 @@ class PreferencesPrompt:
 
     @classmethod
     def get(cls) -> dict:
-        preferences = RequestContext.get_user_preferences()
+        preferences = CompletionsContext.get_user_preferences()
         if not preferences:
             return {"preferences": ""}
 
