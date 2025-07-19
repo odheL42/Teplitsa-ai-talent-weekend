@@ -15,8 +15,8 @@ class CurrentMenuPrompt:
 
     @classmethod
     def _format_dish(cls, dish: CurrentMenuDish) -> str:
-        parts = [f"{dish.index}. {dish.title}"]
-
+        parts = [f"Индекс. {dish.index}"]
+        parts.append(f"Назввание: {dish.title}")
         parts.append(f"Категория: {dish.category.value}")
         parts.append(f"Подкатегория: {dish.subcategory}")
         parts.append(f"Порция: {dish.quantity}")
@@ -38,13 +38,13 @@ class CurrentMenuPrompt:
 
     @classmethod
     async def get(cls) -> dict:
-        menu: list[CurrentMenuDish] = await get_current_menu()
-        if not menu:
-            return {"current_menu": ""}
+        dishes: list[CurrentMenuDish] = await get_current_menu()
+        if not dishes:
+            return {"menu": ""}
 
-        formatted_items = [cls._format_dish(dish) for dish in enumerate(menu)]
+        formatted_items = [cls._format_dish(dish) for dish in dishes]
         menu_text = "\n\n".join(formatted_items)
         prompt = cls._current_menu_template.format(menu_items=menu_text)
 
         logger.debug(f"CurrentMenuPrompt:\n{prompt}")
-        return {"current_menu": prompt}
+        return {"menu": prompt}

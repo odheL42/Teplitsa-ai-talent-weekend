@@ -38,4 +38,4 @@ async def build_initial_prompt() -> str:
     fields.update(PreferencesPrompt.get())
     fields.update(await CartPrompt.get())
 
-    return initial_template.format(**fields)
+    return initial_template.substitute(**fields)
