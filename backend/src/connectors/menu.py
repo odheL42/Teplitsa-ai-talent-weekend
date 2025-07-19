@@ -1,11 +1,13 @@
 import re
+import pandas as pd
 from enum import Enum
 from typing import TypeVar
 
 import aiofiles  # type: ignore
 from bs4 import BeautifulSoup, Tag
 
-from src.models.menu import Dish, DishCategory, DishContext
+from src.models.CateringMenu import Dish, DishCategory, DishContext
+from src.models.CurrentMenu import CurrentMenuCategory, CPFCModel, CurrentMenu
 
 E = TypeVar("E", bound=Enum)
 
@@ -116,6 +118,31 @@ async def get_menu() -> list[Dish]:
             result.append(Dish(**dish))
 
     return result
+
+
+
+def get_current_menu(path: str) -> list[CurrentMenu]:
+    with open(path, "r", encoding="utf-8") as f:
+        raw_data = json.load(f)
+
+    menu_items: list[CurrentMenu] = []
+
+
+    for item in raw_data:
+        menu_item = CurrentMenu(
+            title=item["title"],
+            category=CurrentMenuCategory(item["category"]),
+            subcategory=item["subcategory"],
+            quantity=item["quantity"],
+            price=item["price"],
+            stock=item.get("stock", True),
+            notes=item.get("notes"),
+            cpfc=CPFCModel(**item["cpfc"]) if item.get("cpfc") else None,
+        )
+        menu_items.append(menu_item)
+
+
+    return menu_items
 
 
 async def get_dish_by_id(index: str) -> Dish | None:

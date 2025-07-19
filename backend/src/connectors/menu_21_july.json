@@ -1,0 +1,422 @@
+[
+  {
+    "title": "Из капусты с овощами",
+    "category": "complex",
+    "subcategory": "Обед",
+    "quantity": "120",
+    "price": 0,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Бульон с яйцом",
+    "category": "complex",
+    "subcategory": "Обед",
+    "quantity": "250",
+    "price": 0,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Котлета куриная",
+    "category": "complex",
+    "subcategory": "Обед",
+    "quantity": "100",
+    "price": 0,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Рис отварной",
+    "category": "complex",
+    "subcategory": "Обед",
+    "quantity": "150",
+    "price": 0,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Напиток ягодный",
+    "category": "complex",
+    "subcategory": "Обед",
+    "quantity": "200",
+    "price": 0,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Пшеничный хлеб",
+    "category": "complex",
+    "subcategory": "Обед",
+    "quantity": "30",
+    "price": 0,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Комбо №1",
+    "category": "complex",
+    "subcategory": "Комбо",
+    "quantity": "-",
+    "price": 210,
+    "stock": true,
+    "notes": "Салат+горячее+напиток+хлеб",
+    "cpfc": null
+  },
+  {
+    "title": "Комбо №2",
+    "category": "complex",
+    "subcategory": "Комбо",
+    "quantity": "-",
+    "price": 250,
+    "stock": true,
+    "notes": "Салат+горячее+напиток+хлеб",
+    "cpfc": null
+  },
+  {
+    "title": "Комбо №3",
+    "category": "complex",
+    "subcategory": "Комбо",
+    "quantity": "-",
+    "price": 250,
+    "stock": true,
+    "notes": "Суп+горячее+напиток+хлеб",
+    "cpfc": null
+  },
+  {
+    "title": "Из капусты с овощами",
+    "category": "base",
+    "subcategory": "Салаты",
+    "quantity": "120",
+    "price": 95,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "С говядиной",
+    "category": "base",
+    "subcategory": "Салаты",
+    "quantity": "120",
+    "price": 190,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "С огурцом и редисом",
+    "category": "base",
+    "subcategory": "Салаты",
+    "quantity": "100",
+    "price": 90,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Из овощей с тыквенными семечками",
+    "category": "base",
+    "subcategory": "Салаты",
+    "quantity": "120",
+    "price": 120,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Сайра",
+    "category": "base",
+    "subcategory": "Салаты",
+    "quantity": "120",
+    "price": 140,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "С курицей и помидором",
+    "category": "base",
+    "subcategory": "Салаты",
+    "quantity": "120",
+    "price": 175,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Мимоза с сайрой",
+    "category": "base",
+    "subcategory": "Салаты",
+    "quantity": "120",
+    "price": 175,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Окрошка с колбасой",
+    "category": "base",
+    "subcategory": "Салаты",
+    "quantity": "170",
+    "price": 170,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Рассольник",
+    "category": "base",
+    "subcategory": "Супы",
+    "quantity": "250",
+    "price": 190,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Бульон с яйцом",
+    "category": "base",
+    "subcategory": "Супы",
+    "quantity": "250",
+    "price": 150,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Котлета рыбная",
+    "category": "base",
+    "subcategory": "Рыба",
+    "quantity": "100",
+    "price": 200,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Судак по-русски",
+    "category": "base",
+    "subcategory": "Рыба",
+    "quantity": "120",
+    "price": 330,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Окунь по-тайски",
+    "category": "base",
+    "subcategory": "Рыба",
+    "quantity": "150",
+    "price": 250,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Печень с луком",
+    "category": "base",
+    "subcategory": "Печень",
+    "quantity": "120",
+    "price": 210,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Филе куриное су-вид",
+    "category": "base",
+    "subcategory": "Курица",
+    "quantity": "100",
+    "price": 260,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Куриная котлета",
+    "category": "base",
+    "subcategory": "Курица",
+    "quantity": "100",
+    "price": 200,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Курица мацалле",
+    "category": "base",
+    "subcategory": "Курица",
+    "quantity": "120",
+    "price": 200,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Фрикадельки куриные в томатном соусе",
+    "category": "base",
+    "subcategory": "Курица",
+    "quantity": "150",
+    "price": 245,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Говядина отварная",
+    "category": "base",
+    "subcategory": "Мясо",
+    "quantity": "3x100",
+    "price": 350,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Азу из говядины",
+    "category": "base",
+    "subcategory": "Мясо",
+    "quantity": "150",
+    "price": 360,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Бифштекс фантазия",
+    "category": "base",
+    "subcategory": "Мясо",
+    "quantity": "150",
+    "price": 390,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Котлета домашняя",
+    "category": "base",
+    "subcategory": "Мясо",
+    "quantity": "110",
+    "price": 200,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Пюре картофельное",
+    "category": "base",
+    "subcategory": "Гарниры",
+    "quantity": "200",
+    "price": 125,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Картофель запеченный",
+    "category": "base",
+    "subcategory": "Гарниры",
+    "quantity": "150",
+    "price": 110,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Гречка с грибами",
+    "category": "base",
+    "subcategory": "Гарниры",
+    "quantity": "150",
+    "price": 120,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Рагу овощное",
+    "category": "base",
+    "subcategory": "Гарниры",
+    "quantity": "150",
+    "price": 120,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Свекла запеченная",
+    "category": "base",
+    "subcategory": "Гарниры",
+    "quantity": "150",
+    "price": 100,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Рис по-азиатски",
+    "category": "base",
+    "subcategory": "Гарниры",
+    "quantity": "150",
+    "price": 150,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Макароны",
+    "category": "base",
+    "subcategory": "Гарниры",
+    "quantity": "150",
+    "price": 100,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Брокколи на пару",
+    "category": "base",
+    "subcategory": "Гарниры",
+    "quantity": "100",
+    "price": 120,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Фасоль стручковая с чесноком",
+    "category": "base",
+    "subcategory": "Гарниры",
+    "quantity": "150",
+    "price": 125,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Сок",
+    "category": "base",
+    "subcategory": "Напитки",
+    "quantity": "200",
+    "price": 70,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Из вишни",
+    "category": "base",
+    "subcategory": "Напитки",
+    "quantity": "200",
+    "price": 75,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  }
+]
