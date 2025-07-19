@@ -4,8 +4,8 @@ from pydantic import BaseModel
 
 
 class CurrentMenuCategory(Enum, str):
-    complex: "complex"
-    base: "base"
+    COMPLEX: "complex"
+    BASE: "base"
 
 class CPFCModel(BaseModel): # per 100g
     calories: int
@@ -14,8 +14,9 @@ class CPFCModel(BaseModel): # per 100g
     carbs: int
 
 class CurrentMenu(BaseModel):
-    index: str # (аналогично текущей реализации меню)
+    title: str # (аналогично текущей реализации меню)
     category: CurrentMenuCategory
+    subcategory: str
     quantity: str # (выход, гр)
     price: int
     stock: bool | None = None
