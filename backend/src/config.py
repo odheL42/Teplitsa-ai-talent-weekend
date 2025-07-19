@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import Literal
 from zoneinfo import ZoneInfo
 
-import yaml
+import yaml  # type: ignore
 from loguru import logger
 from pydantic import BaseModel, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -17,6 +17,7 @@ class Secrets(BaseSettings):
     openweather_key: SecretStr
     openai_key: SecretStr
     openai_validator_key: SecretStr
+    openai_summary_key: SecretStr
 
     def is_dev(self) -> bool:
         return self.teplitsa_env == "dev"
@@ -26,6 +27,10 @@ class Config(BaseModel):
     dgis_base_url: str
     openweather_base_url: str
     history_dir: Path
+    summary_dir: Path
+
+    notes_dir: Path
+    notes_max_char: int
 
     uvicorn_host: str
     uvicorn_port: int
@@ -43,6 +48,11 @@ class Config(BaseModel):
     openai_validator_base_url: str
     openai_validator_temperature: float
     openai_validator_max_tokens: int
+
+    openai_summary_model: str
+    openai_summary_base_url: str
+    openai_summary_temperature: float
+    openai_summary_max_tokens: int
 
     # Cookie
     cookie_name: str

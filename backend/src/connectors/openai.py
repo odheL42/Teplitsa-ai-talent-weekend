@@ -47,3 +47,24 @@ class OpenAIValidator:
         )
 
         return response.choices[0].message.content
+
+
+class OpenAISummary:
+    def __init__(self) -> None:
+        self.client = AsyncOpenAI(
+            api_key=secrets.openai_summary_key.get_secret_value(),
+            base_url=config.openai_summary_base_url,
+        )
+
+    async def create(
+        self, system_prompt: ChatMessage, history: list[ChatMessage]
+    ) -> str:
+        response = await self.client.chat.completions.create(
+            model=config.openai_summary_model,
+            messages=[system_prompt] + history,
+            stream=False,
+            temperature=config.openai_summary_temperature,
+            max_tokens=config.openai_summary_max_tokens,
+        )
+
+        return response.choices[0].message.content

@@ -109,16 +109,6 @@ class OpenAISummary:
     pass
 ```
 
-`src.chat.prompts.components.summary`
-
-```python
-class SummaryPrompt:
-    """
-    Аналогично остальным таким же классам реализуется для получения компоненты системного промпта
-    """
-    pass
-```
-
 `src.chat.prompts.templates.summary`
 
 ```python
@@ -190,8 +180,8 @@ class SummaryService:
 
 ### API
 
-1. Хотим отдельный эндпоинт, чтобы редактировать SummaryStore (задавать новое значение)
-2. Хотим эндпоинт, чтобы получать значения conclusions из SummaryStore
+1. Хотим отдельный эндпоинт, чтобы редактировать NotesStore (задавать новое значение)
+2. Хотим эндпоинт, чтобы получать значения из NotesStore
 
 ```python
 @router.post("/update_summary", tags=["Summary"])
