@@ -14,8 +14,8 @@ class CurrentMenuPrompt:
 """
 
     @classmethod
-    def _format_dish(cls, dish: CurrentMenuDish, idx: int) -> str:
-        parts = [f"{idx}. {dish.title}"]
+    def _format_dish(cls, dish: CurrentMenuDish) -> str:
+        parts = [f"{dish.index}. {dish.title}"]
 
         parts.append(f"Категория: {dish.category.value}")
         parts.append(f"Подкатегория: {dish.subcategory}")
@@ -42,9 +42,7 @@ class CurrentMenuPrompt:
         if not menu:
             return {"current_menu": ""}
 
-        formatted_items = [
-            cls._format_dish(dish, idx + 1) for idx, dish in enumerate(menu)
-        ]
+        formatted_items = [cls._format_dish(dish) for dish in enumerate(menu)]
         menu_text = "\n\n".join(formatted_items)
         prompt = cls._current_menu_template.format(menu_items=menu_text)
 

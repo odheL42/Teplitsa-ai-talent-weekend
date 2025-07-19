@@ -22,7 +22,7 @@ class IDGenerator:
 
 
 async def get_current_menu() -> list[CurrentMenuDish]:
-    path = "backend/src/connectors/menu_21_july.json"
+    path = "menu_21_july.json"
     global current_menu
     if current_menu:
         return current_menu
@@ -34,7 +34,7 @@ async def get_current_menu() -> list[CurrentMenuDish]:
 
     for item in raw_data:
         menu_item = CurrentMenuDish(
-            idx=IDGenerator.get_next_index(),
+            index=IDGenerator.get_next_index(),
             title=item["title"],
             category=CurrentMenuCategory(item["category"]),
             subcategory=item["subcategory"],

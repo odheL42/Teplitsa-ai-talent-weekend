@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 
-from src.connectors.current_menu import get_dish_by_id, get_menu
+from src.connectors.current_menu import get_current_menu, get_dish_by_id
 from src.models.current_menu import CurrentMenuDish
 
 router = APIRouter()
@@ -16,4 +16,4 @@ async def get_dish(index: str) -> CurrentMenuDish:
 
 @router.get("/menu", tags=["Menu"])
 async def get_full_menu() -> list[CurrentMenuDish]:
-    return await get_menu()
+    return await get_current_menu()

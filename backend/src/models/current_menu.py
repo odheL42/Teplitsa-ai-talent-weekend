@@ -16,7 +16,7 @@ class CPFCModel(BaseModel):  # per 100g
 
 
 class CurrentMenuDish(BaseModel):
-    idx: str
+    index: str
     title: str  # (аналогично текущей реализации меню)
     category: CurrentMenuCategory
     subcategory: str
