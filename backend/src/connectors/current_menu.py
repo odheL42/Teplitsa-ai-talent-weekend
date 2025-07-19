@@ -22,12 +22,13 @@ class IDGenerator:
 
 
 async def get_current_menu() -> list[CurrentMenuDish]:
-    path = "menu_21_july.json"
+    path = "src/connectors/menu_21_july.json"
     global current_menu
     if current_menu:
         return current_menu
     async with aiofiles.open(path, encoding="utf-8") as f:
-        raw_data = json.load(await f.read())
+        data = await f.read()
+        raw_data = json.loads(data)
 
     menu_items: list[CurrentMenuDish] = []
     IDGenerator.flush()

@@ -9,10 +9,10 @@ class CurrentMenuCategory(str, Enum):
 
 
 class CPFCModel(BaseModel):  # per 100g
-    calories: int
-    proteins: int
-    fats: int
-    carbs: int
+    calories: float
+    proteins: float
+    fats: float
+    carbs: float
 
 
 class CurrentMenuDish(BaseModel):
