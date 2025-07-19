@@ -1,7 +1,7 @@
 from loguru import logger
 
 from src.connectors.current_menu import get_current_menu
-from src.models.current_menu import CurrentMenu
+from src.models.current_menu import CurrentMenuDish
 
 
 class CurrentMenuPrompt:
@@ -14,7 +14,7 @@ class CurrentMenuPrompt:
 """
 
     @classmethod
-    def _format_dish(cls, dish: CurrentMenu, idx: int) -> str:
+    def _format_dish(cls, dish: CurrentMenuDish, idx: int) -> str:
         parts = [f"{idx}. {dish.title}"]
 
         parts.append(f"Категория: {dish.category.value}")
@@ -38,7 +38,7 @@ class CurrentMenuPrompt:
 
     @classmethod
     async def get(cls) -> dict:
-        menu: list[CurrentMenu] = await get_current_menu(
+        menu: list[CurrentMenuDish] = await get_current_menu(
             "backend/src/connectors/menu_21_july.json"
         )
         if not menu:

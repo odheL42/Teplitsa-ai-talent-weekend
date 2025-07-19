@@ -1,9 +1,8 @@
-from components.current_menu import CurrentMenuPrompt
-
 from src.connectors.openweather import get_weather
 from src.models.validator import ValidatorResponse
 
 from .components.cart import CartPrompt
+from .components.current_menu import CurrentMenuPrompt
 from .components.preferences import PreferencesPrompt
 from .components.time_context import get_time_context
 from .templates.initial import initial_template

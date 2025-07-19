@@ -15,7 +15,8 @@ class CPFCModel(BaseModel):  # per 100g
     carbs: int
 
 
-class CurrentMenu(BaseModel):
+class CurrentMenuDish(BaseModel):
+    idx: str
     title: str  # (аналогично текущей реализации меню)
     category: CurrentMenuCategory
     subcategory: str

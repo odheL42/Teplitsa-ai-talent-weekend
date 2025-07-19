@@ -1,16 +1,39 @@
 import json
 
-from src.models.current_menu import CPFCModel, CurrentMenu, CurrentMenuCategory
+import aiofiles  # type: ignore
+
+from src.models.current_menu import CPFCModel, CurrentMenuCategory, CurrentMenuDish
+
+current_menu: list[CurrentMenuDish] | None = None
 
 
-def get_current_menu(path: str) -> list[CurrentMenu]:
-    with open(path, encoding="utf-8") as f:
-        raw_data = json.load(f)
+class IDGenerator:
+    counter: int = 0
 
-    menu_items: list[CurrentMenu] = []
+    @classmethod
+    def get_next_index(cls) -> str:
+        result = f"dish_{str(cls.counter)}"
+        cls.counter += 1
+        return result
+
+    @classmethod
+    def flush(cls) -> None:
+        cls.counter = 0
+
+
+async def get_current_menu(path: str) -> list[CurrentMenuDish]:
+    global current_menu
+    if current_menu:
+        return current_menu
+    async with aiofiles.open(path, encoding="utf-8") as f:
+        raw_data = json.load(await f.read())
+
+    menu_items: list[CurrentMenuDish] = []
+    IDGenerator.flush()
 
     for item in raw_data:
-        menu_item = CurrentMenu(
+        menu_item = CurrentMenuDish(
+            idx=IDGenerator.get_next_index(),
             title=item["title"],
             category=CurrentMenuCategory(item["category"]),
             subcategory=item["subcategory"],
@@ -23,3 +46,11 @@ def get_current_menu(path: str) -> list[CurrentMenu]:
         menu_items.append(menu_item)
 
     return menu_items
+
+
+async def get_dish_by_id(index: str) -> CurrentMenuDish | None:
+    menu = await get_current_menu("backend/src/connectors/menu_21_july.json")
+    for dish in menu:
+        if dish.index == index:
+            return dish
+    return None
