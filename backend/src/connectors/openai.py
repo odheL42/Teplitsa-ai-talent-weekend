@@ -6,7 +6,7 @@ from src.config import config, secrets
 from src.models.completions import ChatMessage
 
 
-class CompletionsGenerator:
+class OpenAICompletionsGenerator:
     def __init__(self) -> None:
         self.client = AsyncOpenAI(
             api_key=secrets.openai_key.get_secret_value(),
@@ -28,7 +28,7 @@ class CompletionsGenerator:
             yield chunk.choices[0].delta.content
 
 
-class CompletionsFullResponse:
+class OpenAIValidator:
     def __init__(self) -> None:
         self.client = AsyncOpenAI(
             api_key=secrets.openai_validator_key.get_secret_value(),

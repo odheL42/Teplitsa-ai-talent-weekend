@@ -4,7 +4,7 @@ from loguru import logger
 
 from src.chat.prompts.builder import build_initial_prompt, wrap_user_prompt
 from src.chat.validator import ValidatorService
-from src.connectors.openai import CompletionsGenerator
+from src.connectors.openai import OpenAICompletionsGenerator
 from src.models.completions import ChatMessage
 from src.models.validator import ValidatorResponse
 from src.storage.history import HistoryStore
@@ -61,7 +61,7 @@ class HistoryService:
 
 class ChatService:
     def __init__(self) -> None:
-        self.completions = CompletionsGenerator()
+        self.completions = OpenAICompletionsGenerator()
         self.prompt_builder = PromptBuilder()
         self.history = HistoryService()
 

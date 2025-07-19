@@ -30,15 +30,6 @@ class Usage(BaseModel):
     total_tokens: int
 
 
-class ChatCompletionResponse(BaseModel):
-    index: str
-    object: str
-    created: int
-    model: str
-    choices: list[Choice]
-    usage: Usage | None
-
-
 class ChunkResponse(BaseModel):
     type: Literal["error", "default"] = "default"
     text: str

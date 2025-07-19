@@ -5,14 +5,14 @@ from src.chat.prompts.builder import (
     build_system_validator_prompt,
     build_validator_prompt,
 )
-from src.connectors.openai import CompletionsFullResponse
+from src.connectors.openai import OpenAIValidator
 from src.models.completions import ChatMessage
 from src.models.validator import ValidatorResponse
 
 
 class ValidatorService:
     def __init__(self) -> None:
-        self.completions = CompletionsFullResponse()
+        self.completions = OpenAIValidator()
 
     def _parse_response(self, response: str) -> ValidatorResponse | None:
         try:
