@@ -16,16 +16,16 @@ type PreferencesContextType = {
 }
 
 const defaultPreferences: Preferences = {
-	gluten_free: false,
-	lactose_free: false,
+	glutenFree: false,
+	lactoseFree: false,
 	vegan: false,
 	vegetarian: false,
 	spicy: false,
-	nuts_free: false,
-	sugar_free: false,
+	nutsFree: false,
+	sugarFree: false,
 	halal: false,
 	kosher: false,
-	soy_free: false,
+	soyFree: false,
 }
 
 const PreferencesContext = createContext<PreferencesContextType | undefined>(

@@ -75,7 +75,8 @@ class ChatService:
         }
 
         async for chunk in self.completions(**params):
-            await self.history.update(chunk)
-            yield chunk
+            if chunk:
+                await self.history.update(chunk)
+                yield chunk
 
         self.history.flush()

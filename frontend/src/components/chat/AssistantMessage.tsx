@@ -1,6 +1,5 @@
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { v4 as uuidv4 } from 'uuid'
 import { useMenu } from '../../context/MenuContext'
 import { type ClientChatMessage } from '../../types/chat'
 import { extractDishIdsFromMessage } from '../../utils/menu'
@@ -16,12 +15,10 @@ const AssistantMessage = ({ dbmessage }: ChatMessageProps) => {
 	const { cleanedMessage, dishIds } = extractDishIdsFromMessage(
 		String(dbmessage.message.content),
 	)
-	console.log('DISHES', dishIds)
 
 	return (
 		<div
 			className='flex flex-col items-start justify-start max-w-[95%]'
-			data-message-id={uuidv4()}
 			data-message-role='assistant'
 			role='presentation'
 		>

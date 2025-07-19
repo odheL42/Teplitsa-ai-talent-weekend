@@ -39,13 +39,18 @@ export const apiCompletions = async (
 
 			const raw = decoder.decode(value, { stream: true })
 
-			// try parse as JSON
-			try {
-				const parsed: ChunkResponse = JSON.parse(raw)
-				onData(parsed)
-			} catch (err) {
-				onData({ type: ChunkType.Default, text: raw })
-				throw err
+			const lines = raw.split('\n')
+
+			for (const line of lines) {
+				if (!line.trim()) continue
+
+				try {
+					const parsed: ChunkResponse = JSON.parse(line)
+					onData(parsed)
+				} catch (err) {
+					onData({ type: ChunkType.Default, text: line })
+					throw err
+				}
 			}
 		}
 

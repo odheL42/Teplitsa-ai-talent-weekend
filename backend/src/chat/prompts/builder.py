@@ -28,7 +28,7 @@ def wrap_user_prompt(query: str, response: ValidatorResponse) -> str:
 async def build_initial_prompt() -> str:
     fields = dict()
 
-    weather = get_weather()
+    weather = await get_weather()
     fields["weather_temperature"] = weather.main.temp
     fields["weather_description"] = weather.weather[0].description
 

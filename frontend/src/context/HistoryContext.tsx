@@ -28,7 +28,7 @@ export const HistoryProvider = ({ children }: { children: ReactNode }) => {
 			try {
 				const history = await apiGetHistory()
 				const clientMessages = history.map((msg: DBChatMessage) => ({
-					id: msg.id ?? uuidv4(),
+					index: msg.index ?? uuidv4(),
 					message: msg.message,
 				}))
 				setMessages(clientMessages)
@@ -46,7 +46,7 @@ export const HistoryProvider = ({ children }: { children: ReactNode }) => {
 		setMessages(prev => [
 			...prev,
 			{
-				id: uuidv4(),
+				index: uuidv4(),
 				message: { role: 'user' as Role, content },
 			},
 		])
@@ -54,7 +54,7 @@ export const HistoryProvider = ({ children }: { children: ReactNode }) => {
 
 	const makeAssistantMessage = (content = '') => {
 		return {
-			id: uuidv4(),
+			index: uuidv4(),
 			message: { role: 'assistant' as Role, content },
 		}
 	}

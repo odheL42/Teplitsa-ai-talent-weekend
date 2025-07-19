@@ -2,7 +2,7 @@ default_stages: [pre-commit]
 repos:
     # Common
     - repo: https://github.com/pre-commit/pre-commit-hooks
-      rev: v4.5.0
+      rev: v5.0.0
       hooks:
           - id: trailing-whitespace
           - id: end-of-file-fixer
@@ -12,30 +12,32 @@ repos:
           - id: check-added-large-files
 
     - repo: https://github.com/igorshubovych/markdownlint-cli
-      rev: v0.38.0
+      rev: v0.45.0
       hooks:
           - id: markdownlint
             args: ['--fix']
             files: \.md$
 
     - repo: https://github.com/compilerla/conventional-pre-commit
-      rev: v3.1.0
+      rev: v4.2.0
       hooks:
           - id: conventional-pre-commit
             stages: [commit-msg]
-            args: []
+            args: ['--verbose']
 
     - repo: https://github.com/shellcheck-py/shellcheck-py
-      rev: v0.9.0.5
+      rev: v0.10.0.1
       hooks:
           - id: shellcheck
 
     # Frontend
 
-    - repo: https://github.com/pre-commit/mirrors-prettier
-      rev: 'v3.1.0'
+    - repo: local
       hooks:
-          - id: prettier
+          - id: prettier-npx
+            name: prettier via npx
+            entry: npx prettier --write
+            language: system
             files: ^frontend/.*\.(js|jsx|ts|tsx|css|scss|json|md)$
 
     - repo: local
@@ -50,7 +52,7 @@ repos:
 
     - repo: https://github.com/astral-sh/ruff-pre-commit
       # Ruff version.
-      rev: v0.11.8
+      rev: v0.12.4
       hooks:
           # Run the linter.
           - id: ruff
@@ -61,14 +63,14 @@ repos:
             files: ^backend/
 
     - repo: https://github.com/pre-commit/mirrors-mypy
-      rev: v1.10.0
+      rev: v1.17.0
       hooks:
           - id: mypy
             args: ['--config-file=backend/mypy.ini', '--no-site-packages']
             files: ^backend/
 
     - repo: https://github.com/shellcheck-py/shellcheck-py
-      rev: v0.9.0.5
+      rev: v0.10.0.1
       hooks:
           - id: shellcheck
             files: \.sh$
