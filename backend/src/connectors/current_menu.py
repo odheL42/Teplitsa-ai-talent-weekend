@@ -21,7 +21,8 @@ class IDGenerator:
         cls.counter = 0
 
 
-async def get_current_menu(path: str) -> list[CurrentMenuDish]:
+async def get_current_menu() -> list[CurrentMenuDish]:
+    path = "backend/src/connectors/menu_21_july.json"
     global current_menu
     if current_menu:
         return current_menu
@@ -49,7 +50,7 @@ async def get_current_menu(path: str) -> list[CurrentMenuDish]:
 
 
 async def get_dish_by_id(index: str) -> CurrentMenuDish | None:
-    menu = await get_current_menu("backend/src/connectors/menu_21_july.json")
+    menu = await get_current_menu()
     for dish in menu:
         if dish.index == index:
             return dish

@@ -38,9 +38,7 @@ class CurrentMenuPrompt:
 
     @classmethod
     async def get(cls) -> dict:
-        menu: list[CurrentMenuDish] = await get_current_menu(
-            "backend/src/connectors/menu_21_july.json"
-        )
+        menu: list[CurrentMenuDish] = await get_current_menu()
         if not menu:
             return {"current_menu": ""}
 
