@@ -2,7 +2,7 @@ import re
 from enum import Enum
 from typing import TypeVar
 
-import aiofiles
+import aiofiles  # type: ignore
 from bs4 import BeautifulSoup, Tag
 
 from src.models.menu import Dish, DishCategory, DishContext
@@ -68,10 +68,26 @@ def parse_card(card: Tag) -> dict:
     }
 
 
+class IDGenerator:
+    counter: int = 0
+
+    @classmethod
+    def get_next_index(cls) -> str:
+        result = f"dish_{str(cls.counter)}"
+        cls.counter += 1
+        return result
+
+    @classmethod
+    def flush(cls) -> None:
+        cls.counter = 0
+
+
 _cached_menu: list[Dish] | None = None
 
 
 async def get_menu() -> list[Dish]:
+    IDGenerator.flush()
+
     global _cached_menu
     if _cached_menu is not None:
         return _cached_menu
@@ -96,6 +112,7 @@ async def get_menu() -> list[Dish]:
         elif "t1025__item" in tag_classes:
             card = parse_card(tag)
             dish.update(card)
+            dish["index"] = IDGenerator.get_next_index()  # type: ignore  # index is str, expected by downstream
             result.append(Dish(**dish))
 
     return result

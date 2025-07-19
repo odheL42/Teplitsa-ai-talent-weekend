@@ -34,6 +34,7 @@ const AssistantMessage = ({ dbmessage }: ChatMessageProps) => {
 				<div className='flex-col w-full mt-8'>
 					{dishIds.map(id => {
 						const dish = dishById?.[id]
+						console.log('DISH', dish)
 						if (!dish) return null
 						return <DishCard key={id} dish={dish} />
 					})}

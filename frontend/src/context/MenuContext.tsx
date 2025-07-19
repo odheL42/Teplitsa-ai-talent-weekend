@@ -30,6 +30,7 @@ export function MenuProvider({ children }: { children: ReactNode }) {
 	useEffect(() => {
 		async function fetchMenu() {
 			const rawMenu = await apiGetMenu()
+			console.log('MENU', rawMenu)
 			const { menuStructure, dishById } = toMenuData(rawMenu)
 			setMenuStructure(menuStructure)
 			setDishById(dishById)

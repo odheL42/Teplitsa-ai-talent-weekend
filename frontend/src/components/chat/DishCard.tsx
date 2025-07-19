@@ -12,9 +12,9 @@ const capitalizeFirstLetter = (str: string): string =>
 
 const DishCard: FC<Props> = ({ dish }) => {
 	const { addItem, items } = useCart()
-	const handleAdd = () => addItem(dish.id)
+	const handleAdd = () => addItem(dish.index)
 
-	const itemCount = items[dish.id] || 0
+	const itemCount = items[dish.index] || 0
 
 	return (
 		<div className='w-full py-2 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center'>

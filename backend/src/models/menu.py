@@ -1,19 +1,6 @@
-from collections.abc import Callable
 from enum import Enum
 
-from pydantic import BaseModel, Field
-
-
-def get_next_id() -> Callable[[], str]:
-    counter = 0
-
-    def _get_next_id() -> str:
-        nonlocal counter
-        result = f"dish_{counter}"
-        counter += 1
-        return result
-
-    return _get_next_id
+from pydantic import BaseModel
 
 
 class DishContext(str, Enum):
@@ -46,7 +33,7 @@ class DishCategory(str, Enum):
 
 
 class Dish(BaseModel):
-    index: str = Field(default_factory=get_next_id())
+    index: str
     title: str
     price: int
     context: DishContext

@@ -697,6 +697,7 @@ dependencies = [
     { name = "respx" },
     { name = "rich" },
     { name = "typer" },
+    { name = "types-aiofiles" },
     { name = "uvicorn" },
 ]
 
@@ -722,6 +723,7 @@ requires-dist = [
     { name = "respx", specifier = ">=0.22.0" },
     { name = "rich", specifier = ">=14.0.0" },
     { name = "typer", specifier = ">=0.16.0" },
+    { name = "types-aiofiles", specifier = ">=24.1.0.20250708" },
     { name = "uvicorn", specifier = ">=0.35.0" },
 ]
 
@@ -792,6 +794,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/c5/8c/7d682431efca5fd290017663ea4588bf6f2c6aad085c7f108c5dbc316e70/typer-0.16.0.tar.gz", hash = "sha256:af377ffaee1dbe37ae9440cb4e8f11686ea5ce4e9bae01b84ae7c63b87f1dd3b", size = 102625 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/76/42/3efaf858001d2c2913de7f354563e3a3a2f0decae3efe98427125a8f441e/typer-0.16.0-py3-none-any.whl", hash = "sha256:1f79bed11d4d02d4310e3c1b7ba594183bcedb0ac73b27a9e5f28f6fb5b98855", size = 46317 },
+]
+
+[[package]]
+name = "types-aiofiles"
+version = "24.1.0.20250708"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/4a/d6/5c44761bc11cb5c7505013a39f397a9016bfb3a5c932032b2db16c38b87b/types_aiofiles-24.1.0.20250708.tar.gz", hash = "sha256:c8207ed7385491ce5ba94da02658164ebd66b69a44e892288c9f20cbbf5284ff", size = 14322 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/44/e9/4e0cc79c630040aae0634ac9393341dc2aff1a5be454be9741cc6cc8989f/types_aiofiles-24.1.0.20250708-py3-none-any.whl", hash = "sha256:07f8f06465fd415d9293467d1c66cd074b2c3b62b679e26e353e560a8cf63720", size = 14320 },
 ]
 
 [[package]]
