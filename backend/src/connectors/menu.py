@@ -7,7 +7,6 @@ from bs4 import BeautifulSoup, Tag
 
 from src.models.catering_menu import Dish, DishCategory, DishContext
 
-
 E = TypeVar("E", bound=Enum)
 
 

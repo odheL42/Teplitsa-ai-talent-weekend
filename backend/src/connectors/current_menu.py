@@ -1,13 +1,13 @@
 import json
-from src.models.current_menu import CurrentMenuCategory, CPFCModel, CurrentMenu
+
+from src.models.current_menu import CPFCModel, CurrentMenu, CurrentMenuCategory
 
 
 def get_current_menu(path: str) -> list[CurrentMenu]:
-    with open(path, "r", encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         raw_data = json.load(f)
 
     menu_items: list[CurrentMenu] = []
-
 
     for item in raw_data:
         menu_item = CurrentMenu(
@@ -21,6 +21,5 @@ def get_current_menu(path: str) -> list[CurrentMenu]:
             cpfc=CPFCModel(**item["cpfc"]) if item.get("cpfc") else None,
         )
         menu_items.append(menu_item)
-
 
     return menu_items

@@ -27,7 +27,9 @@ class CurrentMenuPrompt:
 
         if dish.cpfc:
             cpfc = dish.cpfc
-            parts.append(f"Пищевая ценность (на 100г): {cpfc.calories} ккал, Б: {cpfc.proteins}г, Ж: {cpfc.fats}г, У: {cpfc.carbs}г")
+            parts.append(
+                f"Пищевая ценность (на 100г): {cpfc.calories} ккал, Б: {cpfc.proteins}г, Ж: {cpfc.fats}г, У: {cpfc.carbs}г"
+            )
 
         if dish.notes:
             parts.append(f"Примечание: {dish.notes}")
@@ -36,11 +38,15 @@ class CurrentMenuPrompt:
 
     @classmethod
     async def get(cls) -> dict:
-        menu: list[CurrentMenu] = await get_current_menu("backend/src/connectors/menu_21_july.json")
+        menu: list[CurrentMenu] = await get_current_menu(
+            "backend/src/connectors/menu_21_july.json"
+        )
         if not menu:
             return {"current_menu": ""}
 
-        formatted_items = [cls._format_dish(dish, idx + 1) for idx, dish in enumerate(menu)]
+        formatted_items = [
+            cls._format_dish(dish, idx + 1) for idx, dish in enumerate(menu)
+        ]
         menu_text = "\n\n".join(formatted_items)
         prompt = cls._current_menu_template.format(menu_items=menu_text)
 

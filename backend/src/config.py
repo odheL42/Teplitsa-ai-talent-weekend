@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import Literal
 from zoneinfo import ZoneInfo
 
-import yaml
+import yaml  # type: ignore
 from loguru import logger
 from pydantic import BaseModel, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict

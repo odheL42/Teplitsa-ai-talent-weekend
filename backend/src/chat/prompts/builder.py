@@ -1,4 +1,5 @@
-from components.current_menu import get as get_current_menu
+from components.current_menu import CurrentMenuPrompt
+
 from src.connectors.openweather import get_weather
 from src.models.validator import ValidatorResponse
 
@@ -32,7 +33,7 @@ async def build_initial_prompt() -> str:
     fields["weather_temperature"] = weather.main.temp
     fields["weather_description"] = weather.weather[0].description
 
-    fields["menu"] = await get_current_menu()
+    fields.update(await CurrentMenuPrompt.get())
     fields.update(get_time_context())
 
     fields.update(PreferencesPrompt.get())

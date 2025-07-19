@@ -3,25 +3,24 @@ from enum import Enum
 from pydantic import BaseModel
 
 
-class CurrentMenuCategory(Enum, str):
-    COMPLEX: "complex"
-    BASE: "base"
+class CurrentMenuCategory(str, Enum):
+    COMPLEX = "complex"
+    BASE = "base"
 
-class CPFCModel(BaseModel): # per 100g
+
+class CPFCModel(BaseModel):  # per 100g
     calories: int
     proteins: int
     fats: int
     carbs: int
 
+
 class CurrentMenu(BaseModel):
-    title: str # (аналогично текущей реализации меню)
+    title: str  # (аналогично текущей реализации меню)
     category: CurrentMenuCategory
     subcategory: str
-    quantity: str # (выход, гр)
+    quantity: str  # (выход, гр)
     price: int
     stock: bool | None = None
-    notes: str | None = None # уточнения
+    notes: str | None = None  # уточнения
     cpfc: CPFCModel | None = None
-
-            
-
