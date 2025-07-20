@@ -1,11 +1,42 @@
+import { useEffect, useState } from 'react'
+import { apiGetNotes, apiSaveNotes } from '../api/api'
 import { useModal } from '../context/ModalContext'
 import { usePreferences } from '../context/PreferencesContext'
+import { RequestNotes } from '../types/notes'
 import type { Preferences } from '../types/preferences'
 import IntroductionChip from './chat/IntroductionChip'
-
 export const PreferencesModal = () => {
 	const { isOpen, close } = useModal()
 	const { preferences, togglePreference } = usePreferences()
+
+	const [notes, setNotes] = useState<string>('')
+	const [loading, setLoading] = useState<boolean>(false)
+	const [, setSaving] = useState<boolean>(false)
+
+	useEffect(() => {
+		if (!isOpen) return
+		setLoading(true)
+		apiGetNotes()
+			.then(data => {
+				setNotes(data)
+			})
+			.finally(() => setLoading(false))
+	}, [isOpen])
+
+	const handleNotesChange = async (
+		e: React.ChangeEvent<HTMLTextAreaElement>,
+	) => {
+		const value = e.target.value
+		setNotes(value)
+		setSaving(true)
+		const request: RequestNotes = { notes: value }
+
+		try {
+			await apiSaveNotes(request)
+		} finally {
+			setSaving(false)
+		}
+	}
 
 	if (!isOpen) return null
 
@@ -70,6 +101,7 @@ export const PreferencesModal = () => {
 						gridTemplateColumns:
 							'repeat(auto-fill, minmax(100px, 1fr))',
 						gap: '0.5rem',
+						marginBottom: '1rem',
 					}}
 				>
 					{(Object.keys(preferences) as (keyof Preferences)[]).map(
@@ -81,6 +113,37 @@ export const PreferencesModal = () => {
 								onToggle={() => togglePreference(key)}
 							/>
 						),
+					)}
+				</div>
+				<div>
+					<label
+						htmlFor='notes'
+						style={{
+							color: '#fff',
+							display: 'block',
+							marginBottom: '0.5rem',
+						}}
+					>
+						Заметки
+					</label>
+					<textarea
+						id='notes'
+						value={notes}
+						onChange={handleNotesChange}
+						style={{
+							width: '100%',
+							minHeight: '200px',
+							backgroundColor: '#1f1f1f',
+							color: '#fff',
+							border: '1px solid #444',
+							borderRadius: '4px',
+							padding: '0.5rem',
+							resize: 'vertical',
+						}}
+						placeholder='Например, "Я люблю острые блюда и не ем мясо..."'
+					/>
+					{loading && (
+						<p style={{ color: '#aaa' }}>Загрузка заметок...</p>
 					)}
 				</div>
 			</div>
