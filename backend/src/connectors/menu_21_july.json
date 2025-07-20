@@ -1,99 +1,9 @@
-[
-  {
-    "title": "Из капусты с овощами",
-    "category": "complex",
-    "subcategory": "Обед",
-    "quantity": "120",
-    "price": 0,
-    "stock": true,
-    "notes": null,
-    "cpfc": {
-      "calories": 50,
-      "proteins": 0,
-      "fats": 4,
-      "carbs": 2
-    }
-  },
-  {
-    "title": "Бульон с яйцом",
-    "category": "complex",
-    "subcategory": "Обед",
-    "quantity": "250",
-    "price": 0,
-    "stock": true,
-    "notes": null,
-    "cpfc": {
-      "calories": 35,
-      "proteins": 4,
-      "fats": 1.5,
-      "carbs": 0.5
-    }
-  },
-  {
-    "title": "Котлета куриная",
-    "category": "complex",
-    "subcategory": "Обед",
-    "quantity": "100",
-    "price": 0,
-    "stock": true,
-    "notes": null,
-    "cpfc": {
-      "calories": 130,
-      "proteins": 12,
-      "fats": 6,
-      "carbs": 6
-    }
-  },
-  {
-    "title": "Рис отварной",
-    "category": "complex",
-    "subcategory": "Обед",
-    "quantity": "150",
-    "price": 0,
-    "stock": true,
-    "notes": null,
-    "cpfc": {
-      "calories": 164,
-      "proteins": 3.2,
-      "fats": 0.4,
-      "carbs": 37
-    }
-  },
-  {
-    "title": "Напиток ягодный",
-    "category": "complex",
-    "subcategory": "Обед",
-    "quantity": "200",
-    "price": 0,
-    "stock": true,
-    "notes": null,
-    "cpfc": {
-      "calories": 25,
-      "proteins": 0,
-      "fats": 0,
-      "carbs": 6
-    }
-  },
-  {
-    "title": "Пшеничный хлеб",
-    "category": "complex",
-    "subcategory": "Обед",
-    "quantity": "30",
-    "price": 0,
-    "stock": true,
-    "notes": null,
-    "cpfc": {
-      "calories": 210,
-      "proteins": 6,
-      "fats": 0.5,
-      "carbs": 45
-    }
-  },
-  {
+  [
+    {
     "title": "Комбо №1",
     "category": "complex",
     "subcategory": "Комбо",
-    "quantity": "-",
+    "quantity": "500",
     "price": 210,
     "stock": true,
     "notes": "Салат+горячее+напиток+хлеб",
@@ -103,7 +13,7 @@
     "title": "Комбо №2",
     "category": "complex",
     "subcategory": "Комбо",
-    "quantity": "-",
+    "quantity": "520",
     "price": 250,
     "stock": true,
     "notes": "Салат+горячее+напиток+хлеб",
@@ -113,14 +23,14 @@
     "title": "Комбо №3",
     "category": "complex",
     "subcategory": "Комбо",
-    "quantity": "-",
+    "quantity": "730",
     "price": 250,
     "stock": true,
     "notes": "Суп+горячее+напиток+хлеб",
     "cpfc": null
   },
   {
-    "title": "Из капусты с овощами",
+    "title": "Салат из капусты с овощами",
     "category": "base",
     "subcategory": "Салаты",
     "quantity": "120",
@@ -135,7 +45,7 @@
     }
   },
   {
-    "title": "С говядиной",
+    "title": "Салат с говядиной",
     "category": "base",
     "subcategory": "Салаты",
     "quantity": "120",
@@ -150,7 +60,7 @@
     }
   },
   {
-    "title": "С огурцом и редисом",
+    "title": "Салат с огурцом и редисом",
     "category": "base",
     "subcategory": "Салаты",
     "quantity": "100",
@@ -165,7 +75,7 @@
     }
   },
   {
-    "title": "Из овощей с тыквенными семечками",
+    "title": "Салат из овощей с тыквенными семечками",
     "category": "base",
     "subcategory": "Салаты",
     "quantity": "120",
@@ -180,7 +90,7 @@
     }
   },
   {
-    "title": "Сайра",
+    "title": "Салат Сайра",
     "category": "base",
     "subcategory": "Салаты",
     "quantity": "120",
@@ -190,7 +100,7 @@
     "cpfc": null
   },
   {
-    "title": "С курицей и помидором",
+    "title": "Салат с курицей и помидором",
     "category": "base",
     "subcategory": "Салаты",
     "quantity": "120",
@@ -200,7 +110,7 @@
     "cpfc": null
   },
   {
-    "title": "Мимоза с сайрой",
+    "title": "Салат Мимоза с сайрой",
     "category": "base",
     "subcategory": "Салаты",
     "quantity": "120",
@@ -215,7 +125,7 @@
     }
   },
   {
-    "title": "Окрошка с колбасой",
+    "title": "Салат Окрошка с колбасой",
     "category": "base",
     "subcategory": "Салаты",
     "quantity": "170",
@@ -580,11 +490,361 @@
     "cpfc": null
   },
   {
-    "title": "Из вишни",
+    "title": "Напиток из вишни",
     "category": "base",
     "subcategory": "Напитки",
     "quantity": "200",
     "price": 75,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Хлеб пшеничный",
+    "category": "base",
+    "subcategory": "Дополнительно",
+    "quantity": "30",
+    "price": 5,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Хлеб цельнозерновой",
+    "category": "base",
+    "subcategory": "Дополнительно",
+    "quantity": "30",
+    "price": 10,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Блины с ветчиной и сыром",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "5шт/375гр.",
+    "price": 380,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Блины с курицей и грибами",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "5шт/375гр.",
+    "price": 380,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Блины с мясом",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "5шт/375гр.",
+    "price": 380,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Блины с печенью",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "5шт/375гр.",
+    "price": 380,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Блины с творогом",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "5шт/375гр.",
+    "price": 350,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Блины с яблоком",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "5шт/375гр.",
+    "price": 350,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Блины с вишней и шоколадом",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "5шт/375гр.",
+    "price": 350,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Блины с сыром и зеленью",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "5шт/375гр.",
+    "price": 400,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Блины с творогом, кокосом и сгущ. молоком",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "5шт/375гр.",
+    "price": 350,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Блины с бананом и нутеллой",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "5шт/375гр.",
+    "price": 420,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Сырники",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "7шт/490гр.",
+    "price": 630,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Сырники с кокосом без глютена",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "7шт/490гр.",
+    "price": 630,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Бифштекс",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "4шт/400гр.",
+    "price": 1300,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Котлеты по-киевски",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "4шт/480гр.",
+    "price": 720,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Котлеты домашние",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "4шт/520гр.",
+    "price": 660,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Котлеты пожарские",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "4шт/440гр.",
+    "price": 880,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Котлеты из курицы с овощами «Сказка»",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "6шт/660гр.",
+    "price": 750,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Котлеты из курицы",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "4шт/500гр.",
+    "price": 650,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Биточки куриные",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "8шт/680гр.",
+    "price": 800,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Голубцы ленивые",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "4шт/400гр.",
+    "price": 520,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Тефтели с мясом и рисом",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "8шт/720гр.",
+    "price": 800,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Фарш домашний(свинина/говядина)",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "500гр.",
+    "price": 700,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Оладьи из печени",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "6шт/360гр.",
+    "price": 500,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Котлеты рыбные из 3-х видов рыбы",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "4шт/480гр.",
+    "price": 750,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Фалафели из нута",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "8шт/480гр.",
+    "price": 400,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Чебуреки мини",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "4шт/400гр.",
+    "price": 450,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Пельмени из цветного теста со свининой и говядиной",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "500гр.",
+    "price": 500,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Пельмени классические со свининой и говядиной",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "500гр.",
+    "price": 500,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Пельмени с курицей»",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "500гр.",
+    "price": 450,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Вареники с творогом",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "500гр",
+    "price": 350,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Вареники с картофелем и луком",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "500гр",
+    "price": 270,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Вареники с картофелем и грибами",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "500гр",
+    "price": 340,
+    "stock": true,
+    "notes": null,
+    "cpfc": null
+  },
+  {
+    "title": "Манты со свининой и говядиной",
+    "category": "base",
+    "subcategory": "Полуфабрикаты",
+    "quantity": "9шт/585гр",
+    "price": 580,
     "stock": true,
     "notes": null,
     "cpfc": null
