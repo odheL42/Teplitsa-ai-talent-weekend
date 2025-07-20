@@ -39,11 +39,11 @@ const GenerationWithHistory = ({ children }: { children: React.ReactNode }) => {
 const App = () => {
 	return (
 		<React.StrictMode>
-			<MenuProvider>
-				<CartProvider>
-					<HistoryProvider>
-						<PreferencesProvider>
-							<MenuModeProvider>
+			<MenuModeProvider>
+				<MenuProvider>
+					<CartProvider>
+						<HistoryProvider>
+							<PreferencesProvider>
 								<GenerationWithHistory>
 									<ModalProvider>
 										<Router>
@@ -65,11 +65,11 @@ const App = () => {
 										</Router>
 									</ModalProvider>
 								</GenerationWithHistory>
-							</MenuModeProvider>
-						</PreferencesProvider>
-					</HistoryProvider>
-				</CartProvider>
-			</MenuProvider>
+							</PreferencesProvider>
+						</HistoryProvider>
+					</CartProvider>
+				</MenuProvider>
+			</MenuModeProvider>
 		</React.StrictMode>
 	)
 }

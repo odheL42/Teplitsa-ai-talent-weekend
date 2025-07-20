@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 import { loadIsCatering, saveIsCatering } from '../storage/menuMode'
 interface MenuModeContextType {
 	isCatering: boolean
@@ -14,14 +14,10 @@ export const MenuModeProvider = ({
 }: {
 	children: React.ReactNode
 }) => {
-	const [isCatering, setIsCateringMode] = useState(false)
-
-	useEffect(() => {
+	const [isCatering, setIsCateringMode] = useState(() => {
 		const stored = loadIsCatering()
-		if (stored) {
-			setIsCateringMode(stored)
-		}
-	}, [])
+		return stored !== null ? stored : false
+	})
 
 	const saveAndSet = (value: boolean) => {
 		setIsCateringMode(value)

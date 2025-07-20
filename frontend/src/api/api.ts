@@ -68,8 +68,12 @@ export const apiGetHistory = async (): Promise<DBChatMessage[]> => {
 	return response.data
 }
 
-export const apiGetMenu = async (): Promise<DBDish[]> => {
-	const response = await apiClient.get(`/api/menu`)
+export const apiGetMenu = async (isCatering: boolean): Promise<DBDish[]> => {
+	const response = await apiClient.get(`/api/menu`, {
+		params: {
+			is_catering: isCatering,
+		},
+	})
 	return response.data
 }
 

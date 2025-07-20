@@ -9,7 +9,7 @@ import {
 import { DishByIdMap, MenuStructure } from '../types/menu'
 
 import { apiGetMenu } from '../api/api'
-
+import { useMenuMode } from './MenuModeContext'
 import { toMenuData } from '../utils/menu'
 
 type MenuContextValue = {
@@ -26,10 +26,11 @@ export function MenuProvider({ children }: { children: ReactNode }) {
 	)
 	const [dishById, setDishById] = useState<DishByIdMap | null>(null)
 	const [loading, setLoading] = useState(true)
+	const { isCatering } = useMenuMode()
 
 	useEffect(() => {
 		async function fetchMenu() {
-			const rawMenu = await apiGetMenu()
+			const rawMenu = await apiGetMenu(isCatering)
 			const { menuStructure, dishById } = toMenuData(rawMenu)
 			setMenuStructure(menuStructure)
 			setDishById(dishById)
@@ -37,7 +38,7 @@ export function MenuProvider({ children }: { children: ReactNode }) {
 		}
 
 		fetchMenu()
-	}, [])
+	}, [isCatering])
 
 	return (
 		<MenuContext.Provider value={{ menuStructure, dishById, loading }}>
