@@ -78,8 +78,12 @@ export const apiClearHistory = async (): Promise<DBDish[]> => {
 	return response.data
 }
 
-export const apiGetNotes = async (): Promise<string> => {
-	const response = await apiClient.post(`/api/get_notes`)
+export const apiGetNotes = async (isCatering: boolean): Promise<string> => {
+	const response = await apiClient.get(`/api/get_notes`, {
+		params: {
+			is_catering: isCatering,
+		},
+	})
 	return response.data
 }
 

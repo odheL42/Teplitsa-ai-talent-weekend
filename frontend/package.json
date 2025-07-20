@@ -5,6 +5,7 @@
 	"type": "module",
 	"dependencies": {
 		"@carbon/icons-react": "^11.63.0",
+		"@headlessui/react": "^2.2.4",
 		"@iconify-json/carbon": "^1.2.10",
 		"@tailwindcss/typography": "^0.5.16",
 		"@tailwindcss/vite": "^4.1.11",

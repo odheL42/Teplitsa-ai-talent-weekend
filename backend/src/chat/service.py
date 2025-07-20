@@ -4,7 +4,7 @@ from loguru import logger
 from pydantic import ValidationError
 
 from src.chat.prompts.builder import (
-    build_initial_prompt,
+    GeneratorPromptBuilder,
     build_summary_system_prompt,
     wrap_user_prompt,
 )
@@ -23,7 +23,7 @@ class PromptBuilder:
         self.validator = ValidatorService()
 
     async def system(self) -> ChatMessage:
-        prompt = await build_initial_prompt()
+        prompt = await GeneratorPromptBuilder.build()
         # logger.debug(f"Меню успешно вставлено в prompt: {prompt}")
         return ChatMessage(role="system", content=prompt)
 

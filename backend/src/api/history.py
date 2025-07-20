@@ -2,6 +2,7 @@ from fastapi import APIRouter
 
 from src.models.storage import DBChatMessage
 from src.storage.history import HistoryStore
+from src.storage.summary import DBHistorySummary, HistorySummaryStore
 
 router = APIRouter()
 
@@ -13,4 +14,5 @@ async def history() -> list[DBChatMessage]:
 
 @router.post("/erase_history", tags=["History"])
 async def erase_history() -> None:
-    return await HistoryStore.erase()
+    await HistorySummaryStore.save(DBHistorySummary())
+    await HistoryStore.erase()

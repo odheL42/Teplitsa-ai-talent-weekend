@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react'
 import { apiGetNotes, apiSaveNotes } from '../api/api'
+import { useMenuMode } from '../context/MenuModeContext'
 import { useModal } from '../context/ModalContext'
 import { usePreferences } from '../context/PreferencesContext'
 import { RequestNotes } from '../types/notes'
 import type { Preferences } from '../types/preferences'
 import IntroductionChip from './chat/IntroductionChip'
+
 export const PreferencesModal = () => {
 	const { isOpen, close } = useModal()
 	const { preferences, togglePreference } = usePreferences()
-
+	const { isCatering } = useMenuMode()
 	const [notes, setNotes] = useState<string>('')
 	const [loading, setLoading] = useState<boolean>(false)
 	const [, setSaving] = useState<boolean>(false)
@@ -16,7 +18,7 @@ export const PreferencesModal = () => {
 	useEffect(() => {
 		if (!isOpen) return
 		setLoading(true)
-		apiGetNotes()
+		apiGetNotes(isCatering)
 			.then(data => {
 				setNotes(data)
 			})
@@ -29,7 +31,7 @@ export const PreferencesModal = () => {
 		const value = e.target.value
 		setNotes(value)
 		setSaving(true)
-		const request: RequestNotes = { notes: value }
+		const request: RequestNotes = { notes: value, isCatering: isCatering }
 
 		try {
 			await apiSaveNotes(request)

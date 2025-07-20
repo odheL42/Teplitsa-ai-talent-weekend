@@ -2,6 +2,7 @@ import type { DBCart } from './cart'
 import type { Preferences } from './preferences'
 
 export interface CompletionsRequest {
+	isCatering: boolean
 	query: string
 	cart: DBCart
 	preferences: Preferences

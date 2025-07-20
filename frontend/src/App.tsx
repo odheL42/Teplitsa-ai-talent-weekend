@@ -10,6 +10,7 @@ import { CartProvider } from './context/CartContext'
 import { GenerationProvider } from './context/GenerationContext'
 import { HistoryProvider, useHistory } from './context/HistoryContext'
 import { MenuProvider } from './context/MenuContext'
+import { MenuModeProvider } from './context/MenuModeContext'
 import { ModalProvider } from './context/ModalContext'
 import { PreferencesProvider } from './context/PreferencesContext'
 import Chat from './pages/Chat'
@@ -42,27 +43,29 @@ const App = () => {
 				<CartProvider>
 					<HistoryProvider>
 						<PreferencesProvider>
-							<GenerationWithHistory>
-								<ModalProvider>
-									<Router>
-										<Routes>
-											<Route
-												path='/'
-												element={<Layout />}
-											>
+							<MenuModeProvider>
+								<GenerationWithHistory>
+									<ModalProvider>
+										<Router>
+											<Routes>
 												<Route
-													index
-													element={<Chat />}
-												/>
-												<Route
-													path='chat'
-													element={<Chat />}
-												/>
-											</Route>
-										</Routes>
-									</Router>
-								</ModalProvider>
-							</GenerationWithHistory>
+													path='/'
+													element={<Layout />}
+												>
+													<Route
+														index
+														element={<Chat />}
+													/>
+													<Route
+														path='chat'
+														element={<Chat />}
+													/>
+												</Route>
+											</Routes>
+										</Router>
+									</ModalProvider>
+								</GenerationWithHistory>
+							</MenuModeProvider>
 						</PreferencesProvider>
 					</HistoryProvider>
 				</CartProvider>

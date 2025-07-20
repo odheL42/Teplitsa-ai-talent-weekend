@@ -1,6 +1,7 @@
 from typing import Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
+from pydantic.alias_generators import to_camel
 
 from src.models.cart import Cart
 from src.models.preferences import Preferences
@@ -13,9 +14,12 @@ class ChatMessage(BaseModel):
 
 
 class APICompletionsRequest(BaseModel):
+    is_catering: bool
     query: str
     cart: Cart
     preferences: Preferences
+
+    model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True)
 
 
 class Choice(BaseModel):
