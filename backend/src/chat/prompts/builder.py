@@ -44,7 +44,6 @@ class GeneratorPromptBuilder:
 
         fields.update(await CurrentMenuPrompt.get())
         fields.update(get_time_context())
-
         fields.update(PreferencesPrompt.get())
         fields.update(await CartPrompt.get())
 
@@ -62,10 +61,9 @@ class GeneratorPromptBuilder:
         fields["weather_description"] = weather.weather[0].description
 
         catering_menu: list[Dish] = await get_menu()
-        fields["menu"] = "\n,".join(value.model_dump_json() for value in catering_menu)
+        fields["menu"] = "\n".join(dish.model_dump_json() for dish in catering_menu)
 
         fields.update(get_time_context())
-
         fields.update(PreferencesPrompt.get())
         fields.update(await CartPrompt.get())
 
@@ -78,8 +76,10 @@ class GeneratorPromptBuilder:
     async def build(cls) -> str:
         if MenuContext.is_catering():
             prompt = await cls._build_catering_menu_system_prompt()
-        prompt = await cls._build_catering_menu_system_prompt()
-        logger.debug(f"Builded prompt: {prompt}")
+        else:
+            prompt = await cls._build_main_menu_system_prompt()
+
+        logger.debug(f"[PROMPT TO MODEL]\n{prompt}")
         return prompt
 
 

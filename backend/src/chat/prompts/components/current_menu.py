@@ -1,5 +1,3 @@
-from loguru import logger
-
 from src.connectors.current_menu import get_current_menu
 from src.models.current_menu import CurrentMenuDish
 
@@ -10,7 +8,7 @@ class CurrentMenuPrompt:
 
 **Меню, доступное пользователю сейчас**:
 
-{menu_items}
+$menu
 """
 
     @classmethod
@@ -40,11 +38,8 @@ class CurrentMenuPrompt:
     async def get(cls) -> dict:
         dishes: list[CurrentMenuDish] = await get_current_menu()
         if not dishes:
-            return {"menu": ""}
+            return {"menu": "_Сейчас меню недоступно._"}
 
         formatted_items = [cls._format_dish(dish) for dish in dishes]
         menu_text = "\n\n".join(formatted_items)
-        prompt = cls._current_menu_template.format(menu_items=menu_text)
-
-        logger.debug(f"CurrentMenuPrompt:\n{prompt}")
-        return {"menu": prompt}
+        return {"menu": menu_text}
