@@ -29,7 +29,7 @@ services:
             start_period: 10s
         restart: always
         environment:
-            - TEPLITSA_ENV=prod
+            - TEPLITSA_ENV: prod
             - OPENAI_KEY: $OPENAI_KEY
             - OPENAI_SUMMARY_KEY: $OPENAI_SUMMARY_KEY
             - OPENAI_VALIDATOR_KEY: $OPENAI_VALIDATOR_KEY
