@@ -19,3 +19,8 @@ jobs:
 
             - name: Build and run containers
               run: docker compose -f ./docker/compose.yml up -d --build
+              env:
+                  OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
+                  OPENAI_SUMMARY_KEY: ${{ secrets.OPENAI_SUMMARY_KEY }}
+                  OPENAI_VALIDATOR_KEY: ${{ secrets.OPENAI_VALIDATOR_KEY }}
+                  TEPLITSA_ENV: ${{ secrets.TEPLITSA_ENV }}
