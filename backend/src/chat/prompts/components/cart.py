@@ -1,6 +1,6 @@
 from loguru import logger
 
-from src.connectors.menu import get_dish_by_id
+from src.connectors.current_menu import get_dish_by_id
 from src.context.completions import CompletionsContext
 from src.models.cart import Cart
 

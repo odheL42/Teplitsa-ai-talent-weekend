@@ -21,10 +21,10 @@ from src.storage.summary import HistorySummaryStore
 class PromptBuilder:
     def __init__(self) -> None:
         self.validator = ValidatorService()
-        self.system_prompt = self.system()
 
     async def system(self) -> ChatMessage:
         prompt = await build_initial_prompt()
+        # logger.debug(f"Меню успешно вставлено в prompt: {prompt}")
         return ChatMessage(role="system", content=prompt)
 
     async def user(self, query: str) -> ChatMessage:
@@ -121,6 +121,11 @@ class ChatService:
             await self.history.list()
         )
         chat_message = await self.history.save_request(query)
+
+        try:
+            await self.prompt_builder.system()
+        except Exception as e:
+            logger.exception(e)
 
         params: dict[str, ChatMessage | list[ChatMessage]] = {
             "query": await self.prompt_builder.user(query),

@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-import aiofiles
+import aiofiles  # type: ignore
 
 from src.config import config
 from src.context.session import SessionContext

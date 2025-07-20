@@ -1,10 +1,10 @@
-from src.connectors.menu import get_menu
 from src.connectors.openweather import get_weather
 from src.models.validator import ValidatorResponse
 from src.storage.notes import NotesStore
 from src.storage.summary import HistorySummaryStore
 
 from .components.cart import CartPrompt
+from .components.current_menu import CurrentMenuPrompt
 from .components.preferences import PreferencesPrompt
 from .components.time_context import get_time_context
 from .templates.initial import initial_template
@@ -35,13 +35,13 @@ async def build_initial_prompt() -> str:
     fields["weather_temperature"] = weather.main.temp
     fields["weather_description"] = weather.weather[0].description
 
-    fields["menu"] = await get_menu()
+    fields.update(await CurrentMenuPrompt.get())
     fields.update(get_time_context())
 
     fields.update(PreferencesPrompt.get())
     fields.update(await CartPrompt.get())
 
-    return initial_template.format(**fields)
+    return initial_template.substitute(**fields)
 
 
 async def build_summary_system_prompt() -> str:
