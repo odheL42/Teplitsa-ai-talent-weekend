@@ -1,0 +1,21 @@
+name: Teplitsa application
+
+on:
+    push:
+        branches: ['main']
+    pull_request:
+        branches: ['main']
+
+jobs:
+    build:
+        runs-on: self-hosted
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Stop previous containers
+              run: docker compose -f ./docker/compose.yml down
+
+            - name: Build and run containers
+              run: docker compose -f ./docker/compose.yml up -d --build
