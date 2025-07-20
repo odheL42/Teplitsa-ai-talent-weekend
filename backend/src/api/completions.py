@@ -23,19 +23,19 @@ async def create_completions(request: APICompletionsRequest) -> StreamingRespons
             generator = chat.stream(request.query)
             async with aclosing(generator) as _generator:
                 async for chunk in _generator:
-                    yield ChunkResponse(text=chunk).model_dump_json() + "\n"
+                    yield ChunkResponse(text=chunk).model_dump_json() + "\n\n"
         except Exception as err:
             logger.exception(err)
             yield (
                 ChunkResponse(
                     type="error", text="Internal server error"
                 ).model_dump_json()
-                + "\n"
+                + "\n\n"
             )
 
     return StreamingResponse(
         content=streaming_wrapper(),
-        media_type="text/plain",
+        media_type="application/json",
         headers={
             "Cache-Control": "no-cache",
             "Connection": "keep-alive",

@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { handleApiError } from './errors'
 
 const apiClient = axios.create({
 	baseURL: ``,
@@ -12,7 +11,7 @@ const apiClient = axios.create({
 apiClient.interceptors.response.use(
 	response => response,
 	error => {
-		handleApiError(error)
+		console.error(error)
 
 		return Promise.reject(error)
 	},

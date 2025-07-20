@@ -6,7 +6,6 @@ import {
 } from '../types/completions'
 import { DBDish } from '../types/menu'
 import apiClient from '../utils/axios'
-import { handleApiError } from '../utils/errors'
 
 export const apiCompletions = async (
 	request: CompletionsRequest,
@@ -15,6 +14,8 @@ export const apiCompletions = async (
 	onError?: () => void,
 ) => {
 	const url = `/api/completions`
+
+	console.log('REQUEST', request)
 
 	try {
 		const response = await fetch(url, {
@@ -39,7 +40,7 @@ export const apiCompletions = async (
 
 			const raw = decoder.decode(value, { stream: true })
 
-			const lines = raw.split('\n')
+			const lines = raw.split('\n\n')
 
 			for (const line of lines) {
 				if (!line.trim()) continue
@@ -56,37 +57,22 @@ export const apiCompletions = async (
 
 		onDone?.()
 	} catch (e) {
-		handleApiError(e)
+		console.error(e)
 		onError?.()
 	}
 }
 
 export const apiGetHistory = async (): Promise<DBChatMessage[]> => {
-	try {
-		const response = await apiClient.get(`/api/history`)
-		return response.data
-	} catch (error) {
-		handleApiError(error)
-		throw error
-	}
+	const response = await apiClient.get(`/api/history`)
+	return response.data
 }
 
 export const apiGetMenu = async (): Promise<DBDish[]> => {
-	try {
-		const response = await apiClient.get(`/api/menu`)
-		return response.data
-	} catch (error) {
-		handleApiError(error)
-		throw error
-	}
+	const response = await apiClient.get(`/api/menu`)
+	return response.data
 }
 
 export const apiClearHistory = async (): Promise<DBDish[]> => {
-	try {
-		const response = await apiClient.post(`/api/erase_history`)
-		return response.data
-	} catch (error) {
-		handleApiError(error)
-		throw error
-	}
+	const response = await apiClient.post(`/api/erase_history`)
+	return response.data
 }

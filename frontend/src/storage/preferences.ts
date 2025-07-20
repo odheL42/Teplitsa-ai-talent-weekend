@@ -1,5 +1,4 @@
 import type { Preferences } from '../types/preferences'
-import { handleStorageError } from '../utils/errors'
 
 const LOCAL_STORAGE_KEY = 'user_preferences'
 
@@ -7,7 +6,7 @@ export const savePreferences = (preferences: Preferences): void => {
 	try {
 		localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(preferences))
 	} catch (e) {
-		handleStorageError(e)
+		console.error(e)
 	}
 }
 
@@ -17,7 +16,7 @@ export const loadPreferences = (): Preferences | null => {
 		if (!stored) return null
 		return JSON.parse(stored) as Preferences
 	} catch (e) {
-		handleStorageError(e)
+		console.error(e)
 		return null
 	}
 }

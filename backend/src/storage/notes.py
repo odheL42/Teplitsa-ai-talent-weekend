@@ -25,7 +25,7 @@ class NotesStore:
         path = cls._ensure_path()
         async with aiofiles.open(path, encoding="utf-8") as f:
             raw = await f.read()
-        return DBNotes.model_validate_json(raw)
+        return DBNotes.model_validate(json.loads(raw))
 
     @classmethod
     async def save(cls, db_notes: DBNotes) -> None:
@@ -38,15 +38,10 @@ class NotesStore:
 
     @classmethod
     async def add(cls, new_part: str) -> None:
-        path = cls._ensure_path()
-
         db_notes = await cls.get()
         db_notes.notes += new_part
 
         if len(db_notes.notes) > config.notes_max_char:
             return
 
-        async with aiofiles.open(path, "w", encoding="utf-8") as f:
-            await f.write(
-                json.dumps(db_notes.model_dump_json(), indent=4, ensure_ascii=False)
-            )
+        await cls.save(db_notes)

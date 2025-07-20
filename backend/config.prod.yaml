@@ -1,6 +1,10 @@
 dgis_base_url: https://catalog.api.2gis.com/
 openweather_base_url: https://api.openweathermap.org/data/2.5/weather
 history_dir: ./history
+summary_dir: ./summary
+
+notes_dir: ./notes
+notes_max_char: 500
 
 uvicorn_host: '0.0.0.0'
 uvicorn_port: 80
@@ -9,15 +13,20 @@ uvicorn_reload: false
 
 cors_allow_origins: ['http://localhost', 'http://frontend']
 
-openai_model: openai/gpt-4o-mini
-openai_base_url: https://api.vsegpt.ru/v1
+openai_model: chatgpt-4o-latest
+openai_base_url: https://api.openai.com/v1
 openai_temperature: 0.7
 openai_max_tokens: 1000
 
-openai_validator_model: openai/gpt-4o-mini
-openai_validator_base_url: https://api.vsegpt.ru/v1
+openai_validator_model: chatgpt-4o-latest
+openai_validator_base_url: https://api.openai.com/v1
 openai_validator_temperature: 0.7
 openai_validator_max_tokens: 1000
+
+openai_summary_model: chatgpt-4o-latest
+openai_summary_base_url: https://api.openai.com/v1
+openai_summary_temperature: 0.7
+openai_summary_max_tokens: 1000
 
 # Cookie
 cookie_name: teplitsa_cookie

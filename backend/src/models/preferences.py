@@ -14,4 +14,4 @@ class Preferences(BaseModel):
     kosher: bool
     soy_free: bool
 
-    model_config = ConfigDict(alias_generator=to_camel)
+    model_config = ConfigDict(alias_generator=to_camel, populate_by_name=True)

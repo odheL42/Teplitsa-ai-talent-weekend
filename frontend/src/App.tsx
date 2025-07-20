@@ -13,7 +13,6 @@ import { MenuProvider } from './context/MenuContext'
 import { ModalProvider } from './context/ModalContext'
 import { PreferencesProvider } from './context/PreferencesContext'
 import Chat from './pages/Chat'
-import { handleGenerationError } from './utils/errors'
 
 const Layout = () => {
 	return (
@@ -30,10 +29,7 @@ const GenerationWithHistory = ({ children }: { children: React.ReactNode }) => {
 	const { updateAssistantMessage } = useHistory()
 
 	return (
-		<GenerationProvider
-			onData={updateAssistantMessage}
-			onError={handleGenerationError}
-		>
+		<GenerationProvider onData={updateAssistantMessage}>
 			{children}
 		</GenerationProvider>
 	)
