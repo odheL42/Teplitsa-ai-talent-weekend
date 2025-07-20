@@ -1,3 +1,5 @@
+from loguru import logger
+
 from src.connectors.openweather import get_weather
 from src.models.validator import ValidatorResponse
 from src.storage.notes import NotesStore
@@ -31,20 +33,35 @@ def wrap_user_prompt(query: str, response: ValidatorResponse) -> str:
 async def build_initial_prompt() -> str:
     fields = dict()
 
+    # Получаем погоду
     weather = await get_weather()
     fields["weather_temperature"] = weather.main.temp
     fields["weather_description"] = weather.weather[0].description
 
-    fields.update(await CurrentMenuPrompt.get())
+    # Получаем меню (уже отформатированное с заголовком)
+    menu_prompt = await CurrentMenuPrompt.get()
+    fields["menu"] = menu_prompt["menu"]
+
+    # Время
     fields.update(get_time_context())
 
+    # Предпочтения пользователя
     fields.update(PreferencesPrompt.get())
+
+    # Корзина
     fields.update(await CartPrompt.get())
 
+    # Примечания
     db_notes = await NotesStore.get()
     fields["notes"] = db_notes.notes
 
-    return initial_template.substitute(**fields)
+    # Финальный шаблон
+    prompt = initial_template.substitute(**fields)
+
+    # Отладка: выводим весь сформированный промпт
+    logger.debug(f"[PROMPT TO MODEL]\n{prompt}")
+
+    return prompt
 
 
 async def build_summary_system_prompt() -> str:
