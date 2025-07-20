@@ -22,6 +22,7 @@ class IDGenerator:
 
 
 async def get_current_menu() -> list[CurrentMenuDish]:
+    IDGenerator.flush()
     path = "src/connectors/menu_21_july.json"
     global current_menu
     if current_menu:
@@ -31,7 +32,6 @@ async def get_current_menu() -> list[CurrentMenuDish]:
         raw_data = json.loads(data)
 
     menu_items: list[CurrentMenuDish] = []
-    IDGenerator.flush()
 
     for item in raw_data:
         menu_item = CurrentMenuDish(
@@ -50,9 +50,9 @@ async def get_current_menu() -> list[CurrentMenuDish]:
     return menu_items
 
 
-async def get_dish_by_id(index: str) -> CurrentMenuDish | None:
+async def get_dish_by_id(index: str) -> CurrentMenuDish:
     menu = await get_current_menu()
     for dish in menu:
         if dish.index == index:
             return dish
-    return None
+    raise ValueError("dish_id not found")
