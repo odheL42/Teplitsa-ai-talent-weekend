@@ -41,6 +41,9 @@ async def build_initial_prompt() -> str:
     fields.update(PreferencesPrompt.get())
     fields.update(await CartPrompt.get())
 
+    db_notes = await NotesStore.get()
+    fields["notes"] = db_notes.notes
+
     return initial_template.substitute(**fields)
 
 
