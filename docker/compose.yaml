@@ -30,6 +30,7 @@ services:
         restart: always
         environment:
             - TEPLITSA_ENV=prod
+            - DGIS_KEY=$DGIS_KEY
             - OPENWEATHER_KEY=$OPENWEATHER_KEY
             - OPENAI_KEY=$OPENAI_KEY
             - OPENAI_SUMMARY_KEY=$OPENAI_SUMMARY_KEY
