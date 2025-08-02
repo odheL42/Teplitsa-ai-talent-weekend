@@ -35,6 +35,6 @@
 
 ## Ресурсы
 При реализации данного решения использовались бесплатные API Keys следующих ресурсов:
-    - [2Гис](https://platform.2gis.ru/ru)
-    - [OpenWeatherMap](https://openweathermap.org/api)
-    - [OpenRouter](https://openrouter.ai/)
+- [2Гис](https://platform.2gis.ru/ru)
+- [OpenWeatherMap](https://openweathermap.org/api)
+- [OpenRouter](https://openrouter.ai/)
