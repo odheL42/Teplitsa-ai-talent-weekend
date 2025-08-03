@@ -9,11 +9,10 @@ export const PreferencesButton = () => {
 		<Button
 			onClick={open}
 			title='Открыть настройки предпочтений'
-			variant='default'
-			size='icon'
+			variant='ghost'
             className='hover:cursor-pointer'
 		>
-			<SlidersVertical className='size-5' />
+			<SlidersVertical className='size-5' />Предпочтения
 		</Button>
 	)
 }

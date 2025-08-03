@@ -60,7 +60,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSubmit }) => {
 					></textarea>
 				</div>
 			</div>
-			<div className='flex w-full justify-between px-6 mb-4 h-full'>
+			<div className='flex w-full justify-between pl-3 pr-6 mb-4 h-full'>
 				<PreferencesButton />
 
 				<Button
@@ -72,7 +72,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSubmit }) => {
 					onClick={handleSubmit}
 					variant='default'
 					size='icon'
-					className='hover:cursor-pointer'
+					className='hover:cursor-pointer transition-transform duration-150 ease-in-out cursor-pointer hover:scale-110 hover:text-green-600'
 				>
 					<ArrowUp className='size-5' />
 				</Button>

@@ -2,6 +2,7 @@ import { Plus } from 'lucide-react'
 import type { FC } from 'react'
 import { useCart } from '../../context/CartContext'
 import type { DBDish } from '../../types/menu'
+import { Button } from '../ui/button'
 
 type Props = {
 	dish: DBDish
@@ -40,13 +41,15 @@ const DishCard: FC<Props> = ({ dish }) => {
 					</span>
 				)}
 
-				<button
+				<Button
+					variant='ghost'
+                    size='icon'
 					onClick={handleAdd}
 					className='text-gray-600 hover:text-green-600 active:scale-90 active:text-green-700 dark:text-gray-300 dark:hover:text-green-500 transition-transform duration-150 ease-in-out cursor-pointer hover:scale-110'
 					aria-label='Добавить'
 				>
-					<Plus className='w-6 h-6' />
-				</button>
+					<Plus className='size-6' />
+				</Button>
 			</div>
 		</div>
 	)

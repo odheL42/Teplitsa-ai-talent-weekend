@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef } from 'react'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import 'react-toastify/dist/ReactToastify.css'
 import ChatContent from '../components/chat/ChatContent'
 import ChatInput from '../components/chat/ChatInput'
@@ -6,10 +7,9 @@ import Header from '../components/Header'
 import { PreferencesModal } from '../components/PreferencesModal'
 import { useGeneration } from '../context/GenerationContext'
 import { useHistory } from '../context/HistoryContext'
-import { ScrollArea } from '@/components/ui/scroll-area'
 
 const Chat = () => {
-	const chatViewportRef = useRef<HTMLDivElement | null>(null)
+	const chatEndRef = useRef<HTMLDivElement | null>(null)
 	const { messages, addUserMessage } = useHistory()
 	const { isWaitingForGeneration, isGenerating, startGeneration } =
 		useGeneration()
@@ -19,12 +19,9 @@ const Chat = () => {
 	}, [messages])
 
 	const scrollToBottom = () => {
-		if (chatViewportRef.current) {
+		if (chatEndRef.current) {
 			requestAnimationFrame(() => {
-				if (chatViewportRef.current) {
-					chatViewportRef.current.scrollTop =
-						chatViewportRef.current.scrollHeight
-				}
+				chatEndRef.current?.scrollIntoView({ behavior: 'auto' })
 			})
 		}
 	}
@@ -40,16 +37,15 @@ const Chat = () => {
 			<Header />
 			<PreferencesModal />
 
-			{/* Chat Scroll Area */}
-			<ScrollArea className='h-full w-full overflow-y-auto'>
-				<div
-					ref={chatViewportRef}
-					className='w-full h-full flex justify-center px-4 py-4'
-				>
-					<div className='h-full w-full max-w-3xl max-sm:max-w-[95%]'>
+			{/* Chat ScrollArea */}
+			<ScrollArea className='w-full h-full overflow-y-auto'>
+				<div className='flex flex-col items-center px-4 py-4'>
+					<div className='w-full max-w-3xl max-sm:max-w-[95%]'>
 						<ChatContent />
+						<div ref={chatEndRef} />
 					</div>
 				</div>
+				<ScrollBar orientation='vertical' />
 			</ScrollArea>
 
 			{/* Input */}
