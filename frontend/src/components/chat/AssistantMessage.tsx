@@ -1,10 +1,8 @@
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
 import { useMenu } from '../../context/MenuContext'
 import { type ClientChatMessage } from '../../types/chat'
 import { extractDishIdsFromMessage } from '../../utils/menu'
 import DishCard from './DishCard'
-
+import MarkdownRenderer from './markdown/MarkdownRenderer'
 interface ChatMessageProps {
 	dbmessage: ClientChatMessage
 }
@@ -13,7 +11,7 @@ const AssistantMessage = ({ dbmessage }: ChatMessageProps) => {
 	const { dishById } = useMenu()
 
 	const { cleanedMessage, dishIds } = extractDishIdsFromMessage(
-		String(dbmessage.message.content),
+		String(dbmessage.message.content)
 	)
 
 	return (
@@ -23,11 +21,7 @@ const AssistantMessage = ({ dbmessage }: ChatMessageProps) => {
 			role='presentation'
 		>
 			<div className='w-full text-foreground break-words font-sans'>
-				<div className='prose prose-p:leading-relaxed prose-p:text-[17px] dark:prose-invert prose-pre:bg-muted prose-headings:font-semibold'>
-					<ReactMarkdown remarkPlugins={[remarkGfm]}>
-						{cleanedMessage}
-					</ReactMarkdown>
-				</div>
+				<MarkdownRenderer content={cleanedMessage} />
 			</div>
 
 			{dishIds.length > 0 && (
