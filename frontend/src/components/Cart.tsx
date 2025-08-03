@@ -2,6 +2,8 @@ import { ShoppingCart } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { useCart } from '../context/CartContext'
 import CartModal from './CartModal'
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 const Cart: React.FC = () => {
 	const [isOpen, setIsOpen] = useState(false)
@@ -17,19 +19,18 @@ const Cart: React.FC = () => {
 
 	return (
 		<div>
-			<div
-				className={`flex flex=cp hover:cursor-pointer ${
-					highlight ? 'animate-[ping_0.3s]' : ''
-				}`}
+			<Button
+				variant='ghost'
+				size='icon'
+				onClick={() => setIsOpen(true)}
+				className={cn(
+					'transition hover:text-primary text-muted-foreground hover:cursor-pointer ',
+					highlight && 'animate-[ping_0.3s]'
+				)}
+				aria-label='Корзина'
 			>
-				<button
-					className='relative transition transform hover:scale-110 active:scale-95 hover:cursor-pointer'
-					aria-label='Корзина'
-					onClick={() => setIsOpen(true)}
-				>
-					<ShoppingCart className='w-6 h-6 text-gray-900 dark:text-neutral-400 hover:text-green-500' />
-				</button>
-			</div>
+				<ShoppingCart className='size-5' />
+			</Button>
 
 			{isOpen && <CartModal onClose={() => setIsOpen(false)} />}
 		</div>

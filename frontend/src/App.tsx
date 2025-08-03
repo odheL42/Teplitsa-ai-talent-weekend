@@ -6,6 +6,7 @@ import {
 	Routes,
 } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
+import { ThemeProvider } from './components/ThemeProvider'
 import { CartProvider } from './context/CartContext'
 import { GenerationProvider } from './context/GenerationContext'
 import { HistoryProvider, useHistory } from './context/HistoryContext'
@@ -38,39 +39,41 @@ const GenerationWithHistory = ({ children }: { children: React.ReactNode }) => {
 
 const App = () => {
 	return (
-		<React.StrictMode>
-			<MenuModeProvider>
-				<MenuProvider>
-					<CartProvider>
-						<HistoryProvider>
-							<PreferencesProvider>
-								<GenerationWithHistory>
-									<ModalProvider>
-										<Router>
-											<Routes>
-												<Route
-													path='/'
-													element={<Layout />}
-												>
+		<ThemeProvider>
+			<React.StrictMode>
+				<MenuModeProvider>
+					<MenuProvider>
+						<CartProvider>
+							<HistoryProvider>
+								<PreferencesProvider>
+									<GenerationWithHistory>
+										<ModalProvider>
+											<Router>
+												<Routes>
 													<Route
-														index
-														element={<Chat />}
-													/>
-													<Route
-														path='chat'
-														element={<Chat />}
-													/>
-												</Route>
-											</Routes>
-										</Router>
-									</ModalProvider>
-								</GenerationWithHistory>
-							</PreferencesProvider>
-						</HistoryProvider>
-					</CartProvider>
-				</MenuProvider>
-			</MenuModeProvider>
-		</React.StrictMode>
+														path='/'
+														element={<Layout />}
+													>
+														<Route
+															index
+															element={<Chat />}
+														/>
+														<Route
+															path='chat'
+															element={<Chat />}
+														/>
+													</Route>
+												</Routes>
+											</Router>
+										</ModalProvider>
+									</GenerationWithHistory>
+								</PreferencesProvider>
+							</HistoryProvider>
+						</CartProvider>
+					</MenuProvider>
+				</MenuModeProvider>
+			</React.StrictMode>
+		</ThemeProvider>
 	)
 }
 

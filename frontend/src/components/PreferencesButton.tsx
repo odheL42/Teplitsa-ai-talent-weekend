@@ -1,12 +1,19 @@
 import { SlidersVertical } from 'lucide-react'
 import { useModal } from '../context/ModalContext'
+import { Button } from './ui/button'
 
 export const PreferencesButton = () => {
 	const { open } = useModal()
 
 	return (
-		<button onClick={open} aria-label='Открыть настройки предпочтений'>
-			<SlidersVertical className=' h-6 w-6 transition-transform hover:scale-110 active:scale-95 disabled:opacity-60 hover:cursor-pointer' />
-		</button>
+		<Button
+			onClick={open}
+			title='Открыть настройки предпочтений'
+			variant='default'
+			size='icon'
+            className='hover:cursor-pointer'
+		>
+			<SlidersVertical className='size-5' />
+		</Button>
 	)
 }

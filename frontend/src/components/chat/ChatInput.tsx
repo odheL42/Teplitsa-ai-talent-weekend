@@ -1,7 +1,8 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowUp } from 'lucide-react'
 import React, { useRef, useState } from 'react'
 import { useGeneration } from '../../context/GenerationContext'
 import { PreferencesButton } from '../PreferencesButton'
+import { Button } from '../ui/button'
 
 type ChatInputProps = {
 	onSubmit: (input: string) => void
@@ -30,7 +31,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSubmit }) => {
 			textarea.style.height = 'auto'
 			textarea.style.height = `${Math.min(
 				textarea.scrollHeight,
-				6 * 24,
+				6 * 24
 			)}px`
 		}
 	}
@@ -43,7 +44,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSubmit }) => {
 	}
 
 	return (
-		<div className='relative flex flex-col h-full w-full items-center rounded-3xl bg-[#f1f1f1] dark:bg-[#2f2f2f] text-gray-900 dark:text-gray-300 shadow-md'>
+		<div className='flex flex-col h-full w-full items-center rounded-3xl bg-muted shadow-md'>
 			<div className='flex w-full flex-1 rounded-xl border-none bg-transparent pt-5 pb-2'>
 				<div className='flex min-h-full w-full flex-col'>
 					<textarea
@@ -59,20 +60,22 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSubmit }) => {
 					></textarea>
 				</div>
 			</div>
-			<div className='flex justify-between w-full h-full px-6 pb-4'>
+			<div className='flex w-full justify-between px-6 mb-4 h-full'>
 				<PreferencesButton />
 
-				<button
+				<Button
 					disabled={
 						isWaitingForGeneration ||
 						isGenerating ||
 						!message.trim()
 					}
 					onClick={handleSubmit}
-					className='transition-transform hover:scale-110 active:scale-95 disabled:opacity-60 hover:cursor-pointer'
+					variant='default'
+					size='icon'
+					className='hover:cursor-pointer'
 				>
-					<ArrowRight className='text-green-500 w-8 h-8 ' />
-				</button>
+					<ArrowUp className='size-5' />
+				</Button>
 			</div>
 		</div>
 	)

@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import { Button } from '@/components/ui/button'
 import { Trash2 } from 'lucide-react'
+import React, { useState } from 'react'
 import { apiClearHistory } from '../api/api'
 import { useHistory } from '../context/HistoryContext'
 import ClearHistoryModal from './ClearHistoryModal'
@@ -38,13 +39,15 @@ const ClearHistoryButton: React.FC = () => {
 
 	return (
 		<>
-			<button
-				className='dark:text-neutral-400 text-gray-900 hover:text-red-500 transition transform hover:scale-110 active:scale-95 cursor-pointer'
-				aria-label='Удалить чат'
+			<Button
+				variant='ghost'
+				size='icon'
+				className='text-muted-foreground hover:text-destructive transition hover:cursor-pointer'
 				onClick={openModal}
+				aria-label='Удалить чат'
 			>
-				<Trash2 className='w-6 h-6' />
-			</button>
+				<Trash2 className='size-5' />
+			</Button>
 
 			<ClearHistoryModal
 				isOpen={isModalOpen}

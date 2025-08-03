@@ -1,3 +1,5 @@
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 import { useEffect, useMemo, useState } from 'react'
 import { useCart } from '../context/CartContext'
 import { useMenu } from '../context/MenuContext'
@@ -5,7 +7,7 @@ import Cart from './Cart'
 import CartModal from './CartModal'
 import ClearHistoryButton from './ClearHistoryButton'
 
-const Header = () => {
+export default function Header() {
 	const { items } = useCart()
 	const { dishById } = useMenu()
 	const [isOpen, setIsOpen] = useState(false)
@@ -33,48 +35,37 @@ const Header = () => {
 			maximumFractionDigits: 0,
 		})
 	}, [totalAmount])
+
 	return (
-		<header className='max-w-3xl w-full bg-muted px-4 py-3 rounded-b-2xl shadow-sm relative'>
-			<div className='absolute top-5 left-6'>
-				<ClearHistoryButton />
-			</div>
+		<header className='w-full max-w-3xl rounded-b-2xl bg-muted px-4 shadow-sm flex flex-row justify-between items-center py-2'>
+			{/* Левая кнопка */}
+			<ClearHistoryButton />
 
 			<div className='flex flex-col items-center select-none'>
-				<h1 className='text-2xl font-extrabold dark:text-white leading-tight text-gray-900'>
-					<a
-						href='https://www.teplitsamenu.ru/'
-						target='_blank'
-						rel='noopener noreferrer'
-						className='hover:underline'
-					>
-						Экокафе «Теплица»
-					</a>
-				</h1>
-
-				<span className='text-xs text-green-500 font-normal tracking-wide mt-0.5'>
+				<h2 className='text-xl font-extrabold text-foreground'>
+					Экокафе «Теплица»
+				</h2>
+				<p className='mt-0.5 text-xs font-normal tracking-wide text-green-500'>
 					AI Talent Weekend by «513»
-				</span>
+				</p>
 			</div>
 
-			<div className=''></div>
-
-			<div className='absolute top-5 right-6 flex flex-col items-center'>
-				<Cart />
-				{Object.keys(items).length > 0 && (
-					<button
-						onClick={() => setIsOpen(true)}
-						className={`mt-1 text-green-600 text-xs font-semibold whitespace-nowrap transition hover:text-green-700 ${
-							highlight ? 'animate-[ping_0.3s]' : ''
-						}`}
-					>
-						{formattedAmount}
-					</button>
-				)}
-			</div>
+			<Cart />
+			{Object.keys(items).length > 0 && (
+				<Button
+					variant='ghost'
+					size='icon'
+					onClick={() => setIsOpen(true)}
+					className={cn(
+						'mt-1 text-xs font-semibold hover:cursor-pointer',
+						highlight && 'animate-[ping_0.3s]'
+					)}
+				>
+					{formattedAmount}
+				</Button>
+			)}
 
 			{isOpen && <CartModal onClose={() => setIsOpen(false)} />}
 		</header>
 	)
 }
-
-export default Header

@@ -6,9 +6,10 @@ import Header from '../components/Header'
 import { PreferencesModal } from '../components/PreferencesModal'
 import { useGeneration } from '../context/GenerationContext'
 import { useHistory } from '../context/HistoryContext'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 const Chat = () => {
-	const chatContainerRef = useRef<HTMLDivElement | null>(null)
+	const chatViewportRef = useRef<HTMLDivElement | null>(null)
 	const { messages, addUserMessage } = useHistory()
 	const { isWaitingForGeneration, isGenerating, startGeneration } =
 		useGeneration()
@@ -18,11 +19,11 @@ const Chat = () => {
 	}, [messages])
 
 	const scrollToBottom = () => {
-		if (chatContainerRef.current) {
+		if (chatViewportRef.current) {
 			requestAnimationFrame(() => {
-				if (chatContainerRef.current) {
-					chatContainerRef.current.scrollTop =
-						chatContainerRef.current.scrollHeight
+				if (chatViewportRef.current) {
+					chatViewportRef.current.scrollTop =
+						chatViewportRef.current.scrollHeight
 				}
 			})
 		}
@@ -31,23 +32,27 @@ const Chat = () => {
 	const handleSendMessage = async (input: string) => {
 		if (!input.trim() || isGenerating || isWaitingForGeneration) return
 		addUserMessage(input)
-
 		await startGeneration(input)
 	}
 
 	return (
-		<div className='h-dvh flex-1 w-full flex flex-col justify-center items-center'>
+		<div className='h-dvh w-screen flex flex-col items-center bg-background'>
 			<Header />
 			<PreferencesModal />
-			<div
-				ref={chatContainerRef}
-				className='flex-1 overflow-y-scroll flex justify-center w-full'
-			>
-				<div className='w-full max-w-3xl max-sm:max-w-[95%]'>
-					<ChatContent />
-				</div>
-			</div>
 
+			{/* Chat Scroll Area */}
+			<ScrollArea className='h-full w-full overflow-y-auto'>
+				<div
+					ref={chatViewportRef}
+					className='w-full h-full flex justify-center px-4 py-4'
+				>
+					<div className='h-full w-full max-w-3xl max-sm:max-w-[95%]'>
+						<ChatContent />
+					</div>
+				</div>
+			</ScrollArea>
+
+			{/* Input */}
 			<div
 				className='flex mx-auto mb-8 w-full'
 				style={{ maxWidth: 'min(95%, 48rem)' }}

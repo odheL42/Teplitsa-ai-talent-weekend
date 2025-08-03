@@ -23,7 +23,7 @@ const AssistantMessage = ({ dbmessage }: ChatMessageProps) => {
 			role='presentation'
 		>
 			<div className='w-full text-foreground break-words font-sans'>
-				<div className='prose prose-p:leading-relaxed prose-p:text-[17px] dark:prose-invert prose-pre:bg-[#141414] prose-headings:font-semibold'>
+				<div className='prose prose-p:leading-relaxed prose-p:text-[17px] dark:prose-invert prose-pre:bg-muted prose-headings:font-semibold'>
 					<ReactMarkdown remarkPlugins={[remarkGfm]}>
 						{cleanedMessage}
 					</ReactMarkdown>
