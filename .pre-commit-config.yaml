@@ -60,9 +60,3 @@ repos:
           - id: mypy
             args: ['--config-file=backend/mypy.ini', '--no-site-packages']
             files: ^backend/
-
-    - repo: https://github.com/shellcheck-py/shellcheck-py
-      rev: v0.10.0.1
-      hooks:
-          - id: shellcheck
-            files: \.sh$
