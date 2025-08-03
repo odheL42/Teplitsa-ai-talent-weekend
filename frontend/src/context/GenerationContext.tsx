@@ -1,6 +1,6 @@
-import { createContext, ReactNode, useContext, useState } from 'react'
+import { createContext, type ReactNode, useContext, useState } from 'react'
 import { apiCompletions } from '../api/api'
-import { ChunkResponse } from '../types/completions'
+import type { ChunkResponse } from '../types/completions'
 import { useCart } from './CartContext'
 import { useMenuMode } from './MenuModeContext'
 import { usePreferences } from './PreferencesContext'

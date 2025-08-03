@@ -1,12 +1,12 @@
 import {
 	createContext,
-	ReactNode,
+	type ReactNode,
 	useContext,
 	useEffect,
 	useState,
 } from 'react'
 
-import { DishByIdMap, MenuStructure } from '../types/menu'
+import type { DishByIdMap, MenuStructure } from '../types/menu'
 
 import { apiGetMenu } from '../api/api'
 import { useMenuMode } from './MenuModeContext'

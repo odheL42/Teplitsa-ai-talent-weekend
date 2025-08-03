@@ -3,7 +3,7 @@ import { apiGetNotes, apiSaveNotes } from '../api/api'
 import { useMenuMode } from '../context/MenuModeContext'
 import { useModal } from '../context/ModalContext'
 import { usePreferences } from '../context/PreferencesContext'
-import { RequestNotes } from '../types/notes'
+import type { RequestNotes } from '../types/notes'
 import type { Preferences } from '../types/preferences'
 import IntroductionChip from './chat/IntroductionChip'
 

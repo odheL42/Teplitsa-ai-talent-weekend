@@ -1,4 +1,4 @@
-import { DBDish, DishByIdMap, MenuStructure } from '../types/menu'
+import type { DBDish, DishByIdMap, MenuStructure } from '../types/menu'
 
 export function toMenuData(dishes: DBDish[]): {
 	menuStructure: MenuStructure

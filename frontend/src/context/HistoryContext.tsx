@@ -1,13 +1,13 @@
 import {
 	createContext,
-	ReactNode,
+	 type ReactNode,
 	useContext,
 	useEffect,
 	useState,
 } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { apiGetHistory } from '../api/api'
-import { ClientChatMessage, DBChatMessage, Role } from '../types/chat'
+import type { ClientChatMessage, DBChatMessage, Role } from '../types/chat'
 
 interface HistoryContextValue {
 	messages: ClientChatMessage[]

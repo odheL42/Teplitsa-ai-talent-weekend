@@ -1,12 +1,13 @@
-import { DBChatMessage } from '../types/chat'
-import {
+import type { DBChatMessage } from '../types/chat'
+import type {
 	ChunkResponse,
 	ChunkType,
 	CompletionsRequest,
 } from '../types/completions'
-import { DBDish } from '../types/menu'
-import { RequestNotes } from '../types/notes'
+import type {  DBDish } from '../types/menu'
+import type { RequestNotes } from '../types/notes'
 import apiClient from '../utils/axios'
+
 
 export const apiCompletions = async (
 	request: CompletionsRequest,

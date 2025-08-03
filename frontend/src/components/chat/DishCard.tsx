@@ -1,7 +1,7 @@
 import { Plus } from 'lucide-react'
-import { FC } from 'react'
+import type { FC } from 'react'
 import { useCart } from '../../context/CartContext'
-import { DBDish } from '../../types/menu'
+import type { DBDish } from '../../types/menu'
 
 type Props = {
 	dish: DBDish

@@ -8,10 +8,11 @@ export interface CompletionsRequest {
 	preferences: Preferences
 }
 
-export enum ChunkType {
-	Default = 'default',
-	Error = 'error',
-}
+export const ChunkType = {
+  Default: 'default',
+  Error: 'error',
+} as const
+export type ChunkType = (typeof ChunkType)[keyof typeof ChunkType]
 
 export interface ChunkResponse {
 	type: ChunkType

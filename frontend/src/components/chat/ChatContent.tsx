@@ -1,6 +1,6 @@
 import { useGeneration } from '../../context/GenerationContext'
 import { useHistory } from '../../context/HistoryContext'
-import { ClientChatMessage } from '../../types/chat'
+import type { ClientChatMessage } from '../../types/chat'
 import IconLoading from '../icons/IconLoading'
 import AssistantMessage from './AssistantMessage'
 import { ChatIntroduction } from './ChatIntroduction'

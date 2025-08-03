@@ -34,7 +34,7 @@ const Header = () => {
 		})
 	}, [totalAmount])
 	return (
-		<header className='max-w-3xl w-full bg-[#f1f1f1] dark:bg-[#2f2f2f] px-4 py-3 rounded-b-2xl shadow-sm relative'>
+		<header className='max-w-3xl w-full bg-muted px-4 py-3 rounded-b-2xl shadow-sm relative'>
 			<div className='absolute top-5 left-6'>
 				<ClearHistoryButton />
 			</div>
