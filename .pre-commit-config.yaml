@@ -9,7 +9,6 @@ repos:
           - id: mixed-line-ending
           - id: check-yaml
           - id: sort-simple-yaml
-          - id: check-added-large-files
 
     - repo: https://github.com/compilerla/conventional-pre-commit
       rev: v4.2.0
@@ -61,9 +60,3 @@ repos:
           - id: mypy
             args: ['--config-file=backend/mypy.ini', '--no-site-packages']
             files: ^backend/
-
-    - repo: https://github.com/shellcheck-py/shellcheck-py
-      rev: v0.10.0.1
-      hooks:
-          - id: shellcheck
-            files: \.sh$
