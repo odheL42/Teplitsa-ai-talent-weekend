@@ -1,9 +1,9 @@
 import type { DBChatMessage } from '../types/chat'
 import type {
 	ChunkResponse,
-	ChunkType,
 	CompletionsRequest,
 } from '../types/completions'
+import { ChunkType } from '../types/completions'
 import type {  DBDish } from '../types/menu'
 import type { RequestNotes } from '../types/notes'
 import apiClient from '../utils/axios'

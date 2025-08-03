@@ -1,4 +1,4 @@
-import { DBDish } from './menu'
+import type { DBDish } from './menu'
 
 export interface CartItem {
 	dish: DBDish

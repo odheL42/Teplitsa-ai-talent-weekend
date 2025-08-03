@@ -1,15 +1,13 @@
-import React from 'react'
-import { useCart } from '@/context/CartContext'
-import { useMenu } from '@/context/MenuContext'
+import { Button } from '@/components/ui/button'
 import {
 	Dialog,
 	DialogContent,
 	DialogHeader,
 	DialogTitle,
-	DialogClose,
 } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { X } from 'lucide-react'
+import { useCart } from '@/context/CartContext'
+import { useMenu } from '@/context/MenuContext'
+import React from 'react'
 
 interface Props {
 	onClose: () => void
