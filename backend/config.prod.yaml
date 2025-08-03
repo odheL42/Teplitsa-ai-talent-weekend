@@ -2,6 +2,7 @@ dgis_base_url: https://catalog.api.2gis.com/
 openweather_base_url: https://api.openweathermap.org/data/2.5/weather
 history_dir: ./history
 summary_dir: ./summary
+menu_dir: ./menu
 
 notes_dir: ./notes
 notes_max_char: 500

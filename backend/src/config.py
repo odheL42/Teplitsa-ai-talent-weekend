@@ -28,6 +28,7 @@ class Config(BaseModel):
     openweather_base_url: str
     history_dir: Path
     summary_dir: Path
+    menu_dir: Path
 
     notes_dir: Path
     notes_max_char: int

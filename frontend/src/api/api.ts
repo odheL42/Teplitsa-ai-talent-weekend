@@ -1,19 +1,15 @@
 import type { DBChatMessage } from '../types/chat'
-import type {
-	ChunkResponse,
-	CompletionsRequest,
-} from '../types/completions'
+import type { ChunkResponse, CompletionsRequest } from '../types/completions'
 import { ChunkType } from '../types/completions'
-import type {  DBDish } from '../types/menu'
+import type { DBDish } from '../types/menu'
 import type { RequestNotes } from '../types/notes'
 import apiClient from '../utils/axios'
-
 
 export const apiCompletions = async (
 	request: CompletionsRequest,
 	onData: (chunk: ChunkResponse) => void,
 	onDone?: () => void,
-	onError?: () => void,
+	onError?: () => void
 ) => {
 	const url = `/api/completions`
 
@@ -93,8 +89,41 @@ export const apiGetNotes = async (isCatering: boolean): Promise<string> => {
 }
 
 export const apiSaveNotes = async (
-	request: RequestNotes,
+	request: RequestNotes
 ): Promise<DBDish[]> => {
 	const response = await apiClient.post(`/api/save_notes`, request)
 	return response.data
+}
+
+// GET: Получить конкретное блюдо по индексу
+export const apiGetDishById = async (
+	index: string,
+	isCatering: boolean
+): Promise<DBDish> => {
+	const response = await apiClient.get(`/api/menu/byid`, {
+		params: { index, is_catering: isCatering },
+	})
+	return response.data
+}
+
+// POST: Добавить новое блюдо
+export const apiAddDish = async (dish: DBDish): Promise<void> => {
+	await apiClient.post(`/api/menu`, dish)
+}
+
+// PUT: Обновить существующее блюдо по индексу
+export const apiUpdateDish = async (
+	index: string,
+	dish: DBDish
+): Promise<void> => {
+	await apiClient.put(`/api/menu`, dish, {
+		params: { index },
+	})
+}
+
+// DELETE: Удалить блюдо по индексу
+export const apiDeleteDish = async (index: string): Promise<void> => {
+	await apiClient.delete(`/api/menu`, {
+		params: { index },
+	})
 }

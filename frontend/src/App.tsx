@@ -15,7 +15,7 @@ import { MenuModeProvider } from './context/MenuModeContext'
 import { ModalProvider } from './context/ModalContext'
 import { PreferencesProvider } from './context/PreferencesContext'
 import Chat from './pages/Chat'
-
+import MenuEditorPage from './pages/MenuEditorPage'
 const Layout = () => {
 	return (
 		<div className='h-dvh w-full'>
@@ -63,6 +63,10 @@ const App = () => {
 															element={<Chat />}
 														/>
 													</Route>
+													<Route
+														path='menu'
+														element={<MenuEditorPage />}
+													/>
 												</Routes>
 											</Router>
 										</ModalProvider>

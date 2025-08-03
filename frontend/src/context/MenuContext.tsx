@@ -16,6 +16,7 @@ type MenuContextValue = {
 	menuStructure: MenuStructure | null
 	dishById: DishByIdMap | null
 	loading: boolean
+	refetch: () => void
 }
 
 const MenuContext = createContext<MenuContextValue | null>(null)
@@ -28,20 +29,21 @@ export function MenuProvider({ children }: { children: ReactNode }) {
 	const [loading, setLoading] = useState(true)
 	const { isCatering } = useMenuMode()
 
-	useEffect(() => {
-		async function fetchMenu() {
-			const rawMenu = await apiGetMenu(isCatering)
-			const { menuStructure, dishById } = toMenuData(rawMenu)
-			setMenuStructure(menuStructure)
-			setDishById(dishById)
-			setLoading(false)
-		}
+	const fetchMenu = async () => {
+		setLoading(true)
+		const rawMenu = await apiGetMenu(isCatering)
+		const { menuStructure, dishById } = toMenuData(rawMenu)
+		setMenuStructure(menuStructure)
+		setDishById(dishById)
+		setLoading(false)
+	}
 
+	useEffect(() => {
 		fetchMenu()
 	}, [isCatering])
 
 	return (
-		<MenuContext.Provider value={{ menuStructure, dishById, loading }}>
+		<MenuContext.Provider value={{ menuStructure, dishById, loading, refetch: fetchMenu }}>
 			{children}
 		</MenuContext.Provider>
 	)
