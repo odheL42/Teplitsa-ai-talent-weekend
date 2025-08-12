@@ -5,7 +5,7 @@ services:
             context: ../frontend
             dockerfile: ../docker/Dockerfile.frontend
         ports:
-            - '42:80'
+            - '4242:80'
         networks:
             - teplitsa-net
         depends_on:
